@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TP-Arms
+  m_Controller: {fileID: 9100000, guid: 4671527f08921114591a03bf9582f0a8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: f7d0b543d55c2dd45a9709937391dca9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: efce525b03bf6d3408d18e296e038e06, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3f8b00f8f71a1464ba0cbfcebf558093, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 488cfe0becfecf4409c168ed6aa9b984, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a79dedd19c3a64c4395627e276ab04d6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b77be44183c2445419238ff90b96cd62, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 09350668c33358e4a933d45a4f0113f4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d6f3218fd127f6648b7b6cafcb296853, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3ca8ba3c56d672047943151a849a82a2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 246df6f88deaf5941bd04d0f2a459aa5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d2106d41909008f44a79f363269c9a9e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3224beabebce1294eaaeb8f5ba4d6c79, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 47285d0330182df4ab7fe6ca80bc47a7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f3173e04643a77d43ae532ecdeca21b5, type: 2}
