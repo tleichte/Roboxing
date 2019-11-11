@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     public int Health { get; private set; }
 
     public bool Player1;
-    private HGDCabPlayer playerPos;
+    public HGDCabPlayer PlayerPos { get; private set; }
     
     [Header("First Person")]
     public Animator FPAnim;
@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
     public int Position { get; private set; }
     public bool IsReady => state == PlayerState.Ready;
     public bool IsDown => state == PlayerState.Down;
+    public bool IsStunned => state == PlayerState.Stunned;
 
     //Starting Positions
     private Vector3 fpStartingPos;
@@ -55,13 +56,17 @@ public class Player : MonoBehaviour {
     int maxHealth;
     public float HealthPercent => (float)Health / maxHealth;
 
+    void Awake() {
+        ui.Player = this;
+    }
+
     void Start() {
         state = PlayerState.PreFight;
-        playerPos = Player1 ? HGDCabPlayer.P1 : HGDCabPlayer.P2;
+        PlayerPos = Player1 ? HGDCabPlayer.P1 : HGDCabPlayer.P2;
         fpStartingPos = transform.position;
         tpStartingPos = TPTransform.position;
 
-        Health = GameManager.Inst.P_GetHealth(Player1);
+        Health = GameManager.Inst.InitialHealth;
         maxHealth = Health;
 
         GameManager.Inst.OnReadyUp += OnReadyUp;
@@ -108,7 +113,7 @@ public class Player : MonoBehaviour {
                 break;
 
             case PlayerState.NotReady:
-                if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).Top1)) {
+                if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).Top1)) {
                     state = PlayerState.Ready;
                     ui.OnPlayerReady();
                 }
@@ -120,20 +125,20 @@ public class Player : MonoBehaviour {
 
             case PlayerState.Down:
 
-                if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).Top4) && GameManager.Inst.State != GameState.GameDone) {
-                    Recover();
-                }
+                //if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).Top4) && GameManager.Inst.State != GameState.GameDone) {
+                //    Recover();
+                //}
 
                 break;
 
             case PlayerState.UpBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(playerPos).JoyUp)) {
+                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) {
                     StopBlock();
                 }
                 break;
 
             case PlayerState.DownBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(playerPos).JoyDown)) {
+                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) {
                     StopBlock();
                 }
                 break;
@@ -145,17 +150,17 @@ public class Player : MonoBehaviour {
                 //}
                 //break;
 
-                if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).JoyLeft))        Move(-1);
-                else if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).JoyRight))  Move(1);
+                if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyLeft))        Move(-1);
+                else if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyRight))  Move(1);
 
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).JoyUp))         Block(true);
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).JoyDown))       Block(false);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp))         Block(true);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown))       Block(false);
                 
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).Top1))          ThrowPunch(true, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).Top2))          ThrowPunch(true, HitType.Hook);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top1))          ThrowPunch(true, HitType.Jab);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top2))          ThrowPunch(true, HitType.Hook);
 
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).Bottom1))       ThrowPunch(false, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(playerPos).Bottom2))       ThrowPunch(false, HitType.Hook);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom1))       ThrowPunch(false, HitType.Jab);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom2))       ThrowPunch(false, HitType.Hook);
 
                 break;
 
@@ -214,10 +219,12 @@ public class Player : MonoBehaviour {
         GameManager.Inst.P_KnockedDown();
     }
 
-    void Recover() {
+    public void Recover() {
         state = PlayerState.Recover;
         SetAnimators(anim => anim.SetBool("KnockDown", false));
         Health = GameManager.Inst.P_GetHealth(Player1);
+
+        ui.PlayerRecovered();
     }
 
     private void SetAnimators(Action<Animator> armsAction) {
@@ -245,11 +252,11 @@ public class Player : MonoBehaviour {
         IEnumerator GetHitAfterUpdate() {
             yield return null;
 
-            shakeAmount = GameManager.Inst.P_GetShake(p.Type);
+            shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
             SetAnimators(anim => anim.SetBool("Stunned", false));
 
-            if ((Health -= GameManager.Inst.P_GetDamage(p.Type)) <= 0) {
+            if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
                 KnockedDown();
             }
             else {

@@ -9,11 +9,39 @@ public enum GameState { Start, Prefight, ReadyUp, Waiting, Fighting, Down, GameD
 public enum GameOverResult { P1Win, P2Win, Tie }
 public enum GameOverReason { KO, TKO, Decision }
 
+public class RoundPunchStat {
+    public int Hits;
+    public int StunHits;
+}
 public class RoundStats {
-    public int Jabs;
-    public int Hooks;
+    public RoundPunchStat Jabs = new RoundPunchStat();
+    public RoundPunchStat Hooks = new RoundPunchStat();
     public int Blocks;
     public int Downs;
+}
+
+[Serializable]
+public class PunchStat {
+    public int Damage;
+    public int Points;
+    public float Shake;
+}
+
+[Serializable]
+public class PunchStats {
+    public PunchStat Standard;
+    public PunchStat Stunned;
+}
+
+[Serializable]
+public class HealthAmount {
+    public int MinHealth;
+    public int MaxHealth;
+    public int CalculateHealth(int upNumber) {
+        int difference = MaxHealth - MinHealth;
+        float upPercent = (9 - upNumber) / 9.0f;
+        return MinHealth + (int)(upPercent * difference);
+    }
 }
 
 public class GameManager : MonoBehaviour
@@ -23,21 +51,24 @@ public class GameManager : MonoBehaviour
     [Header("Players")]
     public Player Player1;
     public Player Player2;
-    
 
-    [Header("Health/Damage")]
-    public int jabDamage;
-    public int hookDamage;
-    public int[] HealthAmounts;
 
-    [Header("Scores")]
-    public int jabPoints;
-    public int hookPoints;
+    [Header("Punches")]
+    public PunchStats HookStats;
+    public PunchStats JabStats;
+
+
+    [Header("Health")]
+    public int InitialHealth;
+    public HealthAmount[] HealthAmounts;
+
+    [Header("Down Game")]
+    public int[] NumWires;
+
+    [Header("Points")]
     public int blockPoints;
 
     [Header("Screenshake")]
-    public float jabShake;
-    public float hookShake;
     public float shakeDecay;
     
 
@@ -84,8 +115,8 @@ public class GameManager : MonoBehaviour
 
     // Private Values
 
-    private int p1HealthI;
-    private int p2HealthI;
+    private int p1Downs;
+    private int p2Downs;
 
     private Coroutine stunCR;
     private Coroutine tenCountCR;
@@ -96,6 +127,7 @@ public class GameManager : MonoBehaviour
     private RoundStats[] P1Stats = new RoundStats[3];
     private RoundStats[] P2Stats = new RoundStats[3];
 
+    private int countNum;
 
 
 
@@ -191,8 +223,10 @@ public class GameManager : MonoBehaviour
     int CalculateScore(RoundStats[] stats) {
         int score = 0;
         foreach(var stat in stats) {
-            score += stat.Hooks * hookPoints;
-            score += stat.Jabs * jabPoints;
+            score += stat.Hooks.Hits * HookStats.Standard.Points;
+            score += stat.Hooks.StunHits * HookStats.Stunned.Points;
+            score += stat.Jabs.Hits * HookStats.Standard.Points;
+            score += stat.Jabs.StunHits * HookStats.Stunned.Points;
             score += stat.Blocks * blockPoints;
         }
         return score;
@@ -208,16 +242,11 @@ public class GameManager : MonoBehaviour
     // CALLED BY PLAYERS
 
     public int P_GetHealth(bool player1) {
-        int health = 0;
-        if (player1) {
-            health = HealthAmounts[p1HealthI];
-            p1HealthI++;
-        }
-        else {
-            health = HealthAmounts[p2HealthI];
-            p2HealthI++;
-        }
-        return health;
+        return HealthAmounts[((player1) ? p1Downs : p2Downs)-1].CalculateHealth(countNum);
+    }
+
+    public int GetNumWires(bool player1) {
+        return NumWires[((player1) ? p1Downs : p2Downs)-1];
     }
 
     public void P_CheckPunch(bool player1, Punch p) {
@@ -245,11 +274,17 @@ public class GameManager : MonoBehaviour
                 break;
             case PunchResult.Hit:
 
-                void AddPunch(RoundStats stats, HitType ht) {
-                    if (ht == HitType.Hook) stats.Hooks++;
-                    else stats.Jabs++;
+                void AddPunch(RoundStats stats) {
+                    if (p.Type == HitType.Hook) {
+                        if (dPlayer.IsStunned) stats.Hooks.StunHits++;
+                        else stats.Hooks.Hits++;
+                    }
+                    else {
+                        if (dPlayer.IsStunned) stats.Jabs.StunHits++;
+                        else stats.Jabs.Hits++;
+                    }
                 }
-                AddPunch(((player1) ? P1Stats : P2Stats)[round], p.Type);
+                AddPunch(((player1) ? P1Stats : P2Stats)[round]);
 
                 dPlayer.GM_Hit(p);
 
@@ -266,23 +301,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public float P_GetShake(HitType ht) {
+    public float P_GetShake(HitType ht, bool stunned) {
         switch (ht) {
             case HitType.Hook:
-                return hookShake;
+                return (stunned ? HookStats.Stunned : HookStats.Standard).Shake;
             case HitType.Jab:
-                return jabShake;
+                return (stunned ? JabStats.Stunned : JabStats.Standard).Shake;
             default:
                 return 0;
         }
     }
 
-    public int P_GetDamage(HitType ht) {
+    public int P_GetDamage(HitType ht, bool stunned) {
         switch (ht) {
             case HitType.Hook:
-                return hookDamage;
+                return (stunned ? HookStats.Stunned : HookStats.Standard).Damage;
             case HitType.Jab:
-                return jabDamage;
+                return (stunned ? JabStats.Stunned : JabStats.Standard).Damage;
             default:
                 return 0;
         }
@@ -324,12 +359,18 @@ public class GameManager : MonoBehaviour
         State = GameState.Down;
 
         // Add down to players
-        if (Player1.IsDown) P1Stats[round].Downs++;
-        if (Player2.IsDown) P2Stats[round].Downs++;
+        if (Player1.IsDown) {
+            P1Stats[round].Downs++;
+            p1Downs++;
+        }
+        if (Player2.IsDown) {
+            P2Stats[round].Downs++;
+            p2Downs++;
+        }
 
         OnPlayerDown?.Invoke();
 
-        yield return new WaitForSeconds(1.5f);
+        
 
         //
         int flag = 0;
@@ -346,20 +387,26 @@ public class GameManager : MonoBehaviour
                 case 2: r = GameOverResult.P2Win; break;
                 default: r = GameOverResult.Tie; break;
             }
+            yield return new WaitForSeconds(0.75f);
             OnGameOver?.Invoke(r, GameOverReason.TKO);
         }
-        else {
+        else {         
             tenCountCR = StartCoroutine(TenCount());
         }
     }
     
     IEnumerator TenCount() {
+        yield return new WaitForSeconds(0.75f);
         OnTenCountStart?.Invoke();
-        for (int i = 1; i <= 9; i++) {
-            OnTenCountNum?.Invoke(i);
+        yield return new WaitForSeconds(0.75f);
+        for (countNum = 1; countNum <= 9; countNum++) {
+            OnTenCountNum?.Invoke(countNum);
             yield return new WaitForSeconds(1);
             //Signal counter
         }
+
+
+
 
         State = GameState.GameDone;
 

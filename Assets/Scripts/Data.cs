@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public enum PunchResult { Missed, Blocked, Hit }
 public enum HitType { Hook, Jab }
@@ -25,3 +26,12 @@ public class Punch {
     }
 }
 
+
+public class PlayerOptions {
+    public string Name;
+    public Color Color;
+}
+
+public class PlayerResult {
+    public RoundStats Stats;
+}
