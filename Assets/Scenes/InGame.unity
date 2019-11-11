@@ -3843,7 +3843,7 @@ MonoBehaviour:
     MaxHealth: 15
   - MinHealth: 10
     MaxHealth: 5
-  NumWires: 05000000060000000700000008000000090000000a000000
+  NumWires: 030000000500000007000000090000000a0000000b000000
   blockPoints: 3
   shakeDecay: 0.07
   MaxDistance: 3

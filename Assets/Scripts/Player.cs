@@ -56,6 +56,18 @@ public class Player : MonoBehaviour {
     int maxHealth;
     public float HealthPercent => (float)Health / maxHealth;
 
+
+    private bool CanMove { get {
+            switch (state) {
+                case PlayerState.Idle:
+                case PlayerState.UpBlock:
+                case PlayerState.DownBlock:
+                    return true;
+                default:
+                    return false;
+            }
+        } }
+
     void Awake() {
         ui.Player = this;
     }
@@ -69,6 +81,7 @@ public class Player : MonoBehaviour {
         Health = GameManager.Inst.InitialHealth;
         maxHealth = Health;
 
+        GameManager.Inst.OnPrefight += OnPrefight;
         GameManager.Inst.OnReadyUp += OnReadyUp;
         GameManager.Inst.OnPlayerDown += PlayerDown;
         GameManager.Inst.OnFightStart += FightStart;
@@ -78,6 +91,7 @@ public class Player : MonoBehaviour {
     }
 
     private void OnDestroy() {
+        GameManager.Inst.OnPrefight -= OnPrefight;
         GameManager.Inst.OnReadyUp -= OnReadyUp;
         GameManager.Inst.OnPlayerDown -= PlayerDown;
         GameManager.Inst.OnFightStart -= FightStart;
@@ -106,6 +120,12 @@ public class Player : MonoBehaviour {
     void Update() {
 
         CalculateCamera();
+
+        if (CanMove) {
+            if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyLeft))         Move(-1);
+            else if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyRight))   Move(1);
+        }
+
         switch (state) {
 
             case PlayerState.PreFight:
@@ -120,47 +140,34 @@ public class Player : MonoBehaviour {
                 break;
 
             case PlayerState.Hit:
-                
                 break;
 
             case PlayerState.Down:
-
-                //if (Input.GetKeyDown(HGDCabKeys.Of(playerPos).Top4) && GameManager.Inst.State != GameState.GameDone) {
-                //    Recover();
-                //}
-
                 break;
 
             case PlayerState.UpBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) {
-                    StopBlock();
-                }
+                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) StopBlock();
                 break;
 
             case PlayerState.DownBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) {
-                    StopBlock();
-                }
+                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) StopBlock();
                 break;
 
             case PlayerState.Idle:
                 //if(!Player1) {
                 //    Debug.Log($"Player 1?({Player1}): Throwing Punch from Idle");
-                //ThrowPunch(true, HitType.Hook);
+                //    ThrowPunch(true, HitType.Hook);
                 //}
                 //break;
-
-                if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyLeft))        Move(-1);
-                else if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyRight))  Move(1);
-
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp))         Block(true);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown))       Block(false);
                 
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top1))          ThrowPunch(true, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top2))          ThrowPunch(true, HitType.Hook);
+                if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top1))       ThrowPunch(true, HitType.Jab);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top2))       ThrowPunch(true, HitType.Hook);
 
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom1))       ThrowPunch(false, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom2))       ThrowPunch(false, HitType.Hook);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom1))    ThrowPunch(false, HitType.Jab);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom2))    ThrowPunch(false, HitType.Hook);
+
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) Block(true);
+                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) Block(false);
 
                 break;
 
@@ -283,6 +290,10 @@ public class Player : MonoBehaviour {
         SetAnimators((anim) => anim.SetBool("Stunned", false));
     }
 
+    private void OnPrefight() {
+        Position = 0;
+        state = PlayerState.PreFight;
+    }
 
     private void OnReadyUp() {
         state = PlayerState.NotReady;
