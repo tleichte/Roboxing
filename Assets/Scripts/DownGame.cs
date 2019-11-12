@@ -50,7 +50,7 @@ public class DownGame : MonoBehaviour
             Destroy(wire.gameObject);
         wires = new DownGameWire[GameManager.Inst.GetNumWires(p.Player1)];
 
-        int targetNum = Random.Range(-3, 3);
+        int targetNum = Random.Range(-2, 2);
 
         TopNode.anchoredPosition = new Vector2(40 * targetNum, 0);
         BottomNode.anchoredPosition = new Vector2(40 * targetNum, 0);
@@ -67,8 +67,11 @@ public class DownGame : MonoBehaviour
     void Update()
     {
         if (playing) {
-            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyLeft) && wires[currWire].Position > -5) wires[currWire].Position -= 1;
-            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyRight) && wires[currWire].Position < 5) wires[currWire].Position += 1;
+            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyLeft) && wires[currWire].Position > -5)
+                wires[currWire].Position -= 1;
+            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyRight) && wires[currWire].Position < 5)
+                wires[currWire].Position += 1;
+
 
             if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).Top1) && wires[currWire].IsAligned) {
                 wires[currWire].Confirmed = true;

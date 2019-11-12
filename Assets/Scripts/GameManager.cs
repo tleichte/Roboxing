@@ -35,11 +35,12 @@ public class PunchStats {
 
 [Serializable]
 public class HealthAmount {
-    public int MinHealth;
     public int MaxHealth;
+    public int MinHealth;
     public int CalculateHealth(int upNumber) {
         int difference = MaxHealth - MinHealth;
         float upPercent = (9 - upNumber) / 9.0f;
+        Debug.Log(MinHealth + (int)(upPercent * difference));
         return MinHealth + (int)(upPercent * difference);
     }
 }
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
     void Awake() {
         Inst = this;
         State = GameState.Start;
+        RoundTime = 180;
         for (int i = 0; i < P1Stats.Length; i++) {
             P1Stats[i] = new RoundStats();
             P2Stats[i] = new RoundStats();

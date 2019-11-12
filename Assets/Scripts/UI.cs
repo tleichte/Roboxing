@@ -70,6 +70,15 @@ public class UI : MonoBehaviour
         GameManager.Inst.OnRoundOver += OnRoundOver;
         GameManager.Inst.OnPreDecision += OnPreDecision;
 
+
+
+        p1Down1.SetActive(false);
+        p1Down2.SetActive(false);
+        p1Down3.SetActive(false);
+        p2Down1.SetActive(false);
+        p2Down2.SetActive(false);
+        p2Down3.SetActive(false);
+
         SetRoundText(round1, -1);
         SetRoundText(round2, -1);
         SetRoundText(round3, -1);
