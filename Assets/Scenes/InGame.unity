@@ -2703,7 +2703,7 @@ Transform:
   m_GameObject: {fileID: 633648356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 50, y: -1.68, z: 10}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 5.1, y: 5.1, z: 5.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -3186,7 +3186,7 @@ Transform:
   m_GameObject: {fileID: 902932146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -50, y: -1.68, z: 10}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 5.1, y: 5.1, z: 5.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -3831,18 +3831,18 @@ MonoBehaviour:
       Shake: 0.6
   InitialHealth: 100
   HealthAmounts:
-  - MinHealth: 85
-    MaxHealth: 75
-  - MinHealth: 70
-    MaxHealth: 60
-  - MinHealth: 55
-    MaxHealth: 45
-  - MinHealth: 40
-    MaxHealth: 30
-  - MinHealth: 25
-    MaxHealth: 15
-  - MinHealth: 10
-    MaxHealth: 5
+  - MaxHealth: 75
+    MinHealth: 85
+  - MaxHealth: 60
+    MinHealth: 70
+  - MaxHealth: 45
+    MinHealth: 55
+  - MaxHealth: 30
+    MinHealth: 40
+  - MaxHealth: 15
+    MinHealth: 25
+  - MaxHealth: 5
+    MinHealth: 10
   NumWires: 030000000500000007000000090000000a0000000b000000
   blockPoints: 3
   shakeDecay: 0.07
