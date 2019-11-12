@@ -239,8 +239,8 @@ public class UI : MonoBehaviour
         timerSec1.text = $"{secs / 10}";
         timerSec2.text = $"{secs % 10}";
 
-        p1HealthBar.fillAmount = GameManager.Inst.Player1.HealthPercent;
-        p2HealthBar.fillAmount = GameManager.Inst.Player2.HealthPercent;
+        p1HealthBar.fillAmount = Mathf.Lerp(p1HealthBar.fillAmount, GameManager.Inst.Player1.HealthPercent, 0.4f);
+        p2HealthBar.fillAmount = Mathf.Lerp(p2HealthBar.fillAmount, GameManager.Inst.Player2.HealthPercent, 0.4f);
     }
 
 
