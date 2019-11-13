@@ -19,6 +19,8 @@ public class HGDCabinetKeyVisual : MonoBehaviour
     public Image Bottom2;
     public Image Bottom3;
     public Image Bottom4;
+    public Image Coin;
+    public Image PlayerButton;
 
     public HGDCabPlayer Player;
 
@@ -34,6 +36,8 @@ public class HGDCabinetKeyVisual : MonoBehaviour
         CheckKey(HGDCabKeys.Of(Player).Bottom2, Bottom2);
         CheckKey(HGDCabKeys.Of(Player).Bottom3, Bottom3);
         CheckKey(HGDCabKeys.Of(Player).Bottom4, Bottom4);
+        CheckKey(HGDCabKeys.Of(Player).Coin, Coin);
+        CheckKey(HGDCabKeys.Of(Player).Player, PlayerButton);
     }
 
     void CheckKey(KeyCode c, Image sr) {

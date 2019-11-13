@@ -7,6 +7,19 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
 
+    [Header("Stats")]
+    public GameObject statsGO;
+    public TMP_Text statsHeader;
+    public TMP_Text statsP1Hooks;
+    public TMP_Text statsP2Hooks;
+    public TMP_Text statsP1Jabs;
+    public TMP_Text statsP2Jabs;
+    public TMP_Text statsP1Blocks;
+    public TMP_Text statsP2Blocks;
+    public TMP_Text statsP1Downs;
+    public TMP_Text statsP2Downs;
+
+
     [Header("Timer")]
     public TMP_Text timerMin;
     public TMP_Text timerSec1;
@@ -51,7 +64,7 @@ public class UI : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start() {
-
+        statsGO.SetActive(false);
         KOTextGO.SetActive(false);
         StatusTextGO.SetActive(false);
         NumTextGO.SetActive(false);
@@ -101,6 +114,7 @@ public class UI : MonoBehaviour
     // ACTIONS 
 
     void OnPrefight() {
+        statsGO.SetActive(false);
         RoundCardGO.SetActive(true);
         RoundCardNum.text = $"{GameManager.Inst.Round}";
         SetRoundText(round1, 1);
@@ -143,11 +157,26 @@ public class UI : MonoBehaviour
     }
 
     void OnRoundOver() {
+
+        statsGO.SetActive(true);
+
+        statsHeader.text = $"Round {GameManager.Inst.Round} Done";
+
+        statsP1Hooks.text = $"{GameManager.Inst.P1RoundStats.Hooks.Total}";
+        statsP2Hooks.text = $"{GameManager.Inst.P2RoundStats.Hooks.Total}";
+        statsP1Jabs.text = $"{GameManager.Inst.P1RoundStats.Jabs.Total}";
+        statsP2Jabs.text = $"{GameManager.Inst.P2RoundStats.Jabs.Total}";
+        statsP1Blocks.text = $"{GameManager.Inst.P1RoundStats.Blocks}";
+        statsP2Blocks.text = $"{GameManager.Inst.P2RoundStats.Blocks}";
+        statsP1Downs.text = $"{GameManager.Inst.P1RoundStats.Downs}";
+        statsP2Downs.text = $"{GameManager.Inst.P1RoundStats.Downs}";
+
         // Bell sound
         // TODO Show Bell?
     }
     
     void OnPreDecision() {
+        statsGO.SetActive(false);
         DecisionTextGO.SetActive(true);
         // show the winner is text
     }

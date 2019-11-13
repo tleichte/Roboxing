@@ -23,8 +23,11 @@ using UnityEngine;
         
         Returns the Key Layout for the specified player. Useful for HGDCabPlayer variables.
 
-    
-
+    ___________________________________
+    HGDCabKeys.GetJoystickPosition(HGDCabPlayer player):
+    ___________________________________
+        
+        Returns a Vector2 of the direction the joystick is facing. Positive is right and up.
 
 */
 
@@ -36,7 +39,7 @@ using UnityEngine;
 public enum HGDCabPlayer { Left, Right, P1, P2 }
 
 public static class HGDCabKeys {
-    
+
     public static KeyLayout P1 => Left;
     public static readonly KeyLayout Left = new KeyLayout(HGDCabPlayer.Left);
 
@@ -62,7 +65,7 @@ public static class HGDCabKeys {
         public readonly KeyCode Top1, Top2, Top3, Top4;
         public readonly KeyCode Bottom1, Bottom2, Bottom3, Bottom4;
         public readonly KeyCode Player, Coin;
-            
+
         public KeyLayout(HGDCabPlayer p) {
             switch (p) {
                 case HGDCabPlayer.Left:

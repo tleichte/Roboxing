@@ -106,7 +106,7 @@ public class Player : MonoBehaviour {
         currMoveOffset = Vector3.Lerp(currMoveOffset, targetOffset, movementLerp);
 
         transform.position = fpStartingPos + currMoveOffset;
-        TPTransform.position = tpStartingPos + currMoveOffset;
+        TPTransform.position = tpStartingPos - currMoveOffset;
         
         //Screenshake
         if (shakeAmount > 0) {
@@ -245,10 +245,7 @@ public class Player : MonoBehaviour {
 
     public PunchResult GM_CheckPunch(int enemyPosition, Punch p) {
 
-        if (state == PlayerState.Down) return PunchResult.Missed;
-
-        int offset = enemyPosition - Position;
-        if (Math.Abs(offset) > 0) return PunchResult.Missed;
+        if (state == PlayerState.Down || enemyPosition != -Position) return PunchResult.Missed;
 
         PlayerState blockState = p.Direction.Up ? PlayerState.UpBlock : PlayerState.DownBlock;
 

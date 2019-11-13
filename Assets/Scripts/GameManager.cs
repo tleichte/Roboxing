@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Waiting is used as an aux state until a coroutine finishes
-public enum GameState { Start, Prefight, ReadyUp, Waiting, Fighting, Down, GameDone, BetweenRounds, PreDecision }
+public enum GameState { Start, Prefight, ReadyUp, Fighting, Down, GameDone, BetweenRounds, PreDecision }
 
 public enum GameOverResult { P1Win, P2Win, Tie }
 public enum GameOverReason { KO, TKO, Decision }
@@ -12,6 +12,7 @@ public enum GameOverReason { KO, TKO, Decision }
 public class RoundPunchStat {
     public int Hits;
     public int StunHits;
+    public int Total => (Hits + StunHits);
 }
 public class RoundStats {
     public RoundPunchStat Jabs = new RoundPunchStat();
@@ -125,11 +126,14 @@ public class GameManager : MonoBehaviour
 
     private bool fightStarting;
 
-    private RoundStats[] P1Stats = new RoundStats[3];
-    private RoundStats[] P2Stats = new RoundStats[3];
+    private RoundStats[] p1Stats = new RoundStats[3];
+    private RoundStats[] p2Stats = new RoundStats[3];
+    public RoundStats P1RoundStats => p1Stats[round];
+    public RoundStats P2RoundStats => p2Stats[round];
 
     private int countNum;
 
+    private bool waitingForTimer;
 
 
     // UNITY FUNCTIONS
@@ -138,9 +142,9 @@ public class GameManager : MonoBehaviour
         Inst = this;
         State = GameState.Start;
         RoundTime = 180;
-        for (int i = 0; i < P1Stats.Length; i++) {
-            P1Stats[i] = new RoundStats();
-            P2Stats[i] = new RoundStats();
+        for (int i = 0; i < p1Stats.Length; i++) {
+            p1Stats[i] = new RoundStats();
+            p2Stats[i] = new RoundStats();
         }
     }
 
@@ -148,20 +152,20 @@ public class GameManager : MonoBehaviour
         
         switch (State) {
             case GameState.Start:
-                StartCoroutine(
-                    ToState(GameState.Prefight, 1.5f, () => OnPrefight?.Invoke())
-                );
+
+                ToState(GameState.Prefight, 1.5f, () => OnPrefight?.Invoke());
+
                 break;
             case GameState.Prefight:
-                RoundTime = 180;
-                StartCoroutine(
-                    ToState(GameState.ReadyUp, 3, () => OnReadyUp?.Invoke())
-                );
+
+                if (!waitingForTimer) RoundTime = 180;
+
+                ToState(GameState.ReadyUp, 3, () => OnReadyUp?.Invoke());
 
                 break;
             case GameState.ReadyUp:
-
-                if (Player1.IsReady && Player2.IsReady) {
+                
+                if (!waitingForTimer && Player1.IsReady && Player2.IsReady) {
                     StartCoroutine(StartFightAfterDelay(1));
                 }
 
@@ -178,8 +182,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Down:
-
-                if (!Player1.IsDown && !Player2.IsDown) {
+                
+                if (!waitingForTimer && !Player1.IsDown && !Player2.IsDown) {
                     OnPlayerRecover?.Invoke();
                     StopCoroutine(tenCountCR);
                     StartCoroutine(StartFightAfterDelay(2));
@@ -187,36 +191,35 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.BetweenRounds:
-                round++;
-                if (round == 3) {
-                    StartCoroutine(
-                        ToState(GameState.PreDecision, 5, () => OnPreDecision?.Invoke())
-                    );
-                }
-                else {
-                    StartCoroutine(
-                        ToState(GameState.Prefight, 5, () => OnPrefight?.Invoke())
-                    );
+                if (!waitingForTimer) {
+                    round++;
+                    if (round == 3)
+                        ToState(GameState.PreDecision, 8, () => OnPreDecision?.Invoke());
+                    else
+                        ToState(GameState.Prefight, 8, () => OnPrefight?.Invoke());
                 }
                 break;
             case GameState.PreDecision:
-                StartCoroutine(
-                    ToState(GameState.GameDone, 3, () => {
-                        State = GameState.GameDone;
 
-                        int p1Score = CalculateScore(P1Stats);
-                        int p2Score = CalculateScore(P2Stats);
+                ToState(GameState.GameDone, 3, () => {
 
-                        int cmp = p1Score.CompareTo(p2Score);
+                    int p1Score = CalculateScore(p1Stats);
+                    int p2Score = CalculateScore(p2Stats);
 
-                        GameOverResult r;
-                        if (cmp > 0) r = GameOverResult.P1Win;
-                        else if (cmp < 0) r = GameOverResult.P2Win;
-                        else r = GameOverResult.Tie;
+                    int cmp = p1Score.CompareTo(p2Score);
 
-                        OnGameOver?.Invoke(r, GameOverReason.Decision);
-                    })
-                );
+                    GameOverResult r;
+                    if (cmp > 0) r = GameOverResult.P1Win;
+                    else if (cmp < 0) r = GameOverResult.P2Win;
+                    else r = GameOverResult.Tie;
+
+                    OnGameOver?.Invoke(r, GameOverReason.Decision);
+                });
+                break;
+            case GameState.GameDone:
+                ToState(GameState.GameDone, 7, () => {
+                    Application.Quit();
+                });
                 break;
         }
 
@@ -234,11 +237,17 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
-    IEnumerator ToState(GameState state, float delay, Action firstFrameAction) {
-        State = GameState.Waiting;
-        yield return new WaitForSeconds(delay);
-        State = state;
-        firstFrameAction?.Invoke();
+    void ToState(GameState state, float delay, Action firstFrameAction) {
+        IEnumerator WaitForTimer() {
+            waitingForTimer = true;
+            yield return new WaitForSeconds(delay);
+            waitingForTimer = false;
+            State = state;
+            firstFrameAction?.Invoke();
+        }
+        if (!waitingForTimer) {
+            StartCoroutine(WaitForTimer());
+        }
     }
 
     // CALLED BY PLAYERS
@@ -268,8 +277,8 @@ public class GameManager : MonoBehaviour
         switch (pr) {
             case PunchResult.Blocked:
 
-                if (player1) P2Stats[round].Blocks++;
-                else P1Stats[round].Blocks++;
+                if (player1) p2Stats[round].Blocks++;
+                else p1Stats[round].Blocks++;
 
                 aPlayer.GM_Stunned();
                 stunCR = StartCoroutine(WaitStun(aPlayer));
@@ -286,7 +295,7 @@ public class GameManager : MonoBehaviour
                         else stats.Jabs.Hits++;
                     }
                 }
-                AddPunch(((player1) ? P1Stats : P2Stats)[round]);
+                AddPunch(((player1) ? p1Stats : p2Stats)[round]);
 
                 dPlayer.GM_Hit(p);
 
@@ -335,14 +344,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartFightAfterDelay(float secondsBeforeReady) {
 
-        State = GameState.Waiting;
+        waitingForTimer = true;
 
         yield return new WaitForSeconds(secondsBeforeReady);
 
         OnFightReady?.Invoke();
 
         yield return new WaitForSeconds(2.5f);
-        
+
+        waitingForTimer = false;
+
         State = GameState.Fighting;
 
         OnFightStart?.Invoke();
@@ -356,17 +367,20 @@ public class GameManager : MonoBehaviour
     }
     
     IEnumerator CheckKnockdown() {
-        yield return null;
+
+        Time.timeScale = 0.3f;
+        yield return new WaitForSecondsRealtime(0.7f);
+        Time.timeScale = 1;
 
         State = GameState.Down;
 
         // Add down to players
         if (Player1.IsDown) {
-            P1Stats[round].Downs++;
+            p1Stats[round].Downs++;
             p1Downs++;
         }
         if (Player2.IsDown) {
-            P2Stats[round].Downs++;
+            p2Stats[round].Downs++;
             p2Downs++;
         }
 
@@ -376,8 +390,8 @@ public class GameManager : MonoBehaviour
 
         //
         int flag = 0;
-        if (P1Stats[round].Downs >= 3) flag += 2;
-        if (P2Stats[round].Downs >= 3) flag += 1;
+        if (p1Stats[round].Downs >= 3) flag += 2;
+        if (p2Stats[round].Downs >= 3) flag += 1;
 
         if (flag > 0) {
 
@@ -431,8 +445,8 @@ public class GameManager : MonoBehaviour
 
     // General functions
     public int GetDowns(bool player1) {
-        if (player1) return P1Stats[round].Downs;
-        else return P2Stats[round].Downs;
+        if (player1) return p1Stats[round].Downs;
+        else return p2Stats[round].Downs;
     }
 
 
