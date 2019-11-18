@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Waiting is used as an aux state until a coroutine finishes
 public enum GameState { Start, Prefight, ReadyUp, Fighting, Down, GameDone, BetweenRounds, PreDecision }
@@ -49,6 +50,9 @@ public class HealthAmount {
 public class GameManager : MonoBehaviour
 {
     // Inspector Values
+
+    [Header("Curtain Transition")]
+    public CurtainTransition Curtain;
 
     [Header("Players")]
     public Player Player1;
@@ -146,12 +150,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start() {
+        Curtain.Open(() => {
+            ToState(GameState.Prefight, 1f, () => OnPrefight?.Invoke());
+        });
+    }
+
     void LateUpdate() {
         
         switch (State) {
             case GameState.Start:
 
-                ToState(GameState.Prefight, 1.5f, () => OnPrefight?.Invoke());
+                //ToState(GameState.Prefight, 1.5f, () => OnPrefight?.Invoke());
 
                 break;
             case GameState.Prefight:
@@ -211,14 +221,17 @@ public class GameManager : MonoBehaviour
                     else if (cmp < 0) r = GameOverResult.P2Win;
                     else r = GameOverResult.Tie;
 
-                    OnGameOver?.Invoke(r, GameOverReason.Decision);
+                    EndGame(r, GameOverReason.Decision);
                 });
                 break;
             case GameState.GameDone:
-                ToState(GameState.GameDone, 7, () => {
+                
+                ToState(GameState.GameDone, 4, () => {
                     Application.Quit();
+
                 });
                 break;
+            
         }
 
     }
@@ -402,7 +415,7 @@ public class GameManager : MonoBehaviour
                 default: r = GameOverResult.Tie; break;
             }
             yield return new WaitForSeconds(0.75f);
-            OnGameOver?.Invoke(r, GameOverReason.TKO);
+            EndGame(r, GameOverReason.TKO);
         }
         else {         
             tenCountCR = StartCoroutine(TenCount());
@@ -435,9 +448,20 @@ public class GameManager : MonoBehaviour
             default: r = GameOverResult.Tie; break;
         }
 
-        OnGameOver?.Invoke(r, GameOverReason.KO);
+        EndGame(r, GameOverReason.KO);
         // Game over
 
+    }
+
+    void EndGame(GameOverResult result, GameOverReason reason) {
+        IEnumerator ExitAfterDelay() {
+            yield return new WaitForSeconds(4);
+            Curtain.Close(() => {
+                SceneManager.LoadScene("PostGame");
+            });
+        }
+        StartCoroutine(ExitAfterDelay());
+        OnGameOver?.Invoke(result, reason);
     }
 
 

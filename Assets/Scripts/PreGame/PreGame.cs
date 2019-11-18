@@ -33,7 +33,10 @@ public class PreGame : MonoBehaviour
     public void OnReady(bool player1) {
         playersReady++;
 
-        GameData.SetData(player1, new PlayerData(Player1.Letters, Player1.CurrentStyle));
+        if (player1)
+            GameData.P1Data = new PlayerData(Player1.Letters, Player1.CurrentStyle);
+        else
+            GameData.P2Data = new PlayerData(Player2.Letters, Player2.CurrentStyle);
 
         if (playersReady == 2) {
             // Start game
