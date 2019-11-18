@@ -21,6 +21,8 @@ public class MainMenu : MonoBehaviour
 
     private int selectedOption;
 
+    private bool starting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,13 +44,16 @@ public class MainMenu : MonoBehaviour
     }
 
     private void Confirm() {
-        switch (CurrOptionValue.Type) {
-            case MainMenuOptionType.Play:
-                SceneManager.LoadScene("PreGame");
-                break;
-            case MainMenuOptionType.Quit:
-                Application.Quit();
-                break;
+        if (!starting) {
+            starting = true;
+            switch (CurrOptionValue.Type) {
+                case MainMenuOptionType.Play:
+                    SceneManager.LoadScene("PreGame");
+                    break;
+                case MainMenuOptionType.Quit:
+                    Application.Quit();
+                    break;
+            }
         }
     }
 }
