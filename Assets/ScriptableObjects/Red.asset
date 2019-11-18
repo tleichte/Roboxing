@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d66e57ac13875f428891ee5e93e271a, type: 3}
+  m_Name: Red
+  m_EditorClassIdentifier: 
+  HeadIdle: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadHitHook: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadHitJab: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadHitDown: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadDown: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadStunned: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  BodyIdle: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  BodyHitUp: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  BodyHitJab: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  BodyHitHook: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  FPArmIdle: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  FPArmBlock: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  FPArmPunchUp: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  FPArmPunchDown: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  TPArmIdle: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  TPArmBlock: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  TPArmPunchUp: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  TPArmPunchDown: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}

@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
 
+    [Header("Names")]
+    public TMP_Text P1NameText;
+    public TMP_Text P2NameText;
+
     [Header("Stats")]
     public GameObject statsGO;
     public TMP_Text statsHeader;
@@ -95,6 +99,9 @@ public class UI : MonoBehaviour
         SetRoundText(round1, -1);
         SetRoundText(round2, -1);
         SetRoundText(round3, -1);
+
+        P1NameText.text = GameData.P1Data.Name;
+        P2NameText.text = GameData.P2Data.Name;
     }
 
     private void OnDestroy() {

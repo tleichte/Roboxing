@@ -82,8 +82,6 @@ public class GameManager : MonoBehaviour
     public float stunTime;
     public float RoundTimeSpeed;
 
-
-
     // Public Properties
 
 
