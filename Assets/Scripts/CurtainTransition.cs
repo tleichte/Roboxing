@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class CurtainTransition : MonoBehaviour
 {
-
-    public bool StartsOpen;
-
     public bool InProgress { get; private set; }
 
     public Animator Animator;
@@ -15,16 +12,16 @@ public class CurtainTransition : MonoBehaviour
     private Action OnDone;
 
     private void Start() {
-        Animator.Play((StartsOpen) ? "Open" : "Closed");        
+                
     }
 
-    public void Open(Action onOpen) {
+    public void Open(Action onOpen = null) {
         OnDone = onOpen;
         InProgress = true;
         Animator.SetBool("Open", true);
     }
 
-    public void Close(Action onClose) {
+    public void Close(Action onClose = null) {
         OnDone = onClose;
         InProgress = true;
         Animator.SetBool("Open", false);

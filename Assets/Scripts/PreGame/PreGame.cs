@@ -8,25 +8,25 @@ public class PreGame : MonoBehaviour
     public PreGamePlayer Player1;
     public PreGamePlayer Player2;
 
+    public CurtainTransition Curtain;
+
     private int playersReady;
 
-    public bool Starting { get; private set; }
+    public bool Starting => Curtain.InProgress;
 
 
     private void Start() {
         Player1.Initialize(this);
         Player2.Initialize(this);
+        Curtain.Open();
     }
 
 
     public void GoBack() {
-        if (!Starting) {
-            Starting = true;
-            IEnumerator GoBackAfterDelay() {
-                yield return new WaitForSecondsRealtime(0.5f);
+        if (!Curtain.InProgress) {
+            Curtain.Close(() => {
                 SceneManager.LoadScene("MainMenu");
-            }
-            StartCoroutine(GoBackAfterDelay());
+            });
         }
     }
 
@@ -37,12 +37,9 @@ public class PreGame : MonoBehaviour
 
         if (playersReady == 2) {
             // Start game
-            IEnumerator StartGameAfterDelay() {
-                Starting = true;
-                yield return new WaitForSecondsRealtime(2);
+            Curtain.Close(() => {
                 SceneManager.LoadScene("InGame");
-            }
-            StartCoroutine(StartGameAfterDelay());
+            });
         }
     }
 

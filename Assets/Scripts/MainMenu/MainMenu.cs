@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public CurtainTransition Curtain;
+
     public MainMenuOption[] Options;
 
     private int _option;
@@ -26,6 +28,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Curtain.Open();
         CurrOption = 0;
     }
 
@@ -44,14 +47,17 @@ public class MainMenu : MonoBehaviour
     }
 
     private void Confirm() {
-        if (!starting) {
-            starting = true;
+        if (!Curtain.InProgress) {
             switch (CurrOptionValue.Type) {
                 case MainMenuOptionType.Play:
-                    SceneManager.LoadScene("PreGame");
+                    Curtain.Close(() => {
+                        SceneManager.LoadScene("PreGame");
+                    });
                     break;
                 case MainMenuOptionType.Quit:
-                    Application.Quit();
+                    Curtain.Close(() => {
+                        Application.Quit();
+                    });
                     break;
             }
         }
