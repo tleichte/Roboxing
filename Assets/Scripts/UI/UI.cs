@@ -102,6 +102,11 @@ public class UI : MonoBehaviour
 
         P1NameText.text = GameData.P1Data.Name;
         P2NameText.text = GameData.P2Data.Name;
+
+        int p1i = GameData.P1Data.Style;
+        int p2i = GameData.P2Data.Style;
+        p1HealthBar.color = AssetManager.Inst.PlayerStyles[p1i].UIColor;
+        p2HealthBar.color = AssetManager.Inst.PlayerStyles[p2i].UIColor;
     }
 
     private void OnDestroy() {

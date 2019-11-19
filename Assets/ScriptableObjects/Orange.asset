@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d66e57ac13875f428891ee5e93e271a, type: 3}
   m_Name: Orange
   m_EditorClassIdentifier: 
+  UIColor: {r: 1, g: 0.52214503, b: 0, a: 1}
   HeadIdle: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   HeadHitHook: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   HeadHitJab: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
@@ -24,9 +25,7 @@ MonoBehaviour:
   BodyHitHook: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   FPArmIdle: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   FPArmBlock: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  FPArmPunchUp: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  FPArmPunchDown: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
+  FPArmPunch: {fileID: 0}
   TPArmIdle: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   TPArmBlock: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  TPArmPunchUp: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  TPArmPunchDown: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
+  TPArmPunch: {fileID: 0}

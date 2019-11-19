@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Style", menuName = "Styles/PlayerStyle", order = 0)]
 public class PlayerStyle : ScriptableObject
 {
+    public Color UIColor;
 
     [Header("Head")]
     public Sprite HeadIdle;
