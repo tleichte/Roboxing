@@ -6,6 +6,18 @@ public class InGameTPAssetSetter : MonoBehaviour
 {
     public bool Player1;
 
+    [Header("Body")]
+    public SpriteRenderer HeadHitUp;
+    public SpriteRenderer HeadHitDown;
+    public SpriteRenderer HeadIdle;
+    public SpriteRenderer HeadHit;
+    public SpriteRenderer HeadStunned;
+    public SpriteRenderer HeadDown;
+
+    [Header("Body")]
+    public SpriteRenderer BodyIdle;
+    public SpriteRenderer BodyHit;
+
     [Header("Left")]
     public SpriteRenderer IdleL;
     public SpriteRenderer PunchL;
@@ -20,6 +32,16 @@ public class InGameTPAssetSetter : MonoBehaviour
     void Start() {
         int i = ((Player1) ? GameData.P1Data : GameData.P2Data).Style;
         var style = AssetManager.Inst.PlayerStyles[i];
+
+        HeadHitUp.sprite = style.HeadHitUp;
+        HeadHitDown.sprite = style.HeadHitDown;
+        HeadIdle.sprite = style.HeadIdle;
+        HeadHit.sprite = style.HeadHit;
+        HeadDown.sprite = style.HeadDown;
+        HeadStunned.sprite = style.HeadStunned;
+
+        BodyIdle.sprite = style.BodyIdle;
+        BodyHit.sprite = style.BodyHit;
 
         IdleL.sprite = style.TPArmIdle;
         BlockL.sprite = style.TPArmBlock;

@@ -9,17 +9,15 @@ public class PlayerStyle : ScriptableObject
 
     [Header("Head")]
     public Sprite HeadIdle;
-    public Sprite HeadHitHook;
-    public Sprite HeadHitJab;
+    public Sprite HeadHit;
+    public Sprite HeadHitUp;
     public Sprite HeadHitDown;
     public Sprite HeadDown;
     public Sprite HeadStunned;
 
     [Header("Body")]
     public Sprite BodyIdle;
-    public Sprite BodyHitUp;
-    public Sprite BodyHitJab;
-    public Sprite BodyHitHook;
+    public Sprite BodyHit;
 
     [Header("Arm")]
     public Sprite FPArmIdle;

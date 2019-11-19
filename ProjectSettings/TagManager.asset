@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TPBody
+    uniqueID: 3439944897
+    locked: 0
+  - name: TPHead
+    uniqueID: 39335253
+    locked: 0
+  - name: TPArms
+    uniqueID: 4025507183
+    locked: 0
+  - name: FPArms
+    uniqueID: 694311967
+    locked: 0
+  - name: FPUI
+    uniqueID: 892706807
+    locked: 0

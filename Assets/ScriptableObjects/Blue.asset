@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Blue
   m_EditorClassIdentifier: 
   UIColor: {r: 0.015250206, g: 0, b: 1, a: 1}
-  HeadIdle: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  HeadHitHook: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  HeadHitJab: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  HeadHitDown: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
+  HeadIdle: {fileID: 21300000, guid: 4172183fa5cabe347b67d7e1780991a1, type: 3}
+  HeadHit: {fileID: 0}
+  HeadHitUp: {fileID: 21300000, guid: df9afbb0150c42f49a952792c01ae42e, type: 3}
+  HeadHitDown: {fileID: 21300000, guid: 21705a600d68a1141906f6c5f97b9c4d, type: 3}
   HeadDown: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
   HeadStunned: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  BodyIdle: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  BodyHitUp: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  BodyHitJab: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
-  BodyHitHook: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
+  BodyIdle: {fileID: 21300000, guid: a192cf5139ec07945abd24bc3440dabb, type: 3}
+  BodyHit: {fileID: 21300000, guid: 1ecc2dd16b9459a42b1f125b56cbabbc, type: 3}
   FPArmIdle: {fileID: 21300000, guid: 56ea2b498d66754448fa6bd756edb906, type: 3}
   FPArmBlock: {fileID: 21300000, guid: 1dae8e17dc9979a4a9281acd59e9cbd3, type: 3}
   FPArmPunch: {fileID: 21300000, guid: 37286217bc6656145ab8413def16befa, type: 3}
