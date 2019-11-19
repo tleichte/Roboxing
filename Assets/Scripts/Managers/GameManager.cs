@@ -7,46 +7,6 @@ using UnityEngine.SceneManagement;
 // Waiting is used as an aux state until a coroutine finishes
 public enum GameState { Start, Prefight, ReadyUp, Fighting, Down, GameDone, BetweenRounds, PreDecision }
 
-public enum GameOverResult { P1Win, P2Win, Tie }
-public enum GameOverReason { KO, TKO, Decision }
-
-public class RoundPunchStat {
-    public int Hits;
-    public int StunHits;
-    public int Total => (Hits + StunHits);
-}
-public class RoundStats {
-    public RoundPunchStat Jabs = new RoundPunchStat();
-    public RoundPunchStat Hooks = new RoundPunchStat();
-    public int Blocks;
-    public int Downs;
-}
-
-[Serializable]
-public class PunchStat {
-    public int Damage;
-    public int Points;
-    public float Shake;
-}
-
-[Serializable]
-public class PunchStats {
-    public PunchStat Standard;
-    public PunchStat Stunned;
-}
-
-[Serializable]
-public class HealthAmount {
-    public int MaxHealth;
-    public int MinHealth;
-    public int CalculateHealth(int upNumber) {
-        int difference = MaxHealth - MinHealth;
-        float upPercent = (9 - upNumber) / 9.0f;
-        Debug.Log(MinHealth + (int)(upPercent * difference));
-        return MinHealth + (int)(upPercent * difference);
-    }
-}
-
 public class GameManager : MonoBehaviour
 {
     // Inspector Values
@@ -454,6 +414,12 @@ public class GameManager : MonoBehaviour
     }
 
     void EndGame(GameOverResult result, GameOverReason reason) {
+
+
+        GameData.P1Stats = new PlayerStats(p1Stats);
+        GameData.P2Stats = new PlayerStats(p2Stats);
+
+
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(4);
             Curtain.Close(() => {

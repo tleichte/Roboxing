@@ -23,13 +23,8 @@ public class PlayerStyle : ScriptableObject
     [Header("Arm")]
     public Sprite FPArmIdle;
     public Sprite FPArmBlock;
-    public Sprite FPArmPunchUp;
-    public Sprite FPArmPunchDown;
+    public Sprite FPArmPunch;
     public Sprite TPArmIdle;
     public Sprite TPArmBlock;
-    public Sprite TPArmPunchUp;
-    public Sprite TPArmPunchDown;
-
-
-
+    public Sprite TPArmPunch;
 }
