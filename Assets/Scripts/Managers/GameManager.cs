@@ -186,10 +186,10 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GameDone:
                 
-                ToState(GameState.GameDone, 4, () => {
-                    Application.Quit();
+                //ToState(GameState.GameDone, 4, () => {
+                //    Application.Quit();
 
-                });
+                //});
                 break;
             
         }

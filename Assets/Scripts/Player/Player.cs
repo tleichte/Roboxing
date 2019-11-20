@@ -264,7 +264,10 @@ public class Player : MonoBehaviour {
 
             shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
-            SetAnimators(anim => anim.SetBool("Stunned", false));
+            SetAnimators(anim => {
+                anim.SetBool("Stunned", false);
+                anim.SetBool("Block", false);
+            });
 
             if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
                 KnockedDown();

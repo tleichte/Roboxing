@@ -280,7 +280,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 892706807
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3613615962540927244
@@ -334,7 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41f6ba84847977499eac4271af00b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartsOpen: 0
   Animator: {fileID: 3613615962540927235}
 --- !u!95 &3613615962540927235
 Animator:
