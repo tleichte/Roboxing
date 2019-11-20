@@ -171,17 +171,17 @@ public class GameManager : MonoBehaviour
 
                 ToState(GameState.GameDone, 3, () => {
 
-                    int p1Score = CalculateScore(p1Stats);
-                    int p2Score = CalculateScore(p2Stats);
+                    //int p1Score = CalculateScore(p1Stats);
+                    //int p2Score = CalculateScore(p2Stats);
 
-                    int cmp = p1Score.CompareTo(p2Score);
+                    //int cmp = p1Score.CompareTo(p2Score);
 
-                    GameOverResult r;
-                    if (cmp > 0) r = GameOverResult.P1Win;
-                    else if (cmp < 0) r = GameOverResult.P2Win;
-                    else r = GameOverResult.Tie;
+                    //GameOverResult r;
+                    //if (cmp > 0) r = GameOverResult.P1Win;
+                    //else if (cmp < 0) r = GameOverResult.P2Win;
+                    //else r = GameOverResult.Tie;
 
-                    EndGame(r, GameOverReason.Decision);
+                    EndGame(CalculateDecision(), GameOverReason.Decision);
                 });
                 break;
             case GameState.GameDone:
@@ -368,14 +368,15 @@ public class GameManager : MonoBehaviour
 
             State = GameState.GameDone;
 
-            GameOverResult r;
+            GameOverResult result;
+
             switch(flag) {
-                case 1: r = GameOverResult.P1Win; break;
-                case 2: r = GameOverResult.P2Win; break;
-                default: r = GameOverResult.Tie; break;
+                case 1: result = GameOverResult.P1Win; break;
+                case 2: result = GameOverResult.P2Win; break;
+                default: result = GameOverResult.Tie; break;
             }
             yield return new WaitForSeconds(0.75f);
-            EndGame(r, GameOverReason.TKO);
+            EndGame(result, GameOverReason.TKO);
         }
         else {         
             tenCountCR = StartCoroutine(TenCount());
@@ -401,16 +402,27 @@ public class GameManager : MonoBehaviour
         if (Player1.IsDown) flag += 2;
         if (Player2.IsDown) flag += 1;
 
-        GameOverResult r;
+        GameOverResult result;
         switch (flag) {
-            case 1: r = GameOverResult.P1Win; break;
-            case 2: r = GameOverResult.P2Win; break;
-            default: r = GameOverResult.Tie; break;
+            case 1: result = GameOverResult.P1Win; break;
+            case 2: result = GameOverResult.P2Win; break;
+            default: result = GameOverResult.Tie; break;
         }
 
-        EndGame(r, GameOverReason.KO);
+        EndGame(result, GameOverReason.KO);
         // Game over
 
+    }
+
+    private GameOverResult CalculateDecision() {
+        int p1Score = CalculateScore(p1Stats);
+        int p2Score = CalculateScore(p2Stats);
+
+        int cmp = p1Score.CompareTo(p2Score);
+
+        if (cmp > 0) return GameOverResult.P1Win;
+        if (cmp < 0) return GameOverResult.P2Win;
+        return GameOverResult.Tie;
     }
 
     void EndGame(GameOverResult result, GameOverReason reason) {

@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIColor: {r: 1, g: 0, b: 0, a: 1}
   HeadIdle: {fileID: 21300000, guid: e07895599e17ba744aaff09a86261d3a, type: 3}
-  HeadHit: {fileID: 21300000, guid: d662944a772e0f64887cccd048f06791, type: 3}
   HeadHitUp: {fileID: 21300000, guid: d662944a772e0f64887cccd048f06791, type: 3}
   HeadHitDown: {fileID: 21300000, guid: 6dbd156d01ee06143baaac91bc1d3cde, type: 3}
-  HeadDown: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
-  HeadStunned: {fileID: 21300000, guid: 783aa72c1f500a045ba41a20daf9bf5b, type: 3}
+  HeadDown: {fileID: 21300000, guid: 367be04b430ba854fbef428ac315bbec, type: 3}
+  HeadStunned: {fileID: 21300000, guid: e1a053a125c1ccd4f8ec6fe1f83001e4, type: 3}
   BodyIdle: {fileID: 21300000, guid: e7b7943f3df63574396f727f5b4eb849, type: 3}
   BodyHit: {fileID: 21300000, guid: 0854916f7d22dcf4599b49583e3c1924, type: 3}
   FPArmIdle: {fileID: 21300000, guid: c146027c56416a54cbd3b833b40bb643, type: 3}

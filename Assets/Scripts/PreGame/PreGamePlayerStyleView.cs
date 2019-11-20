@@ -35,7 +35,7 @@ public class PreGamePlayerStyleView : MonoBehaviour
         var style = AssetManager.Inst.PlayerStyles[player.CurrentStyle];
         headImage.sprite = style.HeadIdle;
         bodyImage.sprite = style.BodyIdle;
-        leftArm.sprite = style.FPArmIdle;
-        rightArm.sprite = style.FPArmIdle;
+        leftArm.sprite = style.TPArmIdle;
+        rightArm.sprite = style.TPArmIdle;
     }
 }

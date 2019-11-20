@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   UIColor: {r: 1, g: 0.52214503, b: 0, a: 1}
-  HeadIdle: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  HeadHitHook: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  HeadHitJab: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  HeadHitDown: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  HeadDown: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  HeadStunned: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  BodyIdle: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  BodyHitUp: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  BodyHitJab: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
-  BodyHitHook: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
+  HeadIdle: {fileID: 21300000, guid: 1b61e4d58088610499933c42841b4e56, type: 3}
+  HeadHitUp: {fileID: 21300000, guid: 9e43d9e9f41b5584aa3b2ae462fe30eb, type: 3}
+  HeadHitDown: {fileID: 21300000, guid: cdb6f8b1d12655a4ca507f4ca1f735b7, type: 3}
+  HeadDown: {fileID: 21300000, guid: 4b8d2c74d72e28d4ab4f46abb802ea0d, type: 3}
+  HeadStunned: {fileID: 21300000, guid: 397272978bd8f38468fddc7d044e662e, type: 3}
+  BodyIdle: {fileID: 21300000, guid: c06863eb68aaa614f98e90986321fa82, type: 3}
+  BodyHit: {fileID: 21300000, guid: cd07c46c5e809eb438a0a9f290be168d, type: 3}
   FPArmIdle: {fileID: 21300000, guid: e31fd4006bd643e4a9710f1dd1cbab68, type: 3}
   FPArmBlock: {fileID: 21300000, guid: 8fc28f940e325a4418cf0bb3aa251da3, type: 3}
   FPArmPunch: {fileID: 21300000, guid: af67bf226c0ced347b56e1aa083edfe8, type: 3}

@@ -10,7 +10,6 @@ public class InGameTPAssetSetter : MonoBehaviour
     public SpriteRenderer HeadHitUp;
     public SpriteRenderer HeadHitDown;
     public SpriteRenderer HeadIdle;
-    public SpriteRenderer HeadHit;
     public SpriteRenderer HeadStunned;
     public SpriteRenderer HeadDown;
 
@@ -36,7 +35,6 @@ public class InGameTPAssetSetter : MonoBehaviour
         HeadHitUp.sprite = style.HeadHitUp;
         HeadHitDown.sprite = style.HeadHitDown;
         HeadIdle.sprite = style.HeadIdle;
-        HeadHit.sprite = style.HeadHit;
         HeadDown.sprite = style.HeadDown;
         HeadStunned.sprite = style.HeadStunned;
 

@@ -9,7 +9,6 @@ public class PlayerStyle : ScriptableObject
 
     [Header("Head")]
     public Sprite HeadIdle;
-    public Sprite HeadHit;
     public Sprite HeadHitUp;
     public Sprite HeadHitDown;
     public Sprite HeadDown;

@@ -108,13 +108,19 @@ public class Player : MonoBehaviour {
         transform.position = fpStartingPos + currMoveOffset;
         TPTransform.position = tpStartingPos - currMoveOffset;
         
-        //Screenshake
-        if (shakeAmount > 0) {
-            CameraContainer.localPosition = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)) * shakeAmount;
-            shakeAmount -= GameManager.Inst.shakeDecay;
-            shakeAmount = Mathf.Clamp01(shakeAmount);
+        if (state == PlayerState.Stunned) {
+            float stunShakeAmount = 0.02f;
+            CameraContainer.localPosition = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)) * stunShakeAmount;
         }
-        else CameraContainer.localPosition = Vector3.zero;
+        else {
+            //Screenshake
+            if (shakeAmount > 0) {
+                CameraContainer.localPosition = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)) * shakeAmount;
+                shakeAmount -= GameManager.Inst.shakeDecay;
+                shakeAmount = Mathf.Clamp01(shakeAmount);
+            }
+            else CameraContainer.localPosition = Vector3.zero;
+        }
     }
 
     void Update() {
