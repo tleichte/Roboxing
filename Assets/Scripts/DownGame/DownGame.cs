@@ -60,6 +60,8 @@ public class DownGame : MonoBehaviour
             wires[i].Initialize(targetNum);
         }
 
+        wires[0].SetActive();
+
         playing = true;
     }
 
@@ -76,6 +78,8 @@ public class DownGame : MonoBehaviour
             if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).Top1) && wires[currWire].IsAligned) {
                 wires[currWire].Confirmed = true;
                 currWire++;
+                if (currWire < wires.Length)
+                    wires[currWire].SetActive();
             }
 
             if (currWire >= wires.Length) {
