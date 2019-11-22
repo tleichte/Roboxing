@@ -28,7 +28,10 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Curtain.Open();
+        AudioManager.Inst.PlaySound("MainMenuSong");
+        Curtain.Open(() => {
+            //AudioManager.Inst.PlaySound("MainMenuSong");
+        });
         CurrOption = 0;
     }
 

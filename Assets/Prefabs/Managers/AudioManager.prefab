@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2916572348344296089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2916572348344296070}
+  - component: {fileID: 2916572348344296071}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2916572348344296070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916572348344296089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2916572348771265469}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &2916572348344296071
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916572348344296089}
+  m_Enabled: 1
+--- !u!1 &2916572348771265468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2916572348771265469}
+  - component: {fileID: 2916572348771265466}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2916572348771265469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916572348771265468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2916572348344296070}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2916572348771265466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916572348771265468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520fc325318456c4699bd069c8d7604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - Name: Hook1
+    Clip: {fileID: 8300000, guid: 9507890e17f4ccf47bb0dbb767dff61c, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 1
+  - Name: Hook2
+    Clip: {fileID: 8300000, guid: 3c92f596064e97c47bbd49c5b59c2a81, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 1
+  - Name: Hook3
+    Clip: {fileID: 8300000, guid: 51c13a1f84947024c88d36e0a7f611f6, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 1
+  - Name: Jab1
+    Clip: {fileID: 8300000, guid: 834f1c48d1bdd68418e54733169c9052, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 2
+  - Name: Jab2
+    Clip: {fileID: 8300000, guid: 2b8bf141601e3b54a9ce7b289b1e4d16, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 2
+  - Name: Jab3
+    Clip: {fileID: 8300000, guid: f34e69cba327f1048a9d1b595ae1b6ad, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 2
+  - Name: MainMenuSong
+    Clip: {fileID: 8300000, guid: d3dfc90bd638a944a849bcb56b485323, type: 3}
+    Volume: 0.221
+    Pitch: 1
+    Loop: 1
+    Tag: 0
+  - Name: Round1Song
+    Clip: {fileID: 8300000, guid: 4fc92840a1fb71e4dab85eb10b35bb58, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 0
+  - Name: Round2Song
+    Clip: {fileID: 8300000, guid: 061a8f4c9899e504ca9fbdfd750770c1, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 0
+  - Name: Round3Song
+    Clip: {fileID: 8300000, guid: 01dc7bcd9f6c71e44a9de1eec4e69d71, type: 3}
+    Volume: 0.4
+    Pitch: 1
+    Loop: 0
+    Tag: 0

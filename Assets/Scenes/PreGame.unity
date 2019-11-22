@@ -382,7 +382,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1590216324}
   - component: {fileID: 1590216323}
-  - component: {fileID: 1590216322}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -390,14 +389,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1590216322
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590216321}
-  m_Enabled: 1
 --- !u!20 &1590216323
 Camera:
   m_ObjectHideFlags: 0
@@ -478,6 +469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreGamePlayer2
+      objectReference: {fileID: 0}
+    - target: {fileID: 665596455516259049, guid: 797de9bc6f9f4ad40953a0585c45e060,
+        type: 3}
+      propertyPath: Player1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 665596455516259054, guid: 797de9bc6f9f4ad40953a0585c45e060,
         type: 3}
@@ -583,11 +579,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 665596455516259049, guid: 797de9bc6f9f4ad40953a0585c45e060,
-        type: 3}
-      propertyPath: Player1
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696016294582175799, guid: 797de9bc6f9f4ad40953a0585c45e060,
         type: 3}
@@ -782,6 +773,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 665596455363356465, guid: 797de9bc6f9f4ad40953a0585c45e060,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 665596455363356465, guid: 797de9bc6f9f4ad40953a0585c45e060,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 665596456323077939, guid: 797de9bc6f9f4ad40953a0585c45e060,
         type: 3}
       propertyPath: m_Sprite
@@ -841,16 +842,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: fa3e65c1504e22b42b009fadb34c7451,
         type: 3}
-    - target: {fileID: 665596455363356465, guid: 797de9bc6f9f4ad40953a0585c45e060,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 665596455363356465, guid: 797de9bc6f9f4ad40953a0585c45e060,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797de9bc6f9f4ad40953a0585c45e060, type: 3}
 --- !u!1001 &937752069244500920

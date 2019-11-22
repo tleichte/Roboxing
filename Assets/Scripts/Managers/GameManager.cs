@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
             case GameState.ReadyUp:
                 
                 if (!waitingForTimer && Player1.IsReady && Player2.IsReady) {
-                    StartCoroutine(StartFightAfterDelay(1));
+                    StartCoroutine(StartFightAfterDelay(1, true));
                 }
 
                 break;
@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
                 if (RoundTime <= 0) {
                     RoundTime = 0;
                     State = GameState.BetweenRounds;
+                    AudioManager.Inst.StopSound($"Round{Round}Song");
                     OnRoundOver?.Invoke();
                 }
 
@@ -154,7 +155,7 @@ public class GameManager : MonoBehaviour
                 if (!waitingForTimer && !Player1.IsDown && !Player2.IsDown) {
                     OnPlayerRecover?.Invoke();
                     StopCoroutine(tenCountCR);
-                    StartCoroutine(StartFightAfterDelay(2));
+                    StartCoroutine(StartFightAfterDelay(2, false));
                 }
 
                 break;
@@ -270,6 +271,15 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
+                switch(p.Type) {
+                    case HitType.Hook:
+                        AudioManager.Inst.OnHook();
+                        break;
+                    case HitType.Jab:
+                        AudioManager.Inst.OnJab();
+                        break;
+                }
+
                 //IEnumerator TimeFreeze() {
                 //    Time.timeScale = 0;
                 //    yield return new WaitForSecondsRealtime(p.Type == HitType.Hook ? 0.5f : 0.1f);
@@ -313,7 +323,7 @@ public class GameManager : MonoBehaviour
 
     // COROUTINES
 
-    IEnumerator StartFightAfterDelay(float secondsBeforeReady) {
+    IEnumerator StartFightAfterDelay(float secondsBeforeReady, bool roundStart) {
 
         waitingForTimer = true;
 
@@ -326,6 +336,12 @@ public class GameManager : MonoBehaviour
         waitingForTimer = false;
 
         State = GameState.Fighting;
+
+        if (roundStart)
+            AudioManager.Inst.PlaySound($"Round{Round}Song");
+        else {
+            // Change volume
+        }
 
         OnFightStart?.Invoke();
 
