@@ -15,7 +15,9 @@ public class MainMenu : MonoBehaviour
         get { return _option; }
         set {
             foreach (var opt in Options) opt.DeHighlight();
-            _option = Mathf.Clamp(value, 0, Options.Length);
+            _option = value;
+            if (_option >= Options.Length) _option = 0;
+            else if (_option < 0) _option = Options.Length - 1;
             Options[_option].Highlight();
         }
     }
@@ -56,6 +58,13 @@ public class MainMenu : MonoBehaviour
                     Curtain.Close(() => {
                         SceneManager.LoadScene("PreGame");
                     });
+                    break;
+                case MainMenuOptionType.Credits:
+
+                    Curtain.Close(() => {
+                        Curtain.Open();
+                    });
+
                     break;
                 case MainMenuOptionType.Quit:
                     Curtain.Close(() => {

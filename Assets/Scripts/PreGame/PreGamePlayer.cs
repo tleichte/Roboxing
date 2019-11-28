@@ -14,7 +14,11 @@ public class PreGamePlayer : MonoBehaviour
 
     public PreGamePlayerStyleView StyleView;
 
+    public GameObject StyleTakenIndicator;
+
     public PreGameReady Ready;
+
+    public bool IsReady => state == PreGamePlayerState.Ready;
 
     public char[] Letters { get; private set; } = new char[] { 'A', 'A', 'A' };
 
@@ -29,6 +33,9 @@ public class PreGamePlayer : MonoBehaviour
     public void Initialize(PreGame preGame) {
         this.preGame = preGame;
         CurrentLetter = 0;
+
+        CurrentStyle = (Player1) ? 0 : 1;
+
         player = (Player1) ? HGDCabPlayer.P1 : HGDCabPlayer.P2;
 
         foreach (var letter in LetterTexts)
@@ -91,6 +98,7 @@ public class PreGamePlayer : MonoBehaviour
             case PreGamePlayerState.Style:
 
                 void StyleChanged() {
+
                     int styleLength = AssetManager.Inst.PlayerStyles.Length;
                     if (CurrentStyle < 0) CurrentStyle = styleLength - 1;
                     if (CurrentStyle >= styleLength) CurrentStyle = 0;
@@ -110,11 +118,11 @@ public class PreGamePlayer : MonoBehaviour
                 }
 
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyLeft)) {
-                    CurrentStyle++;
+                    CurrentStyle--;
                     StyleChanged();
                 }
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyRight)) {
-                    CurrentStyle--;
+                    CurrentStyle++;
                     StyleChanged();
                 }
 
@@ -122,7 +130,7 @@ public class PreGamePlayer : MonoBehaviour
 
                 break;
             case PreGamePlayerState.NotReady:
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1)) {
+                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !preGame.IsStyleTaken(CurrentStyle)) {
                     state = PreGamePlayerState.Ready;
                     Ready.OnReady();
                     preGame.OnReady(Player1);
@@ -141,6 +149,8 @@ public class PreGamePlayer : MonoBehaviour
                 }
                 break;
         }
+
+        StyleTakenIndicator.SetActive(!IsReady && preGame.IsStyleTaken(CurrentStyle));
     }
 
     public char GetLetter(int i) => Letters[i];

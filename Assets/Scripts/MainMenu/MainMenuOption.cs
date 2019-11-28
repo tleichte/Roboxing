@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MainMenuOptionType { Play, Quit }
+public enum MainMenuOptionType { Play, Credits, Quit }
 
 public class MainMenuOption : MonoBehaviour
 {

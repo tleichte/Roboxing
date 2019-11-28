@@ -30,6 +30,10 @@ public class PreGame : MonoBehaviour
         }
     }
 
+    public bool IsStyleTaken(int style) {
+        return (Player1.IsReady && Player1.CurrentStyle == style) || (Player2.IsReady && Player2.CurrentStyle == style);
+    }
+
     public void OnReady(bool player1) {
         playersReady++;
 
