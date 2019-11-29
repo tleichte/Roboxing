@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
                 if (RoundTime <= 0) {
                     RoundTime = 0;
                     State = GameState.BetweenRounds;
-                    AudioManager.Inst.StopSound($"Round{Round}Song");
+                    //AudioManager.Inst.StopSound($"Round{Round}Song");
                     OnRoundOver?.Invoke();
                 }
 
@@ -273,19 +273,12 @@ public class GameManager : MonoBehaviour
 
                 switch(p.Type) {
                     case HitType.Hook:
-                        AudioManager.Inst.OnHook();
+                        //AudioManager.Inst.OnHook();
                         break;
                     case HitType.Jab:
-                        AudioManager.Inst.OnJab();
+                        //AudioManager.Inst.OnJab();
                         break;
                 }
-
-                //IEnumerator TimeFreeze() {
-                //    Time.timeScale = 0;
-                //    yield return new WaitForSecondsRealtime(p.Type == HitType.Hook ? 0.5f : 0.1f);
-                //    Time.timeScale = 1;
-                //}
-                //StartCoroutine(TimeFreeze());
 
                 break;
             default:
@@ -337,8 +330,9 @@ public class GameManager : MonoBehaviour
 
         State = GameState.Fighting;
 
-        if (roundStart)
-            AudioManager.Inst.PlaySound($"Round{Round}Song");
+        if (roundStart) {
+            //AudioManager.Inst.PlaySound($"Round{Round}Song");
+        }
         else {
             // Change volume
         }

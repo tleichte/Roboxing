@@ -43,7 +43,7 @@ public class PreGame : MonoBehaviour
             GameData.P2Data = new PlayerData(Player2.Letters, Player2.CurrentStyle);
 
         if (playersReady == 2) {
-            AudioManager.Inst.StopSound("MainMenuSong");
+            //AudioManager.Inst.StopSound("MainMenuSong");
             // Start game
             Curtain.Close(() => {
                 SceneManager.LoadScene("InGame");
