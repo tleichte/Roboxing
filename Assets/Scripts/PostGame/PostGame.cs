@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class PostGame : MonoBehaviour
 {
-
-    public CurtainTransition Curtain;
-
     // Start is called before the first frame update
     void Start()
     {
-        Curtain.Open();
+        CurtainTransition.Inst.Open();
     }
 
     // Update is called once per frame

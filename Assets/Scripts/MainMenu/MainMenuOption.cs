@@ -9,15 +9,21 @@ public class MainMenuOption : MonoBehaviour
 
     public MainMenuOptionType Type;
 
-    public GameObject LeftSelect;
-    public GameObject RightSelect;
+    //public GameObject LeftSelect;
+    //public GameObject RightSelect;
+
+    public Animator Animator;
 
     public void Highlight() {
-        LeftSelect.SetActive(true);
-        RightSelect.SetActive(true);
+        //Animator.Play("Highlighted");
+        Animator.SetBool("Highlighted", true);
+        //LeftSelect.SetActive(true);
+        //RightSelect.SetActive(true);
     }
     public void DeHighlight() {
-        LeftSelect.SetActive(false);
-        RightSelect.SetActive(false);
+        //Animator.Play("DeHighlighted");
+        Animator.SetBool("Highlighted", false);
+        //LeftSelect.SetActive(false);
+        //RightSelect.SetActive(false);
     }
 }

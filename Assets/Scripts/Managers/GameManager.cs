@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
 {
     // Inspector Values
 
-    [Header("Curtain Transition")]
-    public CurtainTransition Curtain;
-
     [Header("Players")]
     public Player Player1;
     public Player Player2;
@@ -111,7 +108,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start() {
-        Curtain.Open(() => {
+        CurtainTransition.Inst.Open(() => {
             ToState(GameState.Prefight, 1f, () => OnPrefight?.Invoke());
         });
     }
@@ -444,7 +441,7 @@ public class GameManager : MonoBehaviour
 
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(4);
-            Curtain.Close(() => {
+            CurtainTransition.Inst.Close(() => {
                 SceneManager.LoadScene("PostGame");
             });
         }

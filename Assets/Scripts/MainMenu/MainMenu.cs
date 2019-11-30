@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public CurtainTransition Curtain;
-
+    
     public MainMenuOption[] Options;
 
     private int _option;
@@ -31,7 +30,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         //AudioManager.Inst.PlaySound("MainMenuSong");
-        Curtain.Open(() => {
+        CurtainTransition.Inst.Open(() => {
             //AudioManager.Inst.PlaySound("MainMenuSong");
         });
         CurrOption = 0;
@@ -52,22 +51,22 @@ public class MainMenu : MonoBehaviour
     }
 
     private void Confirm() {
-        if (!Curtain.InProgress) {
+        if (!CurtainTransition.Inst.InProgress) {
             switch (CurrOptionValue.Type) {
                 case MainMenuOptionType.Play:
-                    Curtain.Close(() => {
+                    CurtainTransition.Inst.Close(() => {
                         SceneManager.LoadScene("PreGame");
                     });
                     break;
                 case MainMenuOptionType.Credits:
 
-                    Curtain.Close(() => {
-                        Curtain.Open();
+                    CurtainTransition.Inst.Close(() => {
+                        CurtainTransition.Inst.Open();
                     });
 
                     break;
                 case MainMenuOptionType.Quit:
-                    Curtain.Close(() => {
+                    CurtainTransition.Inst.Close(() => {
                         Application.Quit();
                     });
                     break;
