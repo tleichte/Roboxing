@@ -653,18 +653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &1321548378 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3613615962540927232, guid: fa5a79d7ab64eb64f8f24eb7f1653909,
-    type: 3}
-  m_PrefabInstance: {fileID: 3613615961420845914}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41f6ba84847977499eac4271af00b8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1502024044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -861,7 +849,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -34}
+  m_AnchoredPosition: {x: 49.200012, y: -34}
   m_SizeDelta: {x: 478, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1524161735
@@ -1014,7 +1002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0b9332827306b4b8968d712eaf9264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Curtain: {fileID: 1321548378}
   Options:
   - {fileID: 424132110}
   - {fileID: 1502024046}
@@ -1069,12 +1056,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9a925af19c131024983f5a4f0bf63b95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e781a8840f0c91439a2c511068883d4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1083,7 +1070,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 35.2
+  m_PixelsPerUnitMultiplier: 20
 --- !u!222 &2132642672
 CanvasRenderer:
   m_ObjectHideFlags: 0
