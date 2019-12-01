@@ -21,7 +21,7 @@ MonoBehaviour:
   BodyIdle: {fileID: 21300000, guid: 270c9d63fd38b3d42a1b303f8d10ca9d, type: 3}
   BodyHit: {fileID: 21300000, guid: 0345c6bb5f171a6459e1ce05365a7b31, type: 3}
   FPArmIdle: {fileID: 21300000, guid: 2b79b21e8ca534840b032286d3352aa7, type: 3}
-  FPArmBlock: {fileID: 21300000, guid: bfc03b7bb61581a42806d77b10a62677, type: 3}
+  FPArmBlock: {fileID: 21300000, guid: cf32f19489263e74ba7262e0cdad50aa, type: 3}
   FPArmPunch: {fileID: 21300000, guid: d9f714a3b1c398548a1e3d454ccea2c2, type: 3}
   TPArmIdle: {fileID: 21300000, guid: 617a307132ec8414ea1d66a2699811ab, type: 3}
   TPArmBlock: {fileID: 21300000, guid: cf32f19489263e74ba7262e0cdad50aa, type: 3}

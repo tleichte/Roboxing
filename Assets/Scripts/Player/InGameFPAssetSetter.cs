@@ -9,11 +9,12 @@ public class InGameFPAssetSetter : MonoBehaviour
     [Header("Left")]
     public SpriteRenderer IdleL;
     public SpriteRenderer PunchL;
+    public SpriteRenderer BlockL;
 
     [Header("Right")]
     public SpriteRenderer IdleR;
     public SpriteRenderer PunchR;
-    
+    public SpriteRenderer BlockR;
 
     void Start() {
         int i = ((Player1) ? GameData.P1Data : GameData.P2Data).Style;
@@ -21,9 +22,11 @@ public class InGameFPAssetSetter : MonoBehaviour
 
         IdleL.sprite = style.FPArmIdle;
         PunchL.sprite = style.FPArmPunch;
+        BlockL.sprite = style.FPArmBlock;
 
         IdleR.sprite = style.FPArmIdle;
         PunchR.sprite = style.FPArmPunch;
+        BlockR.sprite = style.FPArmBlock;
     }
 
 }
