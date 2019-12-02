@@ -67,7 +67,12 @@ public class HealthAmount {
 }
 
 
-
+[Serializable]
+public class SwooshAnimationProps {
+    public float Time = 0.16f;
+    public float XPos = 0;
+    public AnimationCurve Curve;
+}
 
 
 public class PlayerStat {

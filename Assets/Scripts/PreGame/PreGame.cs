@@ -10,8 +10,7 @@ public class PreGame : MonoBehaviour
 
     private int playersReady;
 
-    public bool Starting => CurtainTransition.Inst.InProgress;
-
+    public bool Starting { get; private set; }// => CurtainTransition.Inst.InProgress;
 
     private void Start() {
         Player1.Initialize(this);
@@ -22,6 +21,7 @@ public class PreGame : MonoBehaviour
 
     public void GoBack() {
         if (!Starting) {
+            Starting = true;
             CurtainTransition.Inst.Close(() => {
                 SceneManager.LoadScene("MainMenu");
             });
@@ -43,9 +43,14 @@ public class PreGame : MonoBehaviour
         if (playersReady == 2) {
             //AudioManager.Inst.StopSound("MainMenuSong");
             // Start game
-            CurtainTransition.Inst.Close(() => {
-                SceneManager.LoadScene("InGame");
-            });
+            IEnumerator StartAfterDelay() {
+                Starting = true;
+                yield return new WaitForSecondsRealtime(0.5f);
+                CurtainTransition.Inst.Close(() => {
+                    SceneManager.LoadScene("InGame");
+                });
+            }
+            StartCoroutine(StartAfterDelay());
         }
     }
 

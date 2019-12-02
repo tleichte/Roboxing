@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum PreGamePlayerState { Letters, Style, NotReady, Ready }
+public enum PreGamePlayerState { Name, Style, Ready }
 
 public class PreGamePlayer : MonoBehaviour
 {
+
+    public SwooshAnimator SmallNameSwoosh;
+    public SwooshAnimator ReadySwoosh;
+    public SwooshAnimator LargeNameSwoosh;
+
+    public TMP_Text SmallNameText;
 
     public bool Player1;
     
@@ -15,8 +21,6 @@ public class PreGamePlayer : MonoBehaviour
     public PreGamePlayerStyleView StyleView;
 
     public GameObject StyleTakenIndicator;
-
-    public PreGameReady Ready;
 
     public bool IsReady => state == PreGamePlayerState.Ready;
 
@@ -44,13 +48,19 @@ public class PreGamePlayer : MonoBehaviour
         Debug.Log(StyleView);
 
         StyleView.Initialize(this);
+
+
+        LargeNameSwoosh.In();
+        SmallNameSwoosh.Out();
+        ReadySwoosh.Out();
+
     }
 
 
     void Update() {
 
         switch (state) {
-            case PreGamePlayerState.Letters:
+            case PreGamePlayerState.Name:
                 
                 void ChangeLetter(int delta) {
 
@@ -75,10 +85,16 @@ public class PreGamePlayer : MonoBehaviour
 
                 void CurrentLetterChanged() {
                     CurrentLetter = Mathf.Max(0, CurrentLetter);
-                    foreach (var letter in LetterTexts) letter.OnCurrentLetterChanged();
+                    foreach (var letter in LetterTexts) {
+                        letter.OnCurrentLetterChanged();
+                    }
                     if (CurrentLetter >= Letters.Length) {
                         state = PreGamePlayerState.Style;
                         StyleView.OnStyleEnter();
+
+                        SmallNameText.text = new string(Letters);
+                        
+                        LargeNameSwoosh.Out(() => SmallNameSwoosh.In());
                     }
                 }
 
@@ -105,13 +121,16 @@ public class PreGamePlayer : MonoBehaviour
                     StyleView.OnStyleChange();
                 }
 
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyDown)) {
-                    state = PreGamePlayerState.NotReady;
+                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyDown))
+                    && !preGame.IsStyleTaken(CurrentStyle)) {
+                    state = PreGamePlayerState.Ready;
+                    preGame.OnReady(Player1);
+                    ReadySwoosh.In();
                     StyleView.OnStyleExit();
-                    Ready.OnNotReady();
                 }
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp)) {
-                    state = PreGamePlayerState.Letters;
+                    state = PreGamePlayerState.Name;
+                    SmallNameSwoosh.Out(() => LargeNameSwoosh.In());
                     CurrentLetter = LetterTexts.Length - 1;
                     StyleView.OnStyleExit();
                     foreach(var letter in LetterTexts) letter.OnCurrentLetterChanged();
@@ -129,22 +148,26 @@ public class PreGamePlayer : MonoBehaviour
                 
 
                 break;
-            case PreGamePlayerState.NotReady:
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !preGame.IsStyleTaken(CurrentStyle)) {
-                    state = PreGamePlayerState.Ready;
-                    Ready.OnReady();
-                    preGame.OnReady(Player1);
-                }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp) || Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
-                    state = PreGamePlayerState.Style;
-                    StyleView.OnStyleEnter();
-                    Ready.OnEdit();
-                }
-                break;
+            //case PreGamePlayerState.NotReady:
+            //    if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !preGame.IsStyleTaken(CurrentStyle)) {
+            //        state = PreGamePlayerState.Ready;
+            //        Ready.OnReady();
+            //        preGame.OnReady(Player1);
+            //    }
+            //    else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp) || Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
+            //        state = PreGamePlayerState.Style;
+            //        StyleView.OnStyleEnter();
+            //        Ready.OnEdit();
+            //    }
+            //    break;
             case PreGamePlayerState.Ready:
                 if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && !preGame.Starting) {
-                    state = PreGamePlayerState.NotReady;
-                    Ready.OnNotReady();
+                    state = PreGamePlayerState.Style;
+
+                    ReadySwoosh.Out();
+
+                    StyleView.OnStyleEnter();
+
                     preGame.CancelReady(Player1);
                 }
                 break;

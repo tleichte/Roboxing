@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PreGamePlayerStyleView : MonoBehaviour
 {
 
-    public Image headImage;
-    public Image bodyImage;
-    public Image leftArm;
-    public Image rightArm;
+    public SpriteRenderer headImage;
+    public SpriteRenderer bodyImage;
+    public SpriteRenderer leftArm;
+    public SpriteRenderer rightArm;
 
     public GameObject leftArrow;
     public GameObject rightArrow;
