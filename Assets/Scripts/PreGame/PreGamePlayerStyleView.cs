@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PreGamePlayerStyleView : MonoBehaviour
 {
 
+    public Animator animator;
+
     public SpriteRenderer headImage;
     public SpriteRenderer bodyImage;
     public SpriteRenderer leftArm;
@@ -19,16 +21,18 @@ public class PreGamePlayerStyleView : MonoBehaviour
     public void Initialize(PreGamePlayer player) {
         this.player = player;
         OnStyleChange();
-        OnStyleExit();
+        OnStyleExit(true);
     }
 
     public void OnStyleEnter() {
         leftArrow.SetActive(true);
         rightArrow.SetActive(true);
+        animator.SetBool("Style", true);
     }
-    public void OnStyleExit() {
+    public void OnStyleExit(bool toName) {
         leftArrow.SetActive(false);
         rightArrow.SetActive(false);
+        if (toName) animator.SetBool("Style", false);
     }
 
     public void OnStyleChange() {

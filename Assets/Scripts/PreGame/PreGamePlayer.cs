@@ -126,13 +126,13 @@ public class PreGamePlayer : MonoBehaviour
                     state = PreGamePlayerState.Ready;
                     preGame.OnReady(Player1);
                     ReadySwoosh.In();
-                    StyleView.OnStyleExit();
+                    StyleView.OnStyleExit(false);
                 }
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp)) {
                     state = PreGamePlayerState.Name;
                     SmallNameSwoosh.Out(() => LargeNameSwoosh.In());
                     CurrentLetter = LetterTexts.Length - 1;
-                    StyleView.OnStyleExit();
+                    StyleView.OnStyleExit(true);
                     foreach(var letter in LetterTexts) letter.OnCurrentLetterChanged();
                 }
 

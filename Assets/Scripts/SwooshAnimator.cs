@@ -44,11 +44,9 @@ public class SwooshAnimator : MonoBehaviour
     }
 
     public void In(Action onDone = null) {
-        Debug.Log("In Called");
         DoAnim(true, onDone);
     }
     public void Out(Action onDone = null) {
-        Debug.Log("Out Called");
         DoAnim(false, onDone);
     }
 }

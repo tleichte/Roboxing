@@ -39,19 +39,24 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) {
-            Confirm();
+        if (!CurtainTransition.Inst.InProgress) {
+            if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) {
+                Confirm();
+            }
+            if (Input.GetKeyDown(HGDCabKeys.P1.JoyUp)) {
+                CurrOption--;
+            }
+            if (Input.GetKeyDown(HGDCabKeys.P1.JoyDown)) {
+                CurrOption++;
+            }
         }
-        if (Input.GetKeyDown(HGDCabKeys.P1.JoyUp)) {
-            CurrOption--;
-        }
-        if (Input.GetKeyDown(HGDCabKeys.P1.JoyDown)) {
-            CurrOption++;
+        else {
+            Debug.Log("Curtain in progress!");
         }
     }
 
     private void Confirm() {
-        if (!CurtainTransition.Inst.InProgress) {
+        
             switch (CurrOptionValue.Type) {
                 case MainMenuOptionType.Play:
                     CurtainTransition.Inst.Close(() => {
@@ -71,6 +76,5 @@ public class MainMenu : MonoBehaviour
                     });
                     break;
             }
-        }
     }
 }

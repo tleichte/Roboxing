@@ -50,6 +50,9 @@ TagManager:
   - name: TPArms
     uniqueID: 4025507183
     locked: 0
+  - name: Particles
+    uniqueID: 864820815
+    locked: 0
   - name: FPArms
     uniqueID: 694311967
     locked: 0
