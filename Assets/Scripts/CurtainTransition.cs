@@ -26,17 +26,29 @@ public class CurtainTransition : MonoBehaviour {
         OnDone = onOpen;
         InProgress = true;
         Animator.SetBool("Open", true);
+
+        AudioManager.Inst.PlayOpen();
+        // TODO Play open one-shot
+
     }
 
     public void Close(Action onClose = null) {
         OnDone = onClose;
         InProgress = true;
         Animator.SetBool("Open", false);
+
+        AudioManager.Inst.PlayClosed();
+        // TODO Play close one-shot
     }
 
     // Called by animator
     public void A_AnimDone() {
         OnDone?.Invoke();
         InProgress = false;
+    }
+
+
+    public void A_PlaySound() {
+        
     }
 }

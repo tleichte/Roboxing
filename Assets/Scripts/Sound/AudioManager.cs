@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public enum SoundTag { None, Hook, Jab, CrowdAmbient, CrowdOof, CrowdCheer }
 
@@ -35,6 +36,10 @@ public class Sound {
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
+
+
+    public StudioEventEmitter OpenEmitter;
+    public StudioEventEmitter CloseEmitter;
 
     //public Sound[] sounds;
 
@@ -100,5 +105,14 @@ public class AudioManager : MonoBehaviour
     //public void OnHook() => PlaySound(GetRandomString(hooks));
 
     //private string GetRandomString(List<string> strArr) => strArr[Random.Range(0, strArr.Count - 1)];
+
+
+    public void PlayOpen() {
+        OpenEmitter.Play();
+    }
+
+    public void PlayClosed() {
+        CloseEmitter.Play();
+    }
 
 }
