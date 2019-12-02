@@ -3,44 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public enum SoundTag { None, Hook, Jab, CrowdAmbient, CrowdOof, CrowdCheer }
-
-[System.Serializable]
-public class Sound {
-
-    public string Name;
-
-    public AudioClip Clip;
-    [Range(0, 1)]
-    public float Volume = 1;
-    [Range(-3, 3)]
-    public float Pitch = 1;
-
-    public bool Loop;
-
-    public SoundTag Tag;
-
-    private AudioSource _source;
-    public AudioSource Source {
-        get => _source;
-        set {
-            _source = value;
-            _source.clip = Clip;
-            _source.volume = Volume;
-            _source.pitch = Pitch;
-            _source.loop = Loop;
-        }
-    }
-}
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
+    [EventRef] public string OpenEvent;
+    [EventRef] public string CloseEvent;
 
-    public StudioEventEmitter OpenEmitter;
-    public StudioEventEmitter CloseEmitter;
-
+    
     //public Sound[] sounds;
 
     //private List<string> jabs = new List<string>();
@@ -54,6 +25,7 @@ public class AudioManager : MonoBehaviour
     //private Dictionary<string, Sound> soundsDict = new Dictionary<string, Sound>();
 
     void Awake() {
+
         if (Inst != null) {
             Destroy(gameObject);
             return;
@@ -108,11 +80,11 @@ public class AudioManager : MonoBehaviour
 
 
     public void PlayOpen() {
-        OpenEmitter.Play();
+        RuntimeManager.PlayOneShot(OpenEvent);
     }
 
     public void PlayClosed() {
-        CloseEmitter.Play();
+        RuntimeManager.PlayOneShot(CloseEvent);
     }
 
 }

@@ -181,7 +181,7 @@ public class UI : MonoBehaviour
         statsP1Blocks.text = $"{GameManager.Inst.P1RoundStats.Blocks}";
         statsP2Blocks.text = $"{GameManager.Inst.P2RoundStats.Blocks}";
         statsP1Downs.text = $"{GameManager.Inst.P1RoundStats.Downs}";
-        statsP2Downs.text = $"{GameManager.Inst.P1RoundStats.Downs}";
+        statsP2Downs.text = $"{GameManager.Inst.P2RoundStats.Downs}";
 
         // Bell sound
         // TODO Show Bell?

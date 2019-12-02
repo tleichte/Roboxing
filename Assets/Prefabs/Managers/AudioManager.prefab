@@ -54,8 +54,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2916572348771265469}
   - component: {fileID: 2916572348771265466}
-  - component: {fileID: 5734708900927904705}
-  - component: {fileID: 4465244769255470051}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -90,51 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520fc325318456c4699bd069c8d7604b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenEmitter: {fileID: 5734708900927904705}
-  CloseEmitter: {fileID: 4465244769255470051}
---- !u!114 &5734708900927904705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2916572348771265468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Event: event:/ui/MetalTransition_Open
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!114 &4465244769255470051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2916572348771265468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Event: event:/ui/MetalTransition_Close
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
+  OpenEvent: event:/ui/MetalTransition_Open
+  CloseEvent: event:/ui/MetalTransition_Close
