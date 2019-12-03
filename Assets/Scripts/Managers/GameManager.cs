@@ -436,6 +436,9 @@ public class GameManager : MonoBehaviour
         GameData.P1Stats = new PlayerStats(p1Stats);
         GameData.P2Stats = new PlayerStats(p2Stats);
 
+        GameData.Reason = reason;
+        GameData.Result = result;
+
 
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(4);

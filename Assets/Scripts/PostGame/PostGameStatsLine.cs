@@ -16,7 +16,7 @@ public class PostGameStatsLine : MonoBehaviour
 
 
     public void Initialize(PlayerStat stat) {
-        AmountText.text = $"x{stat.Amount}";
+        AmountText.text = $"{stat.Amount}";
         ScoreText.text = $"{stat.Score}";
     }
 }

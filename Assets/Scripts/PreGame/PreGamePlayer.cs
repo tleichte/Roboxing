@@ -51,7 +51,7 @@ public class PreGamePlayer : MonoBehaviour
         foreach (var letter in LetterTexts)
             letter.Initialize(this);
 
-        Debug.Log(StyleView);
+        //Debug.Log(StyleView);
 
         StyleView.Initialize(this);
 

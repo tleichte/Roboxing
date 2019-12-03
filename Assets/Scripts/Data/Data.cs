@@ -61,7 +61,7 @@ public class HealthAmount {
     public int CalculateHealth(int upNumber) {
         int difference = MaxHealth - MinHealth;
         float upPercent = (9 - upNumber) / 9.0f;
-        Debug.Log(MinHealth + (int)(upPercent * difference));
+        //Debug.Log(MinHealth + (int)(upPercent * difference));
         return MinHealth + (int)(upPercent * difference);
     }
 }
@@ -136,8 +136,8 @@ public static class GameData {
     public static PlayerStats P1Stats = new PlayerStats();
     public static PlayerStats P2Stats = new PlayerStats();
 
-    public static GameOverResult Result;
-    public static GameOverReason Reason;
+    public static GameOverResult Result = GameOverResult.P2Win;
+    public static GameOverReason Reason = GameOverReason.Decision;
 
     public static void SetData(bool player1, PlayerData data) {
         if (player1)

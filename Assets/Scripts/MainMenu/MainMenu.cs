@@ -50,9 +50,9 @@ public class MainMenu : MonoBehaviour
                 CurrOption++;
             }
         }
-        else {
-            Debug.Log("Curtain in progress!");
-        }
+        //else {
+        //    Debug.Log("Curtain in progress!");
+        //}
     }
 
     private void Confirm() {
