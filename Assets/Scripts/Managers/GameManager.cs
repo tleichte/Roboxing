@@ -199,8 +199,8 @@ public class GameManager : MonoBehaviour
         foreach(var stat in stats) {
             score += stat.Hooks.Hits * HookStats.Standard.Points;
             score += stat.Hooks.StunHits * HookStats.Stunned.Points;
-            score += stat.Jabs.Hits * HookStats.Standard.Points;
-            score += stat.Jabs.StunHits * HookStats.Stunned.Points;
+            score += stat.Jabs.Hits * JabStats.Standard.Points;
+            score += stat.Jabs.StunHits * JabStats.Stunned.Points;
             score += stat.Blocks * blockPoints;
         }
         return score;
@@ -425,10 +425,8 @@ public class GameManager : MonoBehaviour
         int p1Score = CalculateScore(p1Stats);
         int p2Score = CalculateScore(p2Stats);
 
-        int cmp = p1Score.CompareTo(p2Score);
-
-        if (cmp > 0) return GameOverResult.P1Win;
-        if (cmp < 0) return GameOverResult.P2Win;
+        if (p1Score > p2Score) return GameOverResult.P1Win;
+        if (p2Score > p1Score) return GameOverResult.P2Win;
         return GameOverResult.Tie;
     }
 

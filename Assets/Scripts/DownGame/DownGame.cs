@@ -23,6 +23,8 @@ public class DownGame : MonoBehaviour
     private int currWire;
     private bool playing;
 
+    private float keyBuffer = 0.2f;
+    private float time;
 
     void Start() {
         GameManager.Inst.OnGameOver += OnGameOver;
@@ -39,12 +41,13 @@ public class DownGame : MonoBehaviour
 
 
     public void Initialize(Player p) {
-
+        
         GameBG.SetActive(true);
         RecoveredBG.SetActive(false);
         SleepBG.SetActive(false);
 
         currWire = 0;
+        time = 0;
         player = p;
         foreach (RectTransform wire in WireParent)
             Destroy(wire.gameObject);
@@ -69,10 +72,22 @@ public class DownGame : MonoBehaviour
     void Update()
     {
         if (playing) {
-            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyLeft) && wires[currWire].Position > -5)
-                wires[currWire].Position -= 1;
-            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).JoyRight) && wires[currWire].Position < 5)
-                wires[currWire].Position += 1;
+            if (Input.GetKey(HGDCabKeys.Of(player.PlayerPos).JoyLeft) && wires[currWire].Position > -5) {
+                if (time <= 0) {
+                    wires[currWire].Position -= 1;
+                    time = keyBuffer;
+                }
+                time -= Time.deltaTime;
+            }
+            else if (Input.GetKey(HGDCabKeys.Of(player.PlayerPos).JoyRight) && wires[currWire].Position < 5) {
+                if (time <= 0) {
+                    wires[currWire].Position += 1;
+                    time = keyBuffer;
+                }
+                time -= Time.deltaTime;
+            }
+            else
+                time = 0;
 
 
             if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).Top1) && wires[currWire].IsAligned) {

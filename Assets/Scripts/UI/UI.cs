@@ -152,7 +152,7 @@ public class UI : MonoBehaviour
     
     void OnPlayerDown() {
         RefreshDowns();
-        StatusText.text = "DOWN";
+        StatusText.text = "DOWN!";
         ShowThenHide(StatusTextGO);
     }
 
@@ -213,8 +213,8 @@ public class UI : MonoBehaviour
             case GameOverReason.Decision:
                 
                 switch (result) {
-                    case GameOverResult.P1Win: DecisionText.text = "P1 Wins!"; break;
-                    case GameOverResult.P2Win: DecisionText.text = "P2 Wins!"; break;
+                    case GameOverResult.P1Win: DecisionText.text = $"{ GameData.P1Data.Name } Wins!"; break;
+                    case GameOverResult.P2Win: DecisionText.text = $"{ GameData.P2Data.Name } Wins!"; break;
                     case GameOverResult.Tie: DecisionText.text = "Tie!"; break;
                 }
                 DecisionText.gameObject.SetActive(true);

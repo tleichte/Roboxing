@@ -34,9 +34,15 @@ public class PreGamePlayer : MonoBehaviour
 
     private PreGame preGame;
 
+    private float beforeHoldBuffer = 0.5f;
+    private float afterHoldBuffer = 0.1f;
+    private float heldTime;
+
     public void Initialize(PreGame preGame) {
         this.preGame = preGame;
         CurrentLetter = 0;
+
+        heldTime = 0;
 
         CurrentStyle = (Player1) ? 0 : 1;
 
@@ -76,12 +82,28 @@ public class PreGamePlayer : MonoBehaviour
                     LetterTexts[CurrentLetter].OnLetterChange();
                 }
 
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyDown)) {
-                    ChangeLetter(-1);
+                // Make letter changes go faster if held
+                void CheckKey(KeyCode key, int delta) {
+                    if (Input.GetKeyDown(key)) {
+                        heldTime = beforeHoldBuffer;
+                        ChangeLetter(delta);
+                    }
+                    else if (Input.GetKey(key)) {
+                        heldTime -= Time.deltaTime;
+                        if (heldTime <= 0) {
+                            heldTime = afterHoldBuffer;
+                            ChangeLetter(delta);
+                        }
+                    }
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp)) {
-                    ChangeLetter(1); 
-                }
+
+                KeyCode down = HGDCabKeys.Of(player).JoyDown;
+                KeyCode up = HGDCabKeys.Of(player).JoyUp;
+
+                CheckKey(down, -1);
+                CheckKey(up, 1);
+
+
 
                 void CurrentLetterChanged() {
                     CurrentLetter = Mathf.Max(0, CurrentLetter);
@@ -121,14 +143,14 @@ public class PreGamePlayer : MonoBehaviour
                     StyleView.OnStyleChange();
                 }
 
-                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyDown))
+                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1))
                     && !preGame.IsStyleTaken(CurrentStyle)) {
                     state = PreGamePlayerState.Ready;
                     preGame.OnReady(Player1);
                     ReadySwoosh.In();
                     StyleView.OnStyleExit(false);
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) || Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp)) {
+                else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
                     state = PreGamePlayerState.Name;
                     SmallNameSwoosh.Out(() => LargeNameSwoosh.In());
                     CurrentLetter = LetterTexts.Length - 1;
