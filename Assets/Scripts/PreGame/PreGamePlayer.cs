@@ -166,22 +166,7 @@ public class PreGamePlayer : MonoBehaviour
                     CurrentStyle++;
                     StyleChanged();
                 }
-
-                
-
                 break;
-            //case PreGamePlayerState.NotReady:
-            //    if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !preGame.IsStyleTaken(CurrentStyle)) {
-            //        state = PreGamePlayerState.Ready;
-            //        Ready.OnReady();
-            //        preGame.OnReady(Player1);
-            //    }
-            //    else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyUp) || Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
-            //        state = PreGamePlayerState.Style;
-            //        StyleView.OnStyleEnter();
-            //        Ready.OnEdit();
-            //    }
-            //    break;
             case PreGamePlayerState.Ready:
                 if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && !preGame.Starting) {
                     state = PreGamePlayerState.Style;

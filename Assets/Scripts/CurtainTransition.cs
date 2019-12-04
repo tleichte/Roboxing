@@ -27,7 +27,7 @@ public class CurtainTransition : MonoBehaviour {
         InProgress = true;
         Animator.SetBool("Open", true);
 
-        AudioManager.Inst.PlayOpen();
+        AudioManager.Inst.PlayCurtain(true);
         // TODO Play open one-shot
 
     }
@@ -37,7 +37,7 @@ public class CurtainTransition : MonoBehaviour {
         InProgress = true;
         Animator.SetBool("Open", false);
 
-        AudioManager.Inst.PlayClosed();
+        AudioManager.Inst.PlayCurtain(false);
         // TODO Play close one-shot
     }
 

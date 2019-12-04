@@ -268,14 +268,16 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
-                switch(p.Type) {
-                    case HitType.Hook:
-                        //AudioManager.Inst.OnHook();
-                        break;
-                    case HitType.Jab:
-                        //AudioManager.Inst.OnJab();
-                        break;
-                }
+                AudioManager.Inst.PlayPunch(p.Type);
+
+                //switch(p.Type) {
+                //    case HitType.Hook:
+                //        //AudioManager.Inst.OnHook();
+                //        break;
+                //    case HitType.Jab:
+                //        //AudioManager.Inst.OnJab();
+                //        break;
+                //}
 
                 break;
             default:

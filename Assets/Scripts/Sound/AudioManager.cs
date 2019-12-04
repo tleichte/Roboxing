@@ -11,7 +11,9 @@ public class AudioManager : MonoBehaviour
     [EventRef] public string OpenEvent;
     [EventRef] public string CloseEvent;
 
-    
+    [EventRef] public string PunchHook;
+    [EventRef] public string PunchJab;
+
     //public Sound[] sounds;
 
     //private List<string> jabs = new List<string>();
@@ -79,12 +81,19 @@ public class AudioManager : MonoBehaviour
     //private string GetRandomString(List<string> strArr) => strArr[Random.Range(0, strArr.Count - 1)];
 
 
-    public void PlayOpen() {
-        RuntimeManager.PlayOneShot(OpenEvent);
+    public void PlayCurtain(bool open) {
+        RuntimeManager.PlayOneShot(open ? OpenEvent : CloseEvent);
     }
 
-    public void PlayClosed() {
-        RuntimeManager.PlayOneShot(CloseEvent);
+    public void PlayPunch(HitType type) {
+        switch(type) {
+            case HitType.Hook:
+                RuntimeManager.PlayOneShot(PunchHook);
+                break;
+            case HitType.Jab:
+                RuntimeManager.PlayOneShot(PunchJab);
+                break;
+        }
+       // RuntimeManager.PlayOneShot();
     }
-
 }
