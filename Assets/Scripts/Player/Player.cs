@@ -221,6 +221,8 @@ public class Player : MonoBehaviour {
         });
 
         punchSide = !punchSide;
+
+        AudioManager.Inst.PlayPunchThrow(ht);
     }
 
     void KnockedDown() {

@@ -11,8 +11,10 @@ public class AudioManager : MonoBehaviour
     [EventRef] public string OpenEvent;
     [EventRef] public string CloseEvent;
 
-    [EventRef] public string PunchHook;
-    [EventRef] public string PunchJab;
+    [EventRef] public string HookImpact;
+    [EventRef] public string HookThrow;
+    [EventRef] public string JabImpact;
+    [EventRef] public string JabThrow;
 
     //public Sound[] sounds;
 
@@ -85,13 +87,24 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot(open ? OpenEvent : CloseEvent);
     }
 
-    public void PlayPunch(HitType type) {
-        switch(type) {
+    public void PlayPunchThrow(HitType type) {
+        switch (type) {
             case HitType.Hook:
-                RuntimeManager.PlayOneShot(PunchHook);
+                RuntimeManager.PlayOneShot(HookThrow);
                 break;
             case HitType.Jab:
-                RuntimeManager.PlayOneShot(PunchJab);
+                RuntimeManager.PlayOneShot(JabThrow);
+                break;
+        }
+    }
+
+    public void PlayPunchImpact(HitType type) {
+        switch(type) {
+            case HitType.Hook:
+                RuntimeManager.PlayOneShot(HookImpact);
+                break;
+            case HitType.Jab:
+                RuntimeManager.PlayOneShot(JabImpact);
                 break;
         }
        // RuntimeManager.PlayOneShot();

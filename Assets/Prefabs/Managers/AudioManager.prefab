@@ -90,5 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenEvent: event:/ui/MetalTransition_Open
   CloseEvent: event:/ui/MetalTransition_Close
-  PunchHook: event:/robots/Punch_Hook
-  PunchJab: event:/robots/Punch_Jab
+  HookImpact: event:/robots/Punch_Hook_Impact
+  HookThrow: event:/robots/Punch_Hook_Throw
+  JabImpact: event:/robots/Punch_Jab_Impact
+  JabThrow: event:/robots/Punch_Jab_Throw
