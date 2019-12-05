@@ -29,7 +29,7 @@ public class Boot : MonoBehaviour
 
         CanvasGroup.alpha = 1;
 
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(4.5f);
 
         CurtainTransition.Inst.Close(() => {
             SceneManager.LoadScene("MainMenu");
