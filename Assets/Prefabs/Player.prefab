@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 5774498531122465033}
   - component: {fileID: 6471141559094713704}
   - component: {fileID: 2913555392610917044}
+  - component: {fileID: 3400579810978360879}
   - component: {fileID: 5260155788515800955}
   - component: {fileID: 3193948129792602837}
   m_Layer: 0
@@ -390,6 +391,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &3400579810978360879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648603343684331456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3428880127d753344b543b829f1df3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scaler: {fileID: 2913555392610917044}
 --- !u!114 &5260155788515800955
 MonoBehaviour:
   m_ObjectHideFlags: 0

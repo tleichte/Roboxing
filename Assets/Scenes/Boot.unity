@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 190514404}
   - component: {fileID: 190514403}
   - component: {fileID: 190514402}
+  - component: {fileID: 190514407}
   - component: {fileID: 190514401}
   - component: {fileID: 190514406}
   - component: {fileID: 190514405}
@@ -431,6 +432,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &190514407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190514400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3428880127d753344b543b829f1df3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scaler: {fileID: 190514402}
 --- !u!1001 &411721206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -438,6 +452,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3613615962540927232, guid: fa5a79d7ab64eb64f8f24eb7f1653909,
+        type: 3}
+      propertyPath: StartsOpen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3613615962540927234, guid: fa5a79d7ab64eb64f8f24eb7f1653909,
         type: 3}
       propertyPath: m_LocalPosition.x

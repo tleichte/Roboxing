@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CurtainTransition : MonoBehaviour {
+    public bool StartsOpen;
+
     public bool InProgress { get; private set; }
 
     public Animator Animator;
@@ -20,6 +22,8 @@ public class CurtainTransition : MonoBehaviour {
 
         Inst = this;
         DontDestroyOnLoad(gameObject);
+        Animator.SetBool("Open", StartsOpen);
+        Animator.Play(StartsOpen ? "Open" : "Closed");
     }
 
     public void Open(Action onOpen = null) {
