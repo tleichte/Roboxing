@@ -17,6 +17,9 @@ public class Boot : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        Screen.fullScreen = true;
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+
         CanvasGroup.alpha = 0;
         time = 0;
         while (time < fadeTime) {
