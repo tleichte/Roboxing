@@ -88,10 +88,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520fc325318456c4699bd069c8d7604b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenEvent: event:/ui/MetalTransition_Open
-  CloseEvent: event:/ui/MetalTransition_Close
-  HookImpact: event:/robots/Punch_Hook_Impact
-  HookThrow: event:/robots/Punch_Hook_Throw
-  JabImpact: event:/robots/Punch_Jab_Impact
-  JabThrow: event:/robots/Punch_Jab_Throw
-  Downed: event:/robots/Robot_GoingDown
+  Sounds:
+  - {fileID: 11400000, guid: 88cb1d9676b5a294ba75cf0e8c50d452, type: 2}
+  - {fileID: 11400000, guid: aee989a0d5f0faa48b0a2288eb996eea, type: 2}
+  - {fileID: 11400000, guid: 74be976ff330b6c418e76262148afbe0, type: 2}
+  - {fileID: 11400000, guid: 9f08c7e5abed33d40a48046bbcdda0c8, type: 2}
+  - {fileID: 11400000, guid: ec0c9e2125d314b4cac9e69aef60d014, type: 2}
+  - {fileID: 11400000, guid: ab0be79e8e4bf3c4dbfffc7776af2e71, type: 2}
+  - {fileID: 11400000, guid: e43ebbfdf170c9f43a29ef0723a81432, type: 2}
+  - {fileID: 11400000, guid: 2e8a704a333484b4ab627d1841289ee7, type: 2}
+  - {fileID: 11400000, guid: aeb61d9ec1b55e7439ae986a3ecc55f5, type: 2}
+  - {fileID: 11400000, guid: 216feef37da3c5d4ca192294b975d807, type: 2}
+  - {fileID: 11400000, guid: 6362f9514d414644cb680b5f1739158a, type: 2}

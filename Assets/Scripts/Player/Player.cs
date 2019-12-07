@@ -274,7 +274,7 @@ public class Player : MonoBehaviour {
             if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
                 KnockedDown();
 
-                AudioManager.Inst.PlayDowned();
+                AudioManager.Inst.PlayOneShot("Downed");
             }
             else {
 

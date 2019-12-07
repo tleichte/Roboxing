@@ -8,28 +8,28 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
-    [Header("Curtain")]
-    [EventRef] public string OpenEvent;
-    [EventRef] public string CloseEvent;
+    public OneShotSoundSO[] Sounds;
+    private Dictionary<string, OneShotSoundSO> soundsDict;
 
-    [Header("Punches")]
-    [EventRef] public string HookImpact;
-    [EventRef] public string HookThrow;
-    [EventRef] public string JabImpact;
-    [EventRef] public string JabThrow;
 
-    [Header("Down")]
-    [EventRef] public string Downed;
+    //[Header("Curtain")]
+    //[EventRef] public string OpenEvent;
+    //[EventRef] public string CloseEvent;
 
-    //public Sound[] sounds;
+    //[Header("Punches")]
+    //[EventRef] public string HookImpact;
+    //[EventRef] public string HookThrow;
+    //[EventRef] public string JabImpact;
+    //[EventRef] public string JabThrow;
 
-    //private List<string> jabs = new List<string>();
-    //private List<string> hooks = new List<string>();
+    //[Header("Down")]
+    //[EventRef] public string Downed;
 
-    //private List<string> crowdAmbients = new List<string>();
-    //private List<string> crowdOofs = new List<string>();
-    //private List<string> crowdCheers = new List<string>();
-
+    //[Header("Ready")]
+    //[EventRef] public string RoundStart;
+    //[EventRef] public string RoundEnd;
+    //[EventRef] public string RoundTKO;
+    //[EventRef] public string RoundKO;
 
     //private Dictionary<string, Sound> soundsDict = new Dictionary<string, Sound>();
 
@@ -42,80 +42,56 @@ public class AudioManager : MonoBehaviour
         Inst = this;
         DontDestroyOnLoad(gameObject);
 
-        //foreach(var sound in sounds) {
-        //    sound.Source = gameObject.AddComponent<AudioSource>();
-        //    soundsDict.Add(sound.Name, sound);
-
-        //    void AddToList(List<string> list) => list.Add(sound.Name);
-
-        //    switch (sound.Tag) {
-        //        case SoundTag.Hook:         AddToList(hooks); break;
-        //        case SoundTag.Jab:          AddToList(jabs); break;
-        //        case SoundTag.CrowdAmbient: AddToList(crowdAmbients); break;
-        //        case SoundTag.CrowdOof:     AddToList(crowdOofs); break;
-        //        case SoundTag.CrowdCheer:   AddToList(crowdCheers); break;
-        //        default: break;
-        //    }
-        //}
+        soundsDict = new Dictionary<string, OneShotSoundSO>();
+        foreach (var sound in Sounds) {
+            soundsDict.Add(sound.Name, sound);
+        }
     }
 
-    //public bool IsPlaying(string name) {
-    //    if (soundsDict.ContainsKey(name)) {
-    //        return soundsDict[name].Source.isPlaying;
-    //    }
-    //    return false;
-    //}
-    
-    //public void PlaySound(string name) {
-    //    if (soundsDict.ContainsKey(name)) {
-    //        soundsDict[name].Source.Play();
-    //        Debug.Log($"Playing Sound: {name}");
-    //    }
-    //}
 
-    //public void StopSound(string name) {
-    //    if (soundsDict.ContainsKey(name)) {
-    //        soundsDict[name].Source.Stop();
-    //        Debug.Log($"Stopping Sound: {name}");
-    //    }
-    //}
-
-    //public void OnJab() => PlaySound(GetRandomString(jabs));
-    
-
-    //public void OnHook() => PlaySound(GetRandomString(hooks));
-
-    //private string GetRandomString(List<string> strArr) => strArr[Random.Range(0, strArr.Count - 1)];
+    public void PlayOneShot(string name) {
+        if (soundsDict.ContainsKey(name)) {
+            RuntimeManager.PlayOneShot(soundsDict[name].Event);
+        }
+        else {
+            Debug.LogWarning($"Couldn't Play Sound: {name}");
+        }
+    }
 
 
     public void PlayCurtain(bool open) {
-        RuntimeManager.PlayOneShot(open ? OpenEvent : CloseEvent);
+        PlayOneShot($"Curtain_{ (open ? "Open" : "Close") }");
     }
 
     public void PlayPunchThrow(HitType type) {
         switch (type) {
             case HitType.Hook:
-                RuntimeManager.PlayOneShot(HookThrow);
+                PlayOneShot("Hook_Throw");
                 break;
             case HitType.Jab:
-                RuntimeManager.PlayOneShot(JabThrow);
+                PlayOneShot("Jab_Throw");
                 break;
         }
     }
 
     public void PlayPunchImpact(HitType type) {
-        switch(type) {
+        switch (type) {
             case HitType.Hook:
-                RuntimeManager.PlayOneShot(HookImpact);
+                PlayOneShot("Hook_Impact");
                 break;
             case HitType.Jab:
-                RuntimeManager.PlayOneShot(JabImpact);
+                PlayOneShot("Jab_Impact");
                 break;
         }
-       // RuntimeManager.PlayOneShot();
     }
 
-    public void PlayDowned() {
-        RuntimeManager.PlayOneShot(Downed);
-    }
+    //public void PlayDowned() {
+    //    RuntimeManager.PlayOneShot(Downed);
+    //}
+
+
+
+
+    //public void Play
+
 }

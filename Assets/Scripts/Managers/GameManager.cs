@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour
                 if (RoundTime <= 0) {
                     RoundTime = 0;
                     State = GameState.BetweenRounds;
+                    AudioManager.Inst.PlayOneShot("Round_End");
                     //AudioManager.Inst.StopSound($"Round{Round}Song");
                     OnRoundOver?.Invoke();
                 }
@@ -319,6 +320,7 @@ public class GameManager : MonoBehaviour
         State = GameState.Fighting;
 
         if (roundStart) {
+            AudioManager.Inst.PlayOneShot("Round_Start");
             //AudioManager.Inst.PlaySound($"Round{Round}Song");
         }
         else {
@@ -374,6 +376,9 @@ public class GameManager : MonoBehaviour
                 default: result = GameOverResult.Tie; break;
             }
             yield return new WaitForSeconds(0.75f);
+
+            AudioManager.Inst.PlayOneShot("Round_TKO");
+
             EndGame(result, GameOverReason.TKO);
         }
         else {         
@@ -406,6 +411,8 @@ public class GameManager : MonoBehaviour
             case 2: result = GameOverResult.P2Win; break;
             default: result = GameOverResult.Tie; break;
         }
+
+        AudioManager.Inst.PlayOneShot("Round_KO");
 
         EndGame(result, GameOverReason.KO);
         // Game over
