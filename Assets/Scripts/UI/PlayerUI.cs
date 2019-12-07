@@ -29,8 +29,11 @@ public class PlayerUI : MonoBehaviour
     public Color recoverColor;
     public Color hitJabColor;
     public Color hitHookColor;
+    public Color StunnedColor;
 
     private Color targetColor;
+
+    private Color defaultColor = new Color(0, 0, 0, 0);
 
     void Start()
     {
@@ -81,14 +84,26 @@ public class PlayerUI : MonoBehaviour
         targetColor = recoverColor;
         IEnumerator FinishDownGame() {
             yield return new WaitForSeconds(1.5f);
-            targetColor = new Color(0, 0, 0, 0);
+            targetColor = defaultColor;
             DownGame.gameObject.SetActive(false);
             SleepModeExitGO.SetActive(false);
         }
         StartCoroutine(FinishDownGame());
     }
 
+    public void EnterStun() {
+        Color tmp = StunnedColor;
+        tmp.a = 0.6f;
+        UIBackground.color = tmp;
+        targetColor = StunnedColor;
+    }
+
+    public void ExitStun() {
+        targetColor = defaultColor;
+    }
+
     public void PlayerHit(HitType type) {
+        targetColor = defaultColor;
         switch (type) {
             case HitType.Hook:
                 UIBackground.color = hitHookColor;

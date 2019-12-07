@@ -300,11 +300,13 @@ public class Player : MonoBehaviour {
     public void GM_Stunned() {
         state = PlayerState.Stunned;
         SetAnimators((anim) => anim.SetBool("Stunned", true));
+        ui.EnterStun();
     }
 
     public void GM_FinishStun() {
         state = PlayerState.Idle;
         SetAnimators((anim) => anim.SetBool("Stunned", false));
+        ui.ExitStun();
     }
 
     private void OnPrefight() {
