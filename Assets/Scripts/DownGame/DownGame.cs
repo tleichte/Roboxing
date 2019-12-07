@@ -26,18 +26,18 @@ public class DownGame : MonoBehaviour
     private float keyBuffer = 0.2f;
     private float time;
 
-    void Start() {
-        GameManager.Inst.OnGameOver += OnGameOver;
+    //void Start() {
+    //    GameManager.Inst.OnGameOver += OnGameOver;
 
-    }
+    //}
 
-    void OnDestroy() {
-        GameManager.Inst.OnGameOver -= OnGameOver;
-    }
+    //void OnDestroy() {
+    //    GameManager.Inst.OnGameOver -= OnGameOver;
+    //}
 
-    void OnGameOver(GameOverResult _, GameOverReason __) {
-        if (playing) OnSleep();
-    }
+    //void OnGameOver(GameOverResult _, GameOverReason __) {
+    //    if (playing) OnSleep();
+    //}
 
 
     public void Initialize(Player p) {

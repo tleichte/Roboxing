@@ -83,6 +83,7 @@ public class Player : MonoBehaviour {
 
         GameManager.Inst.OnPrefight += OnPrefight;
         GameManager.Inst.OnReadyUp += OnReadyUp;
+        GameManager.Inst.OnFightReady += OnFightReady;
         GameManager.Inst.OnPlayerDown += PlayerDown;
         GameManager.Inst.OnFightStart += FightStart;
         GameManager.Inst.OnRoundOver += RoundOver;
@@ -93,6 +94,7 @@ public class Player : MonoBehaviour {
     private void OnDestroy() {
         GameManager.Inst.OnPrefight -= OnPrefight;
         GameManager.Inst.OnReadyUp -= OnReadyUp;
+        GameManager.Inst.OnFightReady -= OnFightReady;
         GameManager.Inst.OnPlayerDown -= PlayerDown;
         GameManager.Inst.OnFightStart -= FightStart;
         GameManager.Inst.OnRoundOver -= RoundOver;
@@ -141,7 +143,7 @@ public class Player : MonoBehaviour {
             case PlayerState.NotReady:
                 if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).Top1)) {
                     state = PlayerState.Ready;
-                    ui.OnPlayerReady();
+                    ui.PlayerReady();
                 }
                 break;
 
@@ -231,6 +233,7 @@ public class Player : MonoBehaviour {
             anim.SetBool("KnockDown", true);
             anim.SetBool("Fighting", false);
         });
+        ui.PlayerDown();
         GameManager.Inst.P_KnockedDown();
     }
 
@@ -277,17 +280,18 @@ public class Player : MonoBehaviour {
                 AudioManager.Inst.PlayOneShot("Downed");
             }
             else {
-
-                AudioManager.Inst.PlayPunchImpact(p.Type);
-
                 state = PlayerState.Hit;
-                
+
                 SetAnimators((anim) => {
                     anim.SetTrigger("Hit");
                     anim.SetTrigger(p.Type == HitType.Hook ? "Hook" : "Jab");
                     anim.SetTrigger(p.Direction.Left ? "Left" : "Right");
                     anim.SetTrigger(p.Direction.Up ? "Up" : "Down");
                 });
+
+                AudioManager.Inst.PlayPunchImpact(p.Type);
+
+                ui.PlayerHit(p.Type);
             }
         }
         StartCoroutine(GetHitAfterUpdate());
@@ -310,6 +314,11 @@ public class Player : MonoBehaviour {
 
     private void OnReadyUp() {
         state = PlayerState.NotReady;
+        ui.PlayerNotReady();
+    }
+
+    private void OnFightReady() {
+        ui.FightReady();
     }
 
     private void PlayerDown() {
@@ -349,10 +358,15 @@ public class Player : MonoBehaviour {
             if (IsDown) Recover();
             SetAnimators(anim => anim.SetBool("Victory", true));
         }
+        else if (reason == GameOverReason.KO || reason == GameOverReason.TKO) {
+            ui.EnterSleepMode();
+        }
     }
 
     private void OnTenCountStart() {
-        //TODO Start down game
+        if (IsDown) {
+            ui.StartDownGame();
+        }
     }
 
     //CALLED BY ANIMATOR

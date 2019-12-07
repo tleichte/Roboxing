@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -16,60 +17,89 @@ public class PlayerUI : MonoBehaviour
     [Header("Down Game")]
     public DownGame DownGame;
 
+    [Header("Background")]
+    public Image UIBackground;
+    public Color sleepColor;
+    public Color dangerColor;
+    public Color recoverColor;
+    public Color hitJabColor;
+    public Color hitHookColor;
+
+    private Color targetColor;
+
     void Start()
     {
         DownGame.gameObject.SetActive(false);
 
         ReadyBG.SetActive(false);
-
-        GameManager.Inst.OnReadyUp += OnPrefight;
-        GameManager.Inst.OnFightReady += OnFightReady;
-        GameManager.Inst.OnTenCountStart += OnTenCountStart;
         
+        targetColor = new Color(0, 0, 0, 0);
+        UIBackground.color = targetColor;
     }
     void OnDestroy() {
-        GameManager.Inst.OnReadyUp -= OnPrefight;
-        GameManager.Inst.OnFightReady -= OnFightReady;
-        GameManager.Inst.OnTenCountStart -= OnTenCountStart;
+        
     }
 
-    void OnPrefight() {
+    // GameManager Events
+
+    public void PlayerNotReady() {
         ReadyBG.SetActive(true);
         ReadyText.gameObject.SetActive(false);
         NotReadyText.gameObject.SetActive(true);
     }
 
-    void OnFightReady() {
+    public void FightReady() {
         ReadyBG.SetActive(false);
     }
 
-    void OnTenCountStart() {
-        if (Player.IsDown) {
+    public void StartDownGame() {
+        //if (Player.IsDown) {
             DownGame.gameObject.SetActive(true);
             DownGame.Initialize(Player);
-        }
+        //}
     }
 
-    public void OnPlayerReady() {
+    public void PlayerReady() {
         NotReadyText.gameObject.SetActive(false);
         ReadyText.gameObject.SetActive(true);
     }
-
     
-
 
     public void PlayerRecovered() {
         DownGame.OnRecover();
+        targetColor = recoverColor;
         IEnumerator FinishDownGame() {
             yield return new WaitForSeconds(1.5f);
+            targetColor = new Color(0, 0, 0, 0);
             DownGame.gameObject.SetActive(false);
         }
         StartCoroutine(FinishDownGame());
     }
 
+    public void PlayerHit(HitType type) {
+        switch (type) {
+            case HitType.Hook:
+                UIBackground.color = hitHookColor;
+                break;
+            case HitType.Jab:
+                UIBackground.color = hitJabColor;
+                break;
+        }
+    }
+
+    public void PlayerDown() {
+        UIBackground.color = Color.white;
+        targetColor = dangerColor;
+    }
+
+    public void EnterSleepMode() {
+        DownGame.OnSleep();
+        targetColor = sleepColor;
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        UIBackground.color = Color.Lerp(UIBackground.color, targetColor, 0.1f);
     }
 }
