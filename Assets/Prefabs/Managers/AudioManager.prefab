@@ -94,3 +94,4 @@ MonoBehaviour:
   HookThrow: event:/robots/Punch_Hook_Throw
   JabImpact: event:/robots/Punch_Jab_Impact
   JabThrow: event:/robots/Punch_Jab_Throw
+  Downed: event:/robots/Robot_GoingDown

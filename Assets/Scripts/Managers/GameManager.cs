@@ -268,8 +268,6 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
-                AudioManager.Inst.PlayPunchImpact(p.Type);
-
                 break;
             default:
                 break;

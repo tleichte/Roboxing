@@ -263,7 +263,7 @@ public class Player : MonoBehaviour {
     public void GM_Hit(Punch p) {
         IEnumerator GetHitAfterUpdate() {
             yield return null;
-
+            
             shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
             SetAnimators(anim => {
@@ -273,8 +273,13 @@ public class Player : MonoBehaviour {
 
             if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
                 KnockedDown();
+
+                AudioManager.Inst.PlayDowned();
             }
             else {
+
+                AudioManager.Inst.PlayPunchImpact(p.Type);
+
                 state = PlayerState.Hit;
                 
                 SetAnimators((anim) => {

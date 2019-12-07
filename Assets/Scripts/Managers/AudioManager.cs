@@ -8,13 +8,18 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
+    [Header("Curtain")]
     [EventRef] public string OpenEvent;
     [EventRef] public string CloseEvent;
 
+    [Header("Punches")]
     [EventRef] public string HookImpact;
     [EventRef] public string HookThrow;
     [EventRef] public string JabImpact;
     [EventRef] public string JabThrow;
+
+    [Header("Down")]
+    [EventRef] public string Downed;
 
     //public Sound[] sounds;
 
@@ -108,5 +113,9 @@ public class AudioManager : MonoBehaviour
                 break;
         }
        // RuntimeManager.PlayOneShot();
+    }
+
+    public void PlayDowned() {
+        RuntimeManager.PlayOneShot(Downed);
     }
 }
