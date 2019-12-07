@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class DownGame : MonoBehaviour
 {
-
-    public GameObject RecoveredBG;
-    public GameObject SleepBG;
-    public GameObject GameBG;
-
     public RectTransform TopNode;
     public RectTransform BottomNode;
 
@@ -41,10 +36,6 @@ public class DownGame : MonoBehaviour
 
 
     public void Initialize(Player p) {
-        
-        GameBG.SetActive(true);
-        RecoveredBG.SetActive(false);
-        SleepBG.SetActive(false);
 
         currWire = 0;
         time = 0;
@@ -105,12 +96,6 @@ public class DownGame : MonoBehaviour
     }
 
     public void OnSleep() {
-        GameBG.SetActive(false);
-        SleepBG.SetActive(true);
         playing = false;
-    }
-    public void OnRecover() {
-        GameBG.SetActive(false);
-        RecoveredBG.SetActive(true);
     }
 }

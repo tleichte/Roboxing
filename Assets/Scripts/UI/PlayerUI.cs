@@ -17,6 +17,11 @@ public class PlayerUI : MonoBehaviour
     [Header("Down Game")]
     public DownGame DownGame;
 
+    [Header("Sleep Mode")]
+    public GameObject SleepModeExitGO;
+    public GameObject SleepModeWarningGO;
+    public GameObject SleepModeGO;
+
     [Header("Background")]
     public Image UIBackground;
     public Color sleepColor;
@@ -30,6 +35,10 @@ public class PlayerUI : MonoBehaviour
     void Start()
     {
         DownGame.gameObject.SetActive(false);
+        SleepModeWarningGO.SetActive(false);
+        SleepModeGO.SetActive(false);
+        SleepModeExitGO.SetActive(false);
+
 
         ReadyBG.SetActive(false);
         
@@ -54,8 +63,9 @@ public class PlayerUI : MonoBehaviour
 
     public void StartDownGame() {
         //if (Player.IsDown) {
-            DownGame.gameObject.SetActive(true);
-            DownGame.Initialize(Player);
+        SleepModeWarningGO.SetActive(true);
+        DownGame.gameObject.SetActive(true);
+        DownGame.Initialize(Player);
         //}
     }
 
@@ -66,12 +76,14 @@ public class PlayerUI : MonoBehaviour
     
 
     public void PlayerRecovered() {
-        DownGame.OnRecover();
+        SleepModeWarningGO.SetActive(false);
+        SleepModeExitGO.SetActive(true);
         targetColor = recoverColor;
         IEnumerator FinishDownGame() {
             yield return new WaitForSeconds(1.5f);
             targetColor = new Color(0, 0, 0, 0);
             DownGame.gameObject.SetActive(false);
+            SleepModeExitGO.SetActive(false);
         }
         StartCoroutine(FinishDownGame());
     }
@@ -95,6 +107,8 @@ public class PlayerUI : MonoBehaviour
     public void EnterSleepMode() {
         DownGame.OnSleep();
         targetColor = sleepColor;
+        SleepModeWarningGO.SetActive(false);
+        SleepModeGO.SetActive(true);
     }
 
     // Update is called once per frame
