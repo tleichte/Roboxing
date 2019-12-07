@@ -377,7 +377,7 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.75f);
 
-            AudioManager.Inst.PlayOneShot("Round_TKO");
+            AudioManager.Inst.PlayOneShot("Round_KO");
 
             EndGame(result, GameOverReason.TKO);
         }
