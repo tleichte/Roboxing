@@ -250,6 +250,8 @@ public class GameManager : MonoBehaviour
                 if (player1) p2Stats[round].Blocks++;
                 else p1Stats[round].Blocks++;
 
+                AudioManager.Inst.PlayPunchBlocked(p.Type);
+
                 aPlayer.GM_Stunned();
                 stunCR = StartCoroutine(WaitStun(aPlayer));
                 break;

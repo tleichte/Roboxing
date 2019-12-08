@@ -243,6 +243,8 @@ public class Player : MonoBehaviour {
         Health = GameManager.Inst.P_GetHealth(Player1);
 
         ui.PlayerRecovered();
+
+        AudioManager.Inst.PlayOneShot("Recover");
     }
 
     private void SetAnimators(Action<Animator> armsAction) {

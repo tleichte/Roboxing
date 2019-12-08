@@ -85,6 +85,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayPunchBlocked(HitType type) {
+        switch (type) {
+            case HitType.Hook:
+                PlayOneShot("Hook_Blocked");
+                break;
+            case HitType.Jab:
+                PlayOneShot("Jab_Blocked");
+                break;
+        }
+    }
+
     //public void PlayDowned() {
     //    RuntimeManager.PlayOneShot(Downed);
     //}
