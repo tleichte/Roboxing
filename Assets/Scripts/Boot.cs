@@ -19,6 +19,7 @@ public class Boot : MonoBehaviour
     {
         Screen.fullScreen = true;
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        QualitySettings.vSyncCount = 1;
 
         CanvasGroup.alpha = 0;
         time = 0;
