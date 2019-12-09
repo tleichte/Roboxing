@@ -321,11 +321,13 @@ public class GameManager : MonoBehaviour
 
         State = GameState.Fighting;
 
+        AudioManager.Inst.PlayOneShot("Round_Start");
+
         if (roundStart) {
-            AudioManager.Inst.PlayOneShot("Round_Start");
             //AudioManager.Inst.PlaySound($"Round{Round}Song");
         }
         else {
+            
             // Change volume
         }
 

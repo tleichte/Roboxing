@@ -343,7 +343,10 @@ public class Player : MonoBehaviour {
     }
 
     private void StopFighting() {
-        SetAnimators(anim => anim.SetBool("Fighting", false));
+        SetAnimators(anim => {
+            anim.SetBool("Block", false);
+            anim.SetBool("Fighting", false);
+        });
     }
 
     private void OnGameOver(GameOverResult result, GameOverReason reason) {
@@ -381,7 +384,7 @@ public class Player : MonoBehaviour {
     }
 
     public void A_ToIdle() {
-        if (state != PlayerState.Ready) // Don't go to idle state if the player state is "ready"
+        if (state != PlayerState.Ready && state != PlayerState.NotReady) // Don't go to idle state if the player state is "ready"
             state = PlayerState.Idle;
     }
 
