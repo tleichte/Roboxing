@@ -6672,21 +6672,21 @@ MonoBehaviour:
   Player2: {fileID: 1985387013}
   HookStats:
     Standard:
-      Damage: 13
+      Damage: 15
       Points: 40
       Shake: 0.8
     Stunned:
-      Damage: 18
-      Points: 50
+      Damage: 19
+      Points: 55
       Shake: 1
   JabStats:
     Standard:
-      Damage: 4
+      Damage: 6
       Points: 10
       Shake: 0.4
     Stunned:
-      Damage: 8
-      Points: 15
+      Damage: 11
+      Points: 20
       Shake: 0.6
   InitialHealth: 100
   HealthAmounts:
