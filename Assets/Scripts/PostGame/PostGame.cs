@@ -16,10 +16,10 @@ public class PostGame : MonoBehaviour
     public TMP_Text ResultText;
     public TMP_Text ReasonText;
 
-    private bool p1Skip;
-    private bool p2Skip;
-
     private bool returning;
+
+    public PostGamePlayer Player1;
+    public PostGamePlayer Player2;
 
     // Start is called before the first frame update
     void Start()
@@ -75,12 +75,9 @@ public class PostGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!returning) {
-            if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) p1Skip = true;
-            if (Input.GetKeyDown(HGDCabKeys.P2.Top1)) p2Skip = true;
-
-            if (p1Skip && p2Skip) StartCoroutine(GoToMenuAfterDelay(0.5f));
+            if (Player1.WantsSkip && Player2.WantsSkip)
+                StartCoroutine(GoToMenuAfterDelay(0.5f));
 
             time += Time.deltaTime;
             TimeImage.fillAmount = time / PostGameDuration;
