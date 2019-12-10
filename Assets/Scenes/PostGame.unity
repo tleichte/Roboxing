@@ -1719,7 +1719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc292d1ac198991438b3731e17de8ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PostGameDuration: 10
+  PostGameDuration: 20
   TimeImage: {fileID: 1800606981}
   ResultText: {fileID: 824698083}
   ReasonText: {fileID: 381508464}

@@ -16,8 +16,13 @@ public class PostGame : MonoBehaviour
     public TMP_Text ResultText;
     public TMP_Text ReasonText;
 
+    private bool p1Skip;
+    private bool p2Skip;
+
+    private bool returning;
+
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
         
         string preReason = "";
@@ -49,9 +54,19 @@ public class PostGame : MonoBehaviour
         ReasonText.text = $"By {reason}";
 
         CurtainTransition.Inst.Open();
+    }
 
-        yield return new WaitForSecondsRealtime(PostGameDuration);
+    IEnumerator GoToMenuAfterDelay(float delay) {
+        returning = true;
 
+        yield return new WaitForSecondsRealtime(delay);
+
+        ReturnToMenu();
+    }
+
+
+    private void ReturnToMenu() {
+        returning = true;
         CurtainTransition.Inst.Close(() => {
             SceneManager.LoadScene("MainMenu");
         });
@@ -60,7 +75,19 @@ public class PostGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        TimeImage.fillAmount = time / PostGameDuration;
+
+        if (!returning) {
+            if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) p1Skip = true;
+            if (Input.GetKeyDown(HGDCabKeys.P2.Top1)) p2Skip = true;
+
+            if (p1Skip && p2Skip) StartCoroutine(GoToMenuAfterDelay(0.5f));
+
+            time += Time.deltaTime;
+            TimeImage.fillAmount = time / PostGameDuration;
+
+            if (time > PostGameDuration) {
+                ReturnToMenu();
+            }
+        }
     }
 }
