@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Audience
+    uniqueID: 1354103769
+    locked: 0
+  - name: Ring
+    uniqueID: 1433924311
+    locked: 0
   - name: TPBody
     uniqueID: 3439944897
     locked: 0
