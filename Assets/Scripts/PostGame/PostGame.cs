@@ -23,13 +23,20 @@ public class PostGame : MonoBehaviour
         string preReason = "";
         if (GameData.Result == GameOverResult.Tie) {
             ResultText.text = "Tie!";
+            ResultText.color = Color.white;
             preReason = "Double ";
         }
         else {
             string winner = "";
             switch (GameData.Result) {
-                case GameOverResult.P1Win: winner = GameData.P1Data.Name; break;
-                case GameOverResult.P2Win: winner = GameData.P2Data.Name; break;
+                case GameOverResult.P1Win:
+                    ResultText.color = AssetManager.Inst.PlayerStyles[GameData.P1Data.Style].UIColor;
+                    winner = GameData.P1Data.Name;
+                    break;
+                case GameOverResult.P2Win:
+                    ResultText.color = AssetManager.Inst.PlayerStyles[GameData.P2Data.Style].UIColor;
+                    winner = GameData.P2Data.Name;
+                    break;
             }
             ResultText.text = $"{winner} wins!";
         }

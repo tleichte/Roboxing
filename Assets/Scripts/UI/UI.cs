@@ -213,9 +213,18 @@ public class UI : MonoBehaviour
             case GameOverReason.Decision:
                 
                 switch (result) {
-                    case GameOverResult.P1Win: DecisionText.text = $"{ GameData.P1Data.Name } Wins!"; break;
-                    case GameOverResult.P2Win: DecisionText.text = $"{ GameData.P2Data.Name } Wins!"; break;
-                    case GameOverResult.Tie: DecisionText.text = "Tie!"; break;
+                    case GameOverResult.P1Win:
+                        DecisionText.text = $"{ GameData.P1Data.Name } Wins!";
+                        DecisionText.color = AssetManager.Inst.PlayerStyles[GameData.P1Data.Style].UIColor;
+                        break;
+                    case GameOverResult.P2Win:
+                        DecisionText.text = $"{ GameData.P2Data.Name } Wins!";
+                        DecisionText.color = AssetManager.Inst.PlayerStyles[GameData.P2Data.Style].UIColor;
+                        break;
+                    case GameOverResult.Tie:
+                        DecisionText.text = "Tie!";
+                        DecisionText.color = Color.white;
+                        break;
                 }
                 DecisionText.gameObject.SetActive(true);
 
