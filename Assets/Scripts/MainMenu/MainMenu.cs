@@ -72,7 +72,11 @@ public class MainMenu : MonoBehaviour
                     break;
                 case MainMenuOptionType.Quit:
                     CurtainTransition.Inst.Close(() => {
+#if UNITY_EDITOR
+                        UnityEditor.EditorApplication.isPlaying = false;
+#else
                         Application.Quit();
+#endif
                     });
                     break;
             }
