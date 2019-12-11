@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d66e57ac13875f428891ee5e93e271a, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
-  UIColor: {r: 0.015250206, g: 0, b: 1, a: 1}
+  UIColor: {r: 0, g: 0.41398382, b: 1, a: 1}
   HeadIdle: {fileID: 21300000, guid: 4172183fa5cabe347b67d7e1780991a1, type: 3}
   HeadHitUp: {fileID: 21300000, guid: df9afbb0150c42f49a952792c01ae42e, type: 3}
   HeadHitDown: {fileID: 21300000, guid: 21705a600d68a1141906f6c5f97b9c4d, type: 3}
