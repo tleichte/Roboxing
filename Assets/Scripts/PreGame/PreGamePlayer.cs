@@ -70,13 +70,13 @@ public class PreGamePlayer : MonoBehaviour
                 
                 void ChangeLetter(int delta) {
 
-                    if (Letters[CurrentLetter] == ' ') {
+                    if (Letters[CurrentLetter] == '_') {
                         Letters[CurrentLetter] = (delta > 0) ? 'A' : 'Z';
                     }
                     else {
                         Letters[CurrentLetter] += (char) delta;
                         if (Letters[CurrentLetter] < 'A' || Letters[CurrentLetter] > 'Z') {
-                            Letters[CurrentLetter] = ' ';
+                            Letters[CurrentLetter] = '_';
                         }
                     }
                     LetterTexts[CurrentLetter].OnLetterChange();
