@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
-
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
-    public OneShotSoundSO[] Sounds;
-    private Dictionary<string, OneShotSoundSO> soundsDict;
+    [FormerlySerializedAs("Sounds")]
+    public SoundEventSO[] OneShots;
+    private Dictionary<string, SoundEventSO> oneShotsDict;
 
+
+    public SoundEventSO[] Loops;
+    private Dictionary<string, StudioEventEmitter> loopsDict;
 
     //[Header("Curtain")]
     //[EventRef] public string OpenEvent;
@@ -42,20 +46,38 @@ public class AudioManager : MonoBehaviour
         Inst = this;
         DontDestroyOnLoad(gameObject);
 
-        soundsDict = new Dictionary<string, OneShotSoundSO>();
-        foreach (var sound in Sounds) {
-            soundsDict.Add(sound.Name, sound);
+        oneShotsDict = new Dictionary<string, SoundEventSO>();
+        foreach (var oneShot in OneShots) {
+            oneShotsDict.Add(oneShot.Name, oneShot);
+        }
+
+        loopsDict = new Dictionary<string, StudioEventEmitter>();
+        foreach (var loop in Loops) {
+            var emitter = gameObject.AddComponent<StudioEventEmitter>();
+            emitter.Event = loop.Event;
+            loopsDict.Add(loop.Name, emitter);
         }
     }
 
 
     public void PlayOneShot(string name) {
-        if (soundsDict.ContainsKey(name)) {
-            RuntimeManager.PlayOneShot(soundsDict[name].Event);
+        if (oneShotsDict.ContainsKey(name)) {
+            RuntimeManager.PlayOneShot(oneShotsDict[name].Event);
         }
         else {
-            Debug.LogWarning($"Couldn't Play Sound: {name}");
+            Debug.LogWarning($"Couldn't find One Shot: {name}");
         }
+    }
+
+    public void PlayLoop(string name) => GetLoop(name)?.Play();
+    public void StopLoop(string name) => GetLoop(name)?.Stop();
+
+    private StudioEventEmitter GetLoop(string name) {
+        if (loopsDict.ContainsKey(name)) {
+            return loopsDict[name];
+        }
+        Debug.LogWarning($"Couldn't find Loop: {name}");
+        return null;
     }
 
 

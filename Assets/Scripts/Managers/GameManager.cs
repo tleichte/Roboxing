@@ -108,6 +108,9 @@ public class GameManager : MonoBehaviour
     }
 
     void Start() {
+
+        AudioManager.Inst.PlayLoop("CrowdStatic");
+
         CurtainTransition.Inst.Open(() => {
             ToState(GameState.Prefight, 1f, () => OnPrefight?.Invoke());
         });
@@ -445,11 +448,14 @@ public class GameManager : MonoBehaviour
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(4);
             CurtainTransition.Inst.Close(() => {
+                AudioManager.Inst.StopLoop("CrowdStatic");
                 SceneManager.LoadScene("PostGame");
             });
         }
         StartCoroutine(ExitAfterDelay());
         OnGameOver?.Invoke(result, reason);
+
+
     }
 
 

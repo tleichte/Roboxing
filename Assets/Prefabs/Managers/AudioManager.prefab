@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520fc325318456c4699bd069c8d7604b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sounds:
+  OneShots:
   - {fileID: 11400000, guid: 88cb1d9676b5a294ba75cf0e8c50d452, type: 2}
   - {fileID: 11400000, guid: aee989a0d5f0faa48b0a2288eb996eea, type: 2}
   - {fileID: 11400000, guid: 74be976ff330b6c418e76262148afbe0, type: 2}
@@ -102,3 +102,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc35657a116a82b4fac497e73cb8edd8, type: 2}
   - {fileID: 11400000, guid: bc83ee2b3a5569a4aa4858d424488070, type: 2}
   - {fileID: 11400000, guid: fbf5ccd2a16596b459a211232ffd86b7, type: 2}
+  Loops:
+  - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}
