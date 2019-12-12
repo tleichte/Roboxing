@@ -102,5 +102,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc35657a116a82b4fac497e73cb8edd8, type: 2}
   - {fileID: 11400000, guid: bc83ee2b3a5569a4aa4858d424488070, type: 2}
   - {fileID: 11400000, guid: fbf5ccd2a16596b459a211232ffd86b7, type: 2}
+  - {fileID: 11400000, guid: 484bfb192f93a3c40ad11d39bccf91e3, type: 2}
+  - {fileID: 11400000, guid: 69babd2d706416d4ea96f68b92583d0e, type: 2}
+  - {fileID: 11400000, guid: 34fe87e02f523f24d99678643a4c1999, type: 2}
   Loops:
   - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}

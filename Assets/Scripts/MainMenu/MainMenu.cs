@@ -63,11 +63,13 @@ public class MainMenu : MonoBehaviour
                         SceneManager.LoadScene("PreGame");
                     });
                     break;
-                case MainMenuOptionType.Credits:
+                case MainMenuOptionType.Sound:
 
-                    CurtainTransition.Inst.Close(() => {
-                        CurtainTransition.Inst.Open();
-                    });
+                    int soundOn = PlayerPrefs.GetInt("Sound", 1);
+                    // Get sound
+
+
+                    //CurrOptionValue.MenuText.text = 
 
                     break;
                 case MainMenuOptionType.Quit:

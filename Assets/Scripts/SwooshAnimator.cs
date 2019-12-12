@@ -14,8 +14,15 @@ public class SwooshAnimator : MonoBehaviour
     private RectTransform rt;
     private Coroutine currRoutine;
 
+    public bool StartsIn;
+
+    public bool IsIn { get; private set; }
+
     private void Awake() {
         rt = GetComponent<RectTransform>();
+        IsIn = !StartsIn;
+        if (StartsIn) In();
+        else Out();
     }
 
     private void SetX(float pos) {
@@ -25,6 +32,8 @@ public class SwooshAnimator : MonoBehaviour
     private void DoAnim(bool isIn, Action onDone) {
 
         if (currRoutine != null) StopCoroutine(currRoutine);
+
+        IsIn = isIn;
 
         SwooshAnimationProps prevProps = isIn ? OutProps : InProps;
         SwooshAnimationProps nextProps = isIn ? InProps : OutProps;
@@ -44,9 +53,9 @@ public class SwooshAnimator : MonoBehaviour
     }
 
     public void In(Action onDone = null) {
-        DoAnim(true, onDone);
+        if (!IsIn) DoAnim(true, onDone);
     }
     public void Out(Action onDone = null) {
-        DoAnim(false, onDone);
+        if (IsIn) DoAnim(false, onDone);
     }
 }

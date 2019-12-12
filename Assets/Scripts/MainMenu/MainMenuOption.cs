@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public enum MainMenuOptionType { Play, Credits, Quit }
+public enum MainMenuOptionType { Play, Sound, Quit }
 
 public class MainMenuOption : MonoBehaviour
 {
@@ -12,18 +13,22 @@ public class MainMenuOption : MonoBehaviour
     //public GameObject LeftSelect;
     //public GameObject RightSelect;
 
-    public Animator Animator;
+    //public Animator Animator;
+
+    public SwooshAnimator Animator;
+
+    public TMP_Text MenuText;
+
+    public Color inColor;
+    public Color outColor;
+
 
     public void Highlight() {
-        //Animator.Play("Highlighted");
-        Animator.SetBool("Highlighted", true);
-        //LeftSelect.SetActive(true);
-        //RightSelect.SetActive(true);
+        Animator.In();
+        MenuText.color = inColor;
     }
     public void DeHighlight() {
-        //Animator.Play("DeHighlighted");
-        Animator.SetBool("Highlighted", false);
-        //LeftSelect.SetActive(false);
-        //RightSelect.SetActive(false);
+        Animator.Out();
+        MenuText.color = outColor;
     }
 }

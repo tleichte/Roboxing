@@ -473,6 +473,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  StartsIn: 1
 --- !u!1 &829865210577817436
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +881,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  StartsIn: 0
 --- !u!1 &4574580404759564482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1371,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  StartsIn: 0
 --- !u!1001 &665596454866608215
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -67,6 +67,7 @@ public class DownGame : MonoBehaviour
                 if (time <= 0) {
                     wires[currWire].Position -= 1;
                     time = keyBuffer;
+                    AudioManager.Inst.PlayOneShot("DownLR");
                 }
                 time -= Time.deltaTime;
             }
@@ -74,6 +75,7 @@ public class DownGame : MonoBehaviour
                 if (time <= 0) {
                     wires[currWire].Position += 1;
                     time = keyBuffer;
+                    AudioManager.Inst.PlayOneShot("DownLR");
                 }
                 time -= Time.deltaTime;
             }
@@ -82,6 +84,7 @@ public class DownGame : MonoBehaviour
 
 
             if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).Top1) && wires[currWire].IsAligned) {
+                AudioManager.Inst.PlayOneShot("DownCorrect");
                 wires[currWire].Confirmed = true;
                 currWire++;
                 if (currWire < wires.Length)
@@ -89,11 +92,18 @@ public class DownGame : MonoBehaviour
             }
 
             if (currWire >= wires.Length) {
-                player.Recover();
-                playing = false;
+                FinishGame();
             }
         }
     }
+
+
+    private void FinishGame() {
+        AudioManager.Inst.PlayOneShot("DownDone");
+        player.Recover();
+        playing = false;
+    }
+
 
     public void OnSleep() {
         playing = false;
