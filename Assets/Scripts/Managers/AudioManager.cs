@@ -8,6 +8,11 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
+    public bool SoundOn {
+        get { return PrefItoB(PlayerPrefs.GetInt("Sound", 1)); }
+        private set { PlayerPrefs.SetInt("Sound", PrefBtoI(value)); }
+    }
+
     [FormerlySerializedAs("Sounds")]
     public SoundEventSO[] OneShots;
     private Dictionary<string, SoundEventSO> oneShotsDict;
@@ -118,13 +123,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    //public void PlayDowned() {
-    //    RuntimeManager.PlayOneShot(Downed);
-    //}
+    public void ToggleMute() {
+        SoundOn = !SoundOn;
 
+        //RuntimeManager.GetBus()
 
+        //Change audio stuff to muted
 
+    }
 
-    //public void Play
-
+    private bool PrefItoB(int i) => i != 0;
+    private int PrefBtoI(bool b) => b ? 1 : 0;
 }

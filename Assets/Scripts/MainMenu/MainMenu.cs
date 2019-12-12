@@ -37,8 +37,7 @@ public class MainMenu : MonoBehaviour
 
         var soundOpt = Options.First((x) => x.Type == MainMenuOptionType.Sound);
         if (soundOpt != null) {
-            bool soundOn = PrefItoB(PlayerPrefs.GetInt("Sound", 1));
-            SetSoundText(soundOpt, soundOn);
+            SetSoundText(soundOpt);
         }
     }
 
@@ -71,10 +70,8 @@ public class MainMenu : MonoBehaviour
                     break;
                 case MainMenuOptionType.Sound:
 
-                    bool soundOn = PrefItoB(PlayerPrefs.GetInt("Sound", 1));
-                    soundOn = !soundOn;
-                    PlayerPrefs.SetInt("Sound", PrefBtoI(soundOn));
-                    SetSoundText(CurrOptionValue, soundOn);
+                    AudioManager.Inst.ToggleMute();
+                    SetSoundText(CurrOptionValue);
 
                     break;
                 case MainMenuOptionType.Quit:
@@ -89,10 +86,7 @@ public class MainMenu : MonoBehaviour
             }
     }
 
-    private bool PrefItoB(int i) => i != 0;
-    private int PrefBtoI(bool b) => b ? 1 : 0;
-
-    private void SetSoundText(MainMenuOption option, bool on) {
-        option.MenuText.text = $"Sound: {(on ? "ON" : "OFF" )}";
+    private void SetSoundText(MainMenuOption option) {
+        option.MenuText.text = $"Sound: {(AudioManager.Inst.SoundOn ? "ON" : "OFF" )}";
     }
 }
