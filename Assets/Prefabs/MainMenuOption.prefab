@@ -139,10 +139,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAY
+  m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8d9c8b0518bafa44382143c3dc23333d, type: 2}
-  m_sharedMaterial: {fileID: 6484796517233811368, guid: 8d9c8b0518bafa44382143c3dc23333d,
+  m_fontAsset: {fileID: 11400000, guid: 8803b641500111047afdaf1b3a31c2d4, type: 2}
+  m_sharedMaterial: {fileID: -8627386455414754877, guid: 8803b641500111047afdaf1b3a31c2d4,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -168,13 +168,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.1
-  m_fontSizeBase: 27.1
+  m_fontSize: 38.54
+  m_fontSizeBase: 38.54
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 17
+  m_fontStyle: 1
   m_textAlignment: 4128
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -487,6 +487,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  StartsIn: 0
 --- !u!114 &6586343038255650969
 MonoBehaviour:
   m_ObjectHideFlags: 0
