@@ -17,6 +17,7 @@ public class PreGame : MonoBehaviour
         Player1.Initialize(this);
         Player2.Initialize(this);
         CurtainTransition.Inst.Open();
+        AudioManager.Inst.PlayLoop("PreGameStatic");
     }
 
 
@@ -24,6 +25,7 @@ public class PreGame : MonoBehaviour
         if (!Starting) {
             starting = true;
             CurtainTransition.Inst.Close(() => {
+                AudioManager.Inst.StopLoop("PreGameStatic");
                 SceneManager.LoadScene("MainMenu");
             });
         }
@@ -47,6 +49,7 @@ public class PreGame : MonoBehaviour
             IEnumerator StartAfterDelay() {
                 starting = true;
                 yield return new WaitForSecondsRealtime(0.5f);
+                AudioManager.Inst.StopLoop("PreGameStatic");
                 CurtainTransition.Inst.Close(() => {
                     SceneManager.LoadScene("InGame");
                 });
