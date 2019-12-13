@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
+    public string MasterBusString = "bus:/";
+    private FMOD.Studio.Bus masterBus;
+
     public bool SoundOn {
         get { return PrefItoB(PlayerPrefs.GetInt("Sound", 1)); }
         private set { PlayerPrefs.SetInt("Sound", PrefBtoI(value)); }
@@ -62,6 +65,9 @@ public class AudioManager : MonoBehaviour
             emitter.Event = loop.Event;
             loopsDict.Add(loop.Name, emitter);
         }
+
+        masterBus = RuntimeManager.GetBus(MasterBusString);
+        masterBus.setMute(!SoundOn);
     }
 
 
@@ -126,10 +132,20 @@ public class AudioManager : MonoBehaviour
     public void ToggleMute() {
         SoundOn = !SoundOn;
 
+        SetMute();
+
+        bool tmp;
+        masterBus.getMute(out tmp);
+        Debug.Log($"Audio Listener set to {SoundOn}, MasterBus mute = {tmp}");
+
         //RuntimeManager.GetBus()
 
         //Change audio stuff to muted
 
+    }
+
+    private void SetMute() {
+        masterBus.setMute(!SoundOn);
     }
 
     private bool PrefItoB(int i) => i != 0;
