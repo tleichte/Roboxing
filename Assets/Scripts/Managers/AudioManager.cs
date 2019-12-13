@@ -8,9 +8,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst;
 
-    //public string MasterBusString = "bus:/";
-    //private FMOD.Studio.Bus masterBus;
-
     public bool SoundOn {
         get { return PrefItoB(PlayerPrefs.GetInt("Sound", 1)); }
         private set { PlayerPrefs.SetInt("Sound", PrefBtoI(value)); }
@@ -20,30 +17,8 @@ public class AudioManager : MonoBehaviour
     public SoundEventSO[] OneShots;
     private Dictionary<string, SoundEventSO> oneShotsDict;
 
-
     public SoundEventSO[] Loops;
     private Dictionary<string, StudioEventEmitter> loopsDict;
-
-    //[Header("Curtain")]
-    //[EventRef] public string OpenEvent;
-    //[EventRef] public string CloseEvent;
-
-    //[Header("Punches")]
-    //[EventRef] public string HookImpact;
-    //[EventRef] public string HookThrow;
-    //[EventRef] public string JabImpact;
-    //[EventRef] public string JabThrow;
-
-    //[Header("Down")]
-    //[EventRef] public string Downed;
-
-    //[Header("Ready")]
-    //[EventRef] public string RoundStart;
-    //[EventRef] public string RoundEnd;
-    //[EventRef] public string RoundTKO;
-    //[EventRef] public string RoundKO;
-
-    //private Dictionary<string, Sound> soundsDict = new Dictionary<string, Sound>();
 
     void Awake() {
 
@@ -66,7 +41,6 @@ public class AudioManager : MonoBehaviour
             loopsDict.Add(loop.Name, emitter);
         }
 
-        //masterBus = RuntimeManager.GetBus(MasterBusString);
         SetMute();
     }
 
@@ -131,14 +105,7 @@ public class AudioManager : MonoBehaviour
 
     public void ToggleMute() {
         SoundOn = !SoundOn;
-
         SetMute();
-        //Debug.Log($"Audio Listener set to {SoundOn}, MasterBus mute = {tmp}");
-
-        //RuntimeManager.GetBus()
-
-        //Change audio stuff to muted
-
     }
 
     private void SetMute() {
@@ -146,7 +113,6 @@ public class AudioManager : MonoBehaviour
         UnityEditor.EditorUtility.audioMasterMute = !SoundOn;
 #else
         RuntimeManager.MuteAllEvents(!SoundOn);
-        
 #endif
     }
 
