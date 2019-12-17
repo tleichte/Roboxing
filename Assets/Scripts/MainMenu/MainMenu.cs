@@ -46,12 +46,15 @@ public class MainMenu : MonoBehaviour
     {
         if (!CurtainTransition.Inst.InProgress) {
             if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) {
+                AudioManager.Inst.PlayOneShot("Menu_Accept");
                 Confirm();
             }
             if (Input.GetKeyDown(HGDCabKeys.P1.JoyUp)) {
+                AudioManager.Inst.PlayOneShot("Menu_Up");
                 CurrOption--;
             }
             if (Input.GetKeyDown(HGDCabKeys.P1.JoyDown)) {
+                AudioManager.Inst.PlayOneShot("Menu_Down");
                 CurrOption++;
             }
         }

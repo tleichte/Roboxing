@@ -70,6 +70,8 @@ public class PreGamePlayer : MonoBehaviour
                 
                 void ChangeLetter(int delta) {
 
+                    AudioManager.Inst.PlayOneShot("PreGame_LetterChange");
+
                     if (Letters[CurrentLetter] == '_') {
                         Letters[CurrentLetter] = (delta > 0) ? 'A' : 'Z';
                     }
@@ -117,6 +119,7 @@ public class PreGamePlayer : MonoBehaviour
                         SmallNameText.text = new string(Letters);
                         
                         LargeNameSwoosh.Out(() => SmallNameSwoosh.In());
+                        AudioManager.Inst.PlayOneShot("PreGame_NameAccept");
                     }
                 }
 
@@ -136,19 +139,25 @@ public class PreGamePlayer : MonoBehaviour
             case PreGamePlayerState.Style:
 
                 void StyleChanged() {
-
+                    AudioManager.Inst.PlayOneShot("PreGame_StyleChange");
                     int styleLength = AssetManager.Inst.PlayerStyles.Length;
                     if (CurrentStyle < 0) CurrentStyle = styleLength - 1;
                     if (CurrentStyle >= styleLength) CurrentStyle = 0;
                     StyleView.OnStyleChange();
                 }
 
-                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1))
-                    && !preGame.IsStyleTaken(CurrentStyle)) {
-                    state = PreGamePlayerState.Ready;
-                    preGame.OnReady(Player1);
-                    ReadySwoosh.In();
-                    StyleView.OnStyleExit(false);
+                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1))) {
+
+                    if (preGame.IsStyleTaken(CurrentStyle)) {
+                        AudioManager.Inst.PlayOneShot("PreGame_StyleTaken");
+                    }
+                    else {
+                        AudioManager.Inst.PlayOneShot("PreGame_Ready");
+                        state = PreGamePlayerState.Ready;
+                        preGame.OnReady(Player1);
+                        ReadySwoosh.In();
+                        StyleView.OnStyleExit(false);
+                    }
                 }
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
                     state = PreGamePlayerState.Name;

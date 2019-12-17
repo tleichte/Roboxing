@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520fc325318456c4699bd069c8d7604b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MasterBusString: bus:/
   OneShots:
   - {fileID: 11400000, guid: 88cb1d9676b5a294ba75cf0e8c50d452, type: 2}
   - {fileID: 11400000, guid: aee989a0d5f0faa48b0a2288eb996eea, type: 2}
@@ -106,6 +105,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 484bfb192f93a3c40ad11d39bccf91e3, type: 2}
   - {fileID: 11400000, guid: 69babd2d706416d4ea96f68b92583d0e, type: 2}
   - {fileID: 11400000, guid: 34fe87e02f523f24d99678643a4c1999, type: 2}
+  - {fileID: 11400000, guid: 9a31162b928347949a23335baf8bd1fe, type: 2}
+  - {fileID: 11400000, guid: 55f643f89b4664f4ca6b4e11760dad33, type: 2}
+  - {fileID: 11400000, guid: 87c037de368a6cd4c93f5a273124637d, type: 2}
+  - {fileID: 11400000, guid: 1b5afd51f5f2e204f8c0922467f35694, type: 2}
+  - {fileID: 11400000, guid: e1c78379485dc5f4aa02eae6dbeb4ec2, type: 2}
+  - {fileID: 11400000, guid: d1e45d08369ccaf47b8c1d51608c53dd, type: 2}
+  - {fileID: 11400000, guid: 1bc34e9a4b0111f498b9ec6270839ba4, type: 2}
+  - {fileID: 11400000, guid: b73492d25cd75c845ac38d1137d2e6fd, type: 2}
+  - {fileID: 11400000, guid: e98e77bed05afae4b902bc116fafed8d, type: 2}
   Loops:
   - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}
   - {fileID: 11400000, guid: 72c0ac6d016bc4448849fe94618f71c0, type: 2}

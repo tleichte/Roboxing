@@ -27,6 +27,7 @@ public class PostGamePlayer : MonoBehaviour {
         if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !WantsSkip) {
             WantsSkip = true;
             SkipSwoosh.In();
+            AudioManager.Inst.PlayOneShot("PostGame_Skip");
         }
         if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && WantsSkip) {
             WantsSkip = false;
