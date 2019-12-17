@@ -111,6 +111,8 @@ public class PreGamePlayer : MonoBehaviour
                     CurrentLetter = Mathf.Max(0, CurrentLetter);
                     foreach (var letter in LetterTexts) {
                         letter.OnCurrentLetterChanged();
+
+                        AudioManager.Inst.PlayOneShot("PreGame_NextLetter");
                     }
                     if (CurrentLetter >= Letters.Length) {
                         state = PreGamePlayerState.Style;

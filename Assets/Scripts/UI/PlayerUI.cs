@@ -73,6 +73,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void PlayerReady() {
+        AudioManager.Inst.PlayOneShot("InGame_Ready");
         NotReadyText.gameObject.SetActive(false);
         ReadyText.gameObject.SetActive(true);
     }
