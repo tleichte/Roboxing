@@ -163,6 +163,7 @@ public class PreGamePlayer : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
                     state = PreGamePlayerState.Name;
+                    AudioManager.Inst.PlayOneShot("PreGame_CancelStyle");
                     SmallNameSwoosh.Out(() => LargeNameSwoosh.In());
                     CurrentLetter = LetterTexts.Length - 1;
                     StyleView.OnStyleExit(true);
@@ -181,6 +182,8 @@ public class PreGamePlayer : MonoBehaviour
             case PreGamePlayerState.Ready:
                 if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && !preGame.Starting) {
                     state = PreGamePlayerState.Style;
+
+                    AudioManager.Inst.PlayOneShot("PreGame_CancelReady");
 
                     ReadySwoosh.Out();
 
