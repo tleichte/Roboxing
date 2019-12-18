@@ -118,6 +118,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ecac72611e8c3564a9c49e2a8bfe3f1d, type: 2}
   - {fileID: 11400000, guid: f8c1188ac3d2eef4780777f9ef986d7a, type: 2}
   - {fileID: 11400000, guid: 495af5c54a5c47249b9aa6dccad5f1d6, type: 2}
+  - {fileID: 11400000, guid: 139dd73aa63ca8f4c99a0a217e8f865b, type: 2}
   Loops:
   - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}
   - {fileID: 11400000, guid: 72c0ac6d016bc4448849fe94618f71c0, type: 2}
