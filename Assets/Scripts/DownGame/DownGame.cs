@@ -19,26 +19,9 @@ public class DownGame : MonoBehaviour
     private bool playing;
 
     private float keyBuffer = 0.2f;
-    private float time;
-
-    //void Start() {
-    //    GameManager.Inst.OnGameOver += OnGameOver;
-
-    //}
-
-    //void OnDestroy() {
-    //    GameManager.Inst.OnGameOver -= OnGameOver;
-    //}
-
-    //void OnGameOver(GameOverResult _, GameOverReason __) {
-    //    if (playing) OnSleep();
-    //}
-
 
     public void Initialize(Player p) {
-
         currWire = 0;
-        time = 0;
         player = p;
         foreach (RectTransform wire in WireParent)
             Destroy(wire.gameObject);
@@ -63,27 +46,18 @@ public class DownGame : MonoBehaviour
     void Update()
     {
         if (playing) {
-            if (Input.GetKey(HGDCabKeys.Of(player.PlayerPos).JoyLeft) && wires[currWire].Position > -5) {
-                if (time <= 0) {
-                    wires[currWire].Position -= 1;
-                    time = keyBuffer;
-                    AudioManager.Inst.PlayOneShot("DownLR");
-                }
-                time -= Time.deltaTime;
+
+            if (wires[currWire].Position > -5 && InputManager.GetKeyDelay(player.Player1, InputType.Left, keyBuffer)) { 
+                wires[currWire].Position -= 1;
+                AudioManager.Inst.PlayOneShot("DownLR");
             }
-            else if (Input.GetKey(HGDCabKeys.Of(player.PlayerPos).JoyRight) && wires[currWire].Position < 5) {
-                if (time <= 0) {
-                    wires[currWire].Position += 1;
-                    time = keyBuffer;
-                    AudioManager.Inst.PlayOneShot("DownLR");
-                }
-                time -= Time.deltaTime;
+            if (wires[currWire].Position < 5 && InputManager.GetKeyDelay(player.Player1, InputType.Right, keyBuffer)) {
+                wires[currWire].Position += 1;
+                AudioManager.Inst.PlayOneShot("DownLR");
             }
-            else
-                time = 0;
 
 
-            if (Input.GetKeyDown(HGDCabKeys.Of(player.PlayerPos).Top1) && wires[currWire].IsAligned) {
+            if (wires[currWire].IsAligned && InputManager.GetKeyDown(player.Player1, InputType.Confirm)) {
                 AudioManager.Inst.PlayOneShot("DownCorrect");
                 wires[currWire].Confirmed = true;
                 currWire++;

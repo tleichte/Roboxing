@@ -48,15 +48,15 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         if (!CurtainTransition.Inst.InProgress) {
-            if (Input.GetKeyDown(HGDCabKeys.P1.Top1)) {
+            if (InputManager.GetKeyDown(true, InputType.Confirm)) {
                 AudioManager.Inst.PlayOneShot("Menu_Accept");
                 Confirm();
             }
-            if (Input.GetKeyDown(HGDCabKeys.P1.JoyUp)) {
+            if (InputManager.GetKeyDown(true, InputType.Up)) {
                 AudioManager.Inst.PlayOneShot("Menu_Up");
                 CurrOption--;
             }
-            if (Input.GetKeyDown(HGDCabKeys.P1.JoyDown)) {
+            if (InputManager.GetKeyDown(true, InputType.Down)) {
                 AudioManager.Inst.PlayOneShot("Menu_Down");
                 CurrOption++;
             }

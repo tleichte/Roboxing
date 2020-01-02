@@ -44,7 +44,6 @@ public class Player : MonoBehaviour {
     private Vector3 fpStartingPos;
     private Vector3 tpStartingPos;
 
-    //
     private Vector3 currMoveOffset;
 
     private bool punchSide; // true for left, false for right
@@ -130,8 +129,8 @@ public class Player : MonoBehaviour {
         CalculateCamera();
 
         if (CanMove) {
-            if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyLeft))         Move(-1);
-            else if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).JoyRight))   Move(1);
+            if (InputManager.GetKeyDelay(Player1, InputType.Left, 0.5f))         Move(-1); 
+            else if (InputManager.GetKeyDelay(Player1, InputType.Right, 0.5f))   Move(1);
         }
 
         switch (state) {
@@ -141,7 +140,7 @@ public class Player : MonoBehaviour {
                 break;
 
             case PlayerState.NotReady:
-                if (Input.GetKeyDown(HGDCabKeys.Of(PlayerPos).Top1)) {
+                if (InputManager.GetKeyDown(Player1, InputType.Confirm)) { 
                     state = PlayerState.Ready;
                     ui.PlayerReady();
                 }
@@ -154,11 +153,11 @@ public class Player : MonoBehaviour {
                 break;
 
             case PlayerState.UpBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) StopBlock();
+                if (!InputManager.GetKey(Player1, InputType.Up)) StopBlock(); 
                 break;
 
             case PlayerState.DownBlock:
-                if (!Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) StopBlock();
+                if (!InputManager.GetKey(Player1, InputType.Down)) StopBlock(); 
                 break;
 
             case PlayerState.Idle:
@@ -168,14 +167,14 @@ public class Player : MonoBehaviour {
                 //}
                 //break;
                 
-                if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top1))       ThrowPunch(true, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Top2))       ThrowPunch(true, HitType.Hook);
+                if (InputManager.GetKey(Player1, InputType.UpJab))       ThrowPunch(true, HitType.Jab); 
+                else if (InputManager.GetKey(Player1, InputType.UpHook))       ThrowPunch(true, HitType.Hook); 
 
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom1))    ThrowPunch(false, HitType.Jab);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).Bottom2))    ThrowPunch(false, HitType.Hook);
+                else if (InputManager.GetKey(Player1, InputType.DownJab))    ThrowPunch(false, HitType.Jab); 
+                else if (InputManager.GetKey(Player1, InputType.DownHook))    ThrowPunch(false, HitType.Hook); 
 
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyUp)) Block(true);
-                else if (Input.GetKey(HGDCabKeys.Of(PlayerPos).JoyDown)) Block(false);
+                else if (InputManager.GetKey(Player1, InputType.Up)) Block(true); 
+                else if (InputManager.GetKey(Player1, InputType.Down)) Block(false); 
 
                 break;
 
