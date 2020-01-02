@@ -70,6 +70,7 @@ public class MainMenu : MonoBehaviour
         
             switch (CurrOptionValue.Type) {
                 case MainMenuOptionType.Play:
+                    AudioManager.Inst.MMSToPreGame();
                     CurtainTransition.Inst.Close(() => {
                         SceneManager.LoadScene("PreGame");
                     });
