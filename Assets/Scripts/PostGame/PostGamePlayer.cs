@@ -24,12 +24,12 @@ public class PostGamePlayer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(HGDCabKeys.Of(player).Top1) && !WantsSkip) {
+        if (!WantsSkip && InputManager.GetKeyDown(Player1, InputType.Confirm)) {
             WantsSkip = true;
             SkipSwoosh.In();
             AudioManager.Inst.PlayOneShot("PostGame_Skip");
         }
-        if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && WantsSkip) {
+        if (WantsSkip && InputManager.GetKeyDown(Player1, InputType.Back)) {
             WantsSkip = false;
             SkipSwoosh.Out();
             AudioManager.Inst.PlayOneShot("PostGame_CancelSkip");

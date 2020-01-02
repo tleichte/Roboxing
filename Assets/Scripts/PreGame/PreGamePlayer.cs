@@ -36,13 +36,16 @@ public class PreGamePlayer : MonoBehaviour
 
     private float beforeHoldBuffer = 0.5f;
     private float afterHoldBuffer = 0.1f;
-    private float heldTime;
+    //private float heldTime;
+
+    private bool upHolding;
+    private bool downHolding;
 
     public void Initialize(PreGame preGame) {
         this.preGame = preGame;
         CurrentLetter = 0;
 
-        heldTime = 0;
+        //heldTime = 0;
 
         CurrentStyle = (Player1) ? 0 : 1;
 
@@ -84,26 +87,31 @@ public class PreGamePlayer : MonoBehaviour
                     LetterTexts[CurrentLetter].OnLetterChange();
                 }
 
+
+
                 // Make letter changes go faster if held
-                void CheckKey(KeyCode key, int delta) {
-                    if (Input.GetKeyDown(key)) {
-                        heldTime = beforeHoldBuffer;
-                        ChangeLetter(delta);
+                void CheckInput(InputType input, int delta, ref bool holding) {
+
+                    if (!InputManager.GetKey(Player1, input)) {
+                        holding = false;
                     }
-                    else if (Input.GetKey(key)) {
-                        heldTime -= Time.deltaTime;
-                        if (heldTime <= 0) {
-                            heldTime = afterHoldBuffer;
-                            ChangeLetter(delta);
+                    else {
+                        if (!holding) {
+                            if (InputManager.GetKeyDelay(Player1, input, beforeHoldBuffer)) {
+                                ChangeLetter(delta);
+                                holding = true;
+                            }
+                        }
+                        else {
+                            if (InputManager.GetKeyDelay(Player1, input, afterHoldBuffer)) {
+                                ChangeLetter(delta);
+                            }
                         }
                     }
                 }
 
-                KeyCode down = HGDCabKeys.Of(player).JoyDown;
-                KeyCode up = HGDCabKeys.Of(player).JoyUp;
-
-                CheckKey(down, -1);
-                CheckKey(up, 1);
+                CheckInput(InputType.Down, -1, ref downHolding);
+                CheckInput(InputType.Up, 1, ref upHolding);
 
 
 
@@ -125,15 +133,15 @@ public class PreGamePlayer : MonoBehaviour
                     }
                 }
 
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && CurrentLetter == 0) {
+                if (InputManager.GetKeyDown(Player1, InputType.Back) && CurrentLetter == 0) {
                     //Exit
                     preGame.GoBack();
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyLeft) || Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
+                else if (InputManager.GetKeyDown(Player1, InputType.Left) || InputManager.GetKeyDown(Player1, InputType.Back)) {
                     CurrentLetter--;
                     CurrentLetterChanged();
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyRight) || Input.GetKeyDown(HGDCabKeys.Of(player).Top1)) {
+                else if (InputManager.GetKeyDown(Player1, InputType.Right) || InputManager.GetKeyDown(Player1, InputType.Confirm)) {
                     CurrentLetter++;
                     CurrentLetterChanged();
                 }
@@ -148,7 +156,7 @@ public class PreGamePlayer : MonoBehaviour
                     StyleView.OnStyleChange();
                 }
 
-                if ((Input.GetKeyDown(HGDCabKeys.Of(player).Top1))) {
+                if (InputManager.GetKeyDown(Player1, InputType.Confirm)) {
 
                     if (preGame.IsStyleTaken(CurrentStyle)) {
                         AudioManager.Inst.PlayOneShot("PreGame_StyleTaken");
@@ -161,7 +169,7 @@ public class PreGamePlayer : MonoBehaviour
                         StyleView.OnStyleExit(false);
                     }
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2)) {
+                else if (InputManager.GetKeyDown(Player1, InputType.Back)) {
                     state = PreGamePlayerState.Name;
                     AudioManager.Inst.PlayOneShot("PreGame_CancelStyle");
                     SmallNameSwoosh.Out(() => LargeNameSwoosh.In());
@@ -170,17 +178,17 @@ public class PreGamePlayer : MonoBehaviour
                     foreach(var letter in LetterTexts) letter.OnCurrentLetterChanged();
                 }
 
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyLeft)) {
+                else if (InputManager.GetKeyDown(Player1, InputType.Left)) {
                     CurrentStyle--;
                     StyleChanged();
                 }
-                else if (Input.GetKeyDown(HGDCabKeys.Of(player).JoyRight)) {
+                else if (InputManager.GetKeyDown(Player1, InputType.Right)) {
                     CurrentStyle++;
                     StyleChanged();
                 }
                 break;
             case PreGamePlayerState.Ready:
-                if (Input.GetKeyDown(HGDCabKeys.Of(player).Top2) && !preGame.Starting) {
+                if (InputManager.GetKeyDown(Player1, InputType.Back) && !preGame.Starting) {
                     state = PreGamePlayerState.Style;
 
                     AudioManager.Inst.PlayOneShot("PreGame_CancelReady");
