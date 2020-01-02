@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 190514406}
   - component: {fileID: 190514405}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Boot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,6 +432,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  VisibleTime: 14.2
 --- !u!114 &190514407
 MonoBehaviour:
   m_ObjectHideFlags: 0

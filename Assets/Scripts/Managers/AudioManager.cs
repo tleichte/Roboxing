@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public SoundEventSO[] Loops;
     private Dictionary<string, StudioEventEmitter> loopsDict;
 
+
     void Awake() {
 
         if (Inst != null) {
@@ -56,6 +57,11 @@ public class AudioManager : MonoBehaviour
 
     public void PlayLoop(string name) => GetLoop(name)?.Play();
     public void StopLoop(string name) => GetLoop(name)?.Stop();
+    public void SetLoopParameter(string loopName, string paramName, float value) => GetLoop(loopName)?.SetParameter(paramName, value);
+    public bool IsLoopPlaying(string name) {
+        bool? playing = GetLoop(name)?.IsPlaying();
+        return playing.HasValue && playing.Value;
+    }
 
     private StudioEventEmitter GetLoop(string name) {
         if (loopsDict.ContainsKey(name)) {
@@ -63,6 +69,19 @@ public class AudioManager : MonoBehaviour
         }
         Debug.LogWarning($"Couldn't find Loop: {name}");
         return null;
+    }
+
+    public void MMSToMenu() {
+        SetLoopParameter("MMS", "Menu_or_Gym", 0);
+        if (!IsLoopPlaying("MMS")) {
+            PlayLoop("MMS");
+        }
+    }
+    public void MMSToPreGame() {
+        SetLoopParameter("MMS", "Menu_or_Gym", 1);
+    }
+    public void MMSStop() {
+        StopLoop("MMS");
     }
 
 

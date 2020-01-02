@@ -11,6 +11,8 @@ public class Boot : MonoBehaviour
     public float fadeTime;
     public AnimationCurve fadeCurve;
 
+    public float VisibleTime;
+
     private float time;
 
 
@@ -20,6 +22,8 @@ public class Boot : MonoBehaviour
         Screen.fullScreen = true;
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         QualitySettings.vSyncCount = 1;
+
+        AudioManager.Inst.PlayOneShot("BootMusic");
 
         CanvasGroup.alpha = 0;
         time = 0;
@@ -33,7 +37,7 @@ public class Boot : MonoBehaviour
 
         CanvasGroup.alpha = 1;
 
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(VisibleTime);
 
         CurtainTransition.Inst.Close(() => {
             SceneManager.LoadScene("MainMenu");

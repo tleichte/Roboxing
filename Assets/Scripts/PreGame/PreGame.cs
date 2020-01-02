@@ -16,8 +16,11 @@ public class PreGame : MonoBehaviour
     private void Start() {
         Player1.Initialize(this);
         Player2.Initialize(this);
-        CurtainTransition.Inst.Open();
+        CurtainTransition.Inst.Open(() => {
+
+        });
         AudioManager.Inst.PlayLoop("PreGameStatic");
+        AudioManager.Inst.MMSToPreGame();
     }
 
 
@@ -50,6 +53,7 @@ public class PreGame : MonoBehaviour
                 starting = true;
                 yield return new WaitForSecondsRealtime(0.5f);
                 AudioManager.Inst.StopLoop("PreGameStatic");
+                AudioManager.Inst.MMSStop();
                 CurtainTransition.Inst.Close(() => {
                     SceneManager.LoadScene("InGame");
                 });
