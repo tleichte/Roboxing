@@ -432,7 +432,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  VisibleTime: 14.2
+  VisibleTime: 14.18
 --- !u!114 &190514407
 MonoBehaviour:
   m_ObjectHideFlags: 0

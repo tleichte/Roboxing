@@ -20,7 +20,6 @@ public class AudioManager : MonoBehaviour
     public SoundEventSO[] Loops;
     private Dictionary<string, StudioEventEmitter> loopsDict;
 
-
     void Awake() {
 
         if (Inst != null) {

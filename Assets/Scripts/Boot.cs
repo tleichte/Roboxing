@@ -40,6 +40,7 @@ public class Boot : MonoBehaviour
         yield return new WaitForSeconds(VisibleTime);
 
         CurtainTransition.Inst.Close(() => {
+            AudioManager.Inst.MMSToMenu();
             SceneManager.LoadScene("MainMenu");
         });
     }

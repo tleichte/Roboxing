@@ -1228,7 +1228,7 @@ MonoBehaviour:
   - {fileID: 424132110}
   - {fileID: 1502024046}
   - {fileID: 99448244}
-  MainMenuThemeDelay: 0.2
+  MainMenuThemeDelay: 0
 --- !u!114 &2086504799
 MonoBehaviour:
   m_ObjectHideFlags: 0

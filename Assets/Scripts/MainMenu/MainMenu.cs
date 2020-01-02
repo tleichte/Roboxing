@@ -26,12 +26,12 @@ public class MainMenu : MonoBehaviour
 
     private bool starting;
 
-    public float MainMenuThemeDelay;
+    //public float MainMenuThemeDelay;
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
-        //AudioManager.Inst.MMSToMenu(); // Before curtain opens
+        AudioManager.Inst.MMSToMenu(); // Before curtain opens
         CurtainTransition.Inst.Open(() => {
             //Debug.Log("Playing Main Menu Song");
             /*AudioManager.Inst.MMSToMenu();*/ // After curtain opens
@@ -42,9 +42,6 @@ public class MainMenu : MonoBehaviour
         if (soundOpt != null) {
             SetSoundText(soundOpt);
         }
-
-        yield return new WaitForSecondsRealtime(MainMenuThemeDelay);
-        AudioManager.Inst.MMSToMenu();
     }
 
     // Update is called once per frame
