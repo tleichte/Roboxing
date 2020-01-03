@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Serialization;
+using System;
+using System.Runtime.InteropServices;
 
 public class AudioManager : MonoBehaviour
 {
@@ -83,6 +85,26 @@ public class AudioManager : MonoBehaviour
         StopLoop("MMS");
     }
 
+
+    private static Action _startingAction;
+    private const string StartingMarkerName = "Curtain_Close";
+    private static FMOD.RESULT StartingCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, FMOD.Studio.EventInstance instance, IntPtr parameterPtr) {
+
+        Debug.Log("StartingCallback fired!");
+
+        var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+        
+        if (parameter.name == StartingMarkerName) _startingAction?.Invoke();
+        
+        return FMOD.RESULT.OK;
+    }
+
+    public void PlayStartingSound(Action startingAction) {
+        _startingAction = startingAction;
+        var bootEmitter = GetLoop("BootMusic");
+        bootEmitter.Play();
+        bootEmitter.EventInstance.setCallback(StartingCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+    }
 
     public void PlayCurtain(bool open) {
         PlayOneShot($"Curtain_{ (open ? "Open" : "Close") }");
