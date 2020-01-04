@@ -47,6 +47,9 @@ TagManager:
   - name: Ring
     uniqueID: 1433924311
     locked: 0
+  - name: TPDropShadow
+    uniqueID: 740484573
+    locked: 0
   - name: TPBody
     uniqueID: 3439944897
     locked: 0
