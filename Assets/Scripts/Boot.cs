@@ -12,10 +12,14 @@ public class Boot : MonoBehaviour
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         QualitySettings.vSyncCount = 1;
         
+    }
+
+
+    public void A_StartMusic() {
         AudioManager.Inst.PlayStartingSound(() => {
             CurtainTransition.Inst.Close(() => {
                 SceneManager.LoadScene("MainMenu");
             });
         });
-    }    
+    }
 }

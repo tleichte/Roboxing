@@ -270,6 +270,8 @@ public class Player : MonoBehaviour {
             
             shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
+            AudioManager.Inst.StopLoop("Stunned");
+
             SetAnimators(anim => {
                 anim.SetBool("Stunned", false);
                 anim.SetBool("Block", false);
@@ -300,12 +302,14 @@ public class Player : MonoBehaviour {
 
     public void GM_Stunned() {
         state = PlayerState.Stunned;
+        AudioManager.Inst.PlayLoop("Stunned");
         SetAnimators((anim) => anim.SetBool("Stunned", true));
         ui.EnterStun();
     }
 
     public void GM_FinishStun() {
         state = PlayerState.Idle;
+        AudioManager.Inst.StopLoop("Stunned");
         SetAnimators((anim) => anim.SetBool("Stunned", false));
         ui.ExitStun();
     }
