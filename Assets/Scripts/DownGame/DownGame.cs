@@ -21,7 +21,7 @@ public class DownGame : MonoBehaviour
     private int currWire;
     private bool playing;
 
-    private float keyBuffer = 0.2f;
+    private float keyBuffer = 0.15f;
 
     public void Initialize(Player p) {
         currWire = 0;
