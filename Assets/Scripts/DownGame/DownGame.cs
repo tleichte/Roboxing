@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DownGame : MonoBehaviour
 {
+
+    public int MaxSpaces;
+
     public RectTransform TopNode;
     public RectTransform BottomNode;
 
@@ -34,7 +37,7 @@ public class DownGame : MonoBehaviour
 
         for (int i = 0; i < wires.Length; i++) {
             wires[i] = Instantiate(WirePrefab, WireParent);
-            wires[i].Initialize(targetNum);
+            wires[i].Initialize(targetNum, MaxSpaces);
         }
 
         wires[0].SetActive();
@@ -47,11 +50,11 @@ public class DownGame : MonoBehaviour
     {
         if (playing) {
 
-            if (wires[currWire].Position > -5 && InputManager.GetKeyDelay(player.Player1, InputType.Left, keyBuffer)) { 
+            if (wires[currWire].Position > -MaxSpaces && InputManager.GetKeyDelay(player.Player1, InputType.Left, keyBuffer)) { 
                 wires[currWire].Position -= 1;
                 AudioManager.Inst.PlayOneShot("DownLR");
             }
-            if (wires[currWire].Position < 5 && InputManager.GetKeyDelay(player.Player1, InputType.Right, keyBuffer)) {
+            if (wires[currWire].Position < MaxSpaces && InputManager.GetKeyDelay(player.Player1, InputType.Right, keyBuffer)) {
                 wires[currWire].Position += 1;
                 AudioManager.Inst.PlayOneShot("DownLR");
             }
