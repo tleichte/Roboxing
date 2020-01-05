@@ -25,10 +25,10 @@ public class DownGameWire : MonoBehaviour
 
     private bool active;
 
-    public void Initialize(int correctNum) {
+    public void Initialize(int correctNum, int maxSpaces) {
         target = correctNum;
         do {
-            Position = Random.Range(-5, 5);
+            Position = Random.Range(-maxSpaces, maxSpaces);
         }
         while (Position == correctNum);
         LeftArrow.SetActive(false);

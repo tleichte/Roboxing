@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    
+
+    public TMP_Text VersionText;
+
     public MainMenuOption[] Options;
 
     private int _option;
@@ -26,15 +29,11 @@ public class MainMenu : MonoBehaviour
 
     private bool starting;
 
-    //public float MainMenuThemeDelay;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         AudioManager.Inst.MMSToMenu(); // Before curtain opens
         CurtainTransition.Inst.Open(() => {
-            //Debug.Log("Playing Main Menu Song");
-            /*AudioManager.Inst.MMSToMenu();*/ // After curtain opens
         });
         CurrOption = 0;
 
@@ -42,9 +41,11 @@ public class MainMenu : MonoBehaviour
         if (soundOpt != null) {
             SetSoundText(soundOpt);
         }
+
+        VersionText.text = $"Roboxing v{Application.version} ({ (InputManager.UsingController ? "Release Build" : "Cabinet Build") })";
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (!CurtainTransition.Inst.InProgress) {
@@ -61,9 +62,6 @@ public class MainMenu : MonoBehaviour
                 CurrOption++;
             }
         }
-        //else {
-        //    Debug.Log("Curtain in progress!");
-        //}
     }
 
     private void Confirm() {
