@@ -28,7 +28,6 @@ public class PreGamePlayer : MonoBehaviour
 
     public int CurrentStyle { get; private set; }
     public int CurrentLetter { get; private set; }
-    private HGDCabPlayer player;
 
     private PreGamePlayerState state;
 
@@ -48,8 +47,6 @@ public class PreGamePlayer : MonoBehaviour
         //heldTime = 0;
 
         CurrentStyle = (Player1) ? 0 : 1;
-
-        player = (Player1) ? HGDCabPlayer.P1 : HGDCabPlayer.P2;
 
         foreach (var letter in LetterTexts)
             letter.Initialize(this);

@@ -6864,6 +6864,7 @@ MonoBehaviour:
     MinHealth: 15
   - MaxHealth: 10
     MinHealth: 5
+  BetweenRoundHealthBoost: 30
   NumWires: 0300000005000000080000000a0000000d0000000f000000
   blockPoints: 20
   shakeDecay: 0.07

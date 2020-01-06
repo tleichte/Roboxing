@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("Health")]
     public int InitialHealth;
     public HealthAmount[] HealthAmounts;
+    public int BetweenRoundHealthBoost;
 
     [Header("Down Game")]
     public int[] NumWires;
@@ -171,7 +172,10 @@ public class GameManager : MonoBehaviour
                 if (!waitingForTimer) {
                     round++;
                     if (round == 3)
-                        ToState(GameState.PreDecision, 8, () => OnPreDecision?.Invoke());
+                        ToState(GameState.PreDecision, 8, () => {
+                            AudioManager.Inst.PlayOneShot("WinByDecision");
+                            OnPreDecision?.Invoke();
+                        });
                     else
                         ToState(GameState.Prefight, 8, () => OnPrefight?.Invoke());
                 }

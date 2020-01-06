@@ -11,7 +11,6 @@ public class Player : MonoBehaviour {
     public int Health { get; private set; }
 
     public bool Player1;
-    public HGDCabPlayer PlayerPos { get; private set; }
     
     [Header("First Person")]
     public Animator FPAnim;
@@ -73,7 +72,6 @@ public class Player : MonoBehaviour {
 
     void Start() {
         state = PlayerState.PreFight;
-        PlayerPos = Player1 ? HGDCabPlayer.P1 : HGDCabPlayer.P2;
         fpStartingPos = transform.position;
         tpStartingPos = TPTransform.position;
 
@@ -322,6 +320,7 @@ public class Player : MonoBehaviour {
     private void OnReadyUp() {
         state = PlayerState.NotReady;
         ui.PlayerNotReady();
+        Health = Mathf.Min(Health + GameManager.Inst.BetweenRoundHealthBoost, maxHealth);
     }
 
     private void OnFightReady() {

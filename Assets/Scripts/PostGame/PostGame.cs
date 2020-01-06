@@ -7,19 +7,13 @@ using UnityEngine.UI;
 
 public class PostGame : MonoBehaviour
 {
-
-    public float PostGameDuration;
-    public Image TimeImage;
-
-    private float time;
-
+    
     public TMP_Text ResultText;
     public TMP_Text ReasonText;
 
-    private bool returning;
+    public bool Returning { get; private set; }
 
-    public PostGamePlayer Player1;
-    public PostGamePlayer Player2;
+    private int numReady;
 
     // Start is called before the first frame update
     void Start()
@@ -57,36 +51,26 @@ public class PostGame : MonoBehaviour
         AudioManager.Inst.PlayLoop("PostGame");
     }
 
+
+    public void PlayerReady() {
+        numReady++;
+        if (numReady > 1) {
+            StartCoroutine(GoToMenuAfterDelay(0.5f));
+        }
+    }
+
+    public void PlayerUnready() {
+        numReady--;
+    }
+
     IEnumerator GoToMenuAfterDelay(float delay) {
-        returning = true;
+        Returning = true;
 
         yield return new WaitForSecondsRealtime(delay);
 
-        ReturnToMenu();
-    }
-
-
-    private void ReturnToMenu() {
-        returning = true;
         AudioManager.Inst.StopLoop("PostGame");
         CurtainTransition.Inst.Close(() => {
             SceneManager.LoadScene("MainMenu");
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!returning) {
-            if (Player1.WantsSkip && Player2.WantsSkip)
-                StartCoroutine(GoToMenuAfterDelay(0.5f));
-
-            time += Time.deltaTime;
-            TimeImage.fillAmount = time / PostGameDuration;
-
-            if (time > PostGameDuration) {
-                ReturnToMenu();
-            }
-        }
     }
 }
