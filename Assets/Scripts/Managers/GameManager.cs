@@ -298,7 +298,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void P_KnockedDown() {
+    public void P_KnockedDown(bool player1) {
+
+        // Add down to player
+        if (player1) {
+            p1Stats[round].Downs++;
+            p1Downs++;
+        }
+        else {
+            p2Stats[round].Downs++;
+            p2Downs++;
+        }
+
+        // Start next frame wait, cancel current if it exists
         if (knockDownCR != null) StopCoroutine(knockDownCR);
         knockDownCR = StartCoroutine(CheckKnockdown());
     }
@@ -346,27 +358,20 @@ public class GameManager : MonoBehaviour
     
     IEnumerator CheckKnockdown() {
 
-        Time.timeScale = 0.3f;
         State = GameState.Down;
 
         AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
 
         OnPlayerDown?.Invoke();
 
+
+        Time.timeScale = 0.3f;
         yield return new WaitForSecondsRealtime(0.7f);
         Time.timeScale = 1;
 
         
 
-        // Add down to players
-        if (Player1.IsDown) {
-            p1Stats[round].Downs++;
-            p1Downs++;
-        }
-        if (Player2.IsDown) {
-            p2Stats[round].Downs++;
-            p2Downs++;
-        }        
+
 
         //
         int flag = 0;

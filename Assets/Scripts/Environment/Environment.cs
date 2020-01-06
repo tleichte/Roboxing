@@ -35,7 +35,11 @@ public class Environment : MonoBehaviour
     }
 
     void ToRelaxed() {
-        state = EnvironmentState.Relaxed;
+        IEnumerator RelaxAfterDelay() {
+            yield return new WaitForSecondsRealtime(0.9f);
+            state = EnvironmentState.Relaxed;
+        }
+        StartCoroutine(RelaxAfterDelay());
     }
     
 

@@ -231,7 +231,7 @@ public class Player : MonoBehaviour {
             anim.SetBool("Fighting", false);
         });
         ui.PlayerDown();
-        GameManager.Inst.P_KnockedDown();
+        GameManager.Inst.P_KnockedDown(Player1);
     }
 
     public void Recover() {
