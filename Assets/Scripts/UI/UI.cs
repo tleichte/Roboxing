@@ -153,7 +153,7 @@ public class UI : MonoBehaviour
     void OnPlayerDown() {
         RefreshDowns();
         StatusText.text = "DOWN!";
-        ShowThenHide(StatusTextGO);
+        ShowThenHide(StatusTextGO, showDelay: 0.5f);
     }
 
     void OnTenCountStart() {

@@ -347,10 +347,16 @@ public class GameManager : MonoBehaviour
     IEnumerator CheckKnockdown() {
 
         Time.timeScale = 0.3f;
+        State = GameState.Down;
+
+        AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
+
+        OnPlayerDown?.Invoke();
+
         yield return new WaitForSecondsRealtime(0.7f);
         Time.timeScale = 1;
 
-        State = GameState.Down;
+        
 
         // Add down to players
         if (Player1.IsDown) {
@@ -360,13 +366,7 @@ public class GameManager : MonoBehaviour
         if (Player2.IsDown) {
             p2Stats[round].Downs++;
             p2Downs++;
-        }
-
-        AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
-
-        OnPlayerDown?.Invoke();
-
-        
+        }        
 
         //
         int flag = 0;

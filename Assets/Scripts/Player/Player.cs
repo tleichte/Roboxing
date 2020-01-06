@@ -138,7 +138,7 @@ public class Player : MonoBehaviour {
                 break;
 
             case PlayerState.NotReady:
-                if (InputManager.GetKeyDown(Player1, InputType.Confirm)) { 
+                if (InputManager.GetKeyDown(Player1, InputType.Confirm) && GameManager.Inst.State == GameState.ReadyUp) { 
                     state = PlayerState.Ready;
                     ui.PlayerReady();
                 }
@@ -265,34 +265,36 @@ public class Player : MonoBehaviour {
     public void GM_Hit(Punch p) {
         IEnumerator GetHitAfterUpdate() {
             yield return null;
-            
-            shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
-            AudioManager.Inst.StopLoop("Stunned");
+            if (GameManager.Inst.State != GameState.BetweenRounds) {
+                shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
-            SetAnimators(anim => {
-                anim.SetBool("Stunned", false);
-                anim.SetBool("Block", false);
-            });
+                AudioManager.Inst.StopLoop("Stunned");
 
-            if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
-                KnockedDown();
-
-                AudioManager.Inst.PlayOneShot("Downed");
-            }
-            else {
-                state = PlayerState.Hit;
-
-                SetAnimators((anim) => {
-                    anim.SetTrigger("Hit");
-                    anim.SetTrigger(p.Type == HitType.Hook ? "Hook" : "Jab");
-                    anim.SetTrigger(p.Direction.Left ? "Left" : "Right");
-                    anim.SetTrigger(p.Direction.Up ? "Up" : "Down");
+                SetAnimators(anim => {
+                    anim.SetBool("Stunned", false);
+                    anim.SetBool("Block", false);
                 });
 
-                AudioManager.Inst.PlayPunchImpact(p.Type);
+                if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
+                    KnockedDown();
 
-                ui.PlayerHit(p.Type);
+                    AudioManager.Inst.PlayOneShot("Downed");
+                }
+                else {
+                    state = PlayerState.Hit;
+
+                    SetAnimators((anim) => {
+                        anim.SetTrigger("Hit");
+                        anim.SetTrigger(p.Type == HitType.Hook ? "Hook" : "Jab");
+                        anim.SetTrigger(p.Direction.Left ? "Left" : "Right");
+                        anim.SetTrigger(p.Direction.Up ? "Up" : "Down");
+                    });
+
+                    AudioManager.Inst.PlayPunchImpact(p.Type);
+
+                    ui.PlayerHit(p.Type);
+                }
             }
         }
         StartCoroutine(GetHitAfterUpdate());
