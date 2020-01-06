@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
                 
                 if (!waitingForTimer && !Player1.IsDown && !Player2.IsDown) {
                     AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 1);
+                    AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 1);
                     OnPlayerRecover?.Invoke();
                     StopCoroutine(tenCountCR);
                     StartCoroutine(StartFightAfterDelay(2, false));
