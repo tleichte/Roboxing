@@ -54,6 +54,7 @@ public class PostGame : MonoBehaviour
         ReasonText.text = $"By {reason}";
 
         CurtainTransition.Inst.Open();
+        AudioManager.Inst.PlayLoop("PostGame");
     }
 
     IEnumerator GoToMenuAfterDelay(float delay) {
@@ -67,6 +68,7 @@ public class PostGame : MonoBehaviour
 
     private void ReturnToMenu() {
         returning = true;
+        AudioManager.Inst.StopLoop("PostGame");
         CurtainTransition.Inst.Close(() => {
             SceneManager.LoadScene("MainMenu");
         });

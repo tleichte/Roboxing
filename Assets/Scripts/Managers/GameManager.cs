@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Inst.PlayLoop("CrowdStatic");
 
+        AudioManager.Inst.PlayLoop("InGame");
+
         CurtainTransition.Inst.Open(() => {
             ToState(GameState.Prefight, 1f, () => OnPrefight?.Invoke());
         });
@@ -146,6 +148,9 @@ public class GameManager : MonoBehaviour
                     State = GameState.BetweenRounds;
                     AudioManager.Inst.PlayOneShot("Round_End");
                     //AudioManager.Inst.StopSound($"Round{Round}Song");
+
+                    AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 2);
+
                     OnRoundOver?.Invoke();
                 }
 
@@ -154,6 +159,7 @@ public class GameManager : MonoBehaviour
             case GameState.Down:
                 
                 if (!waitingForTimer && !Player1.IsDown && !Player2.IsDown) {
+                    AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 1);
                     OnPlayerRecover?.Invoke();
                     StopCoroutine(tenCountCR);
                     StartCoroutine(StartFightAfterDelay(2, false));
@@ -172,26 +178,11 @@ public class GameManager : MonoBehaviour
             case GameState.PreDecision:
 
                 ToState(GameState.GameDone, 3, () => {
-
-                    //int p1Score = CalculateScore(p1Stats);
-                    //int p2Score = CalculateScore(p2Stats);
-
-                    //int cmp = p1Score.CompareTo(p2Score);
-
-                    //GameOverResult r;
-                    //if (cmp > 0) r = GameOverResult.P1Win;
-                    //else if (cmp < 0) r = GameOverResult.P2Win;
-                    //else r = GameOverResult.Tie;
-
                     EndGame(CalculateDecision(), GameOverReason.Decision);
                 });
                 break;
             case GameState.GameDone:
-                
-                //ToState(GameState.GameDone, 4, () => {
-                //    Application.Quit();
 
-                //});
                 break;
             
         }
@@ -326,13 +317,17 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Inst.PlayOneShot("Round_Start");
 
-        if (roundStart) {
-            //AudioManager.Inst.PlaySound($"Round{Round}Song");
-        }
-        else {
+        AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 1);
+        AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 0);
+
+        //if (roundStart) {
             
-            // Change volume
-        }
+        //    //AudioManager.Inst.PlaySound($"Round{Round}Song");
+        //}
+        //else {
+            
+        //    // Change volume
+        //}
 
         OnFightStart?.Invoke();
 
@@ -361,6 +356,8 @@ public class GameManager : MonoBehaviour
             p2Stats[round].Downs++;
             p2Downs++;
         }
+
+        AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
 
         OnPlayerDown?.Invoke();
 
@@ -444,6 +441,8 @@ public class GameManager : MonoBehaviour
         GameData.Reason = reason;
         GameData.Result = result;
 
+        AudioManager.Inst.StopLoop("InGame");
+        AudioManager.Inst.PlayOneShot("InGameFinish");
 
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(4);
