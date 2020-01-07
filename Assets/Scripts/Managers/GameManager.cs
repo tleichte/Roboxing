@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Inst.PlayLoop("CrowdStatic");
 
-        AudioManager.Inst.PlayLoop("InGame");
+        AudioManager.Inst.StartInGame();
 
         CurtainTransition.Inst.Open(() => {
             ToState(GameState.Prefight, 1f, () => OnPrefight?.Invoke());
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
                     AudioManager.Inst.PlayOneShot("Round_End");
                     //AudioManager.Inst.StopSound($"Round{Round}Song");
 
-                    AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 2);
+                    AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 1);
 
                     OnRoundOver?.Invoke();
                 }
@@ -451,11 +451,12 @@ public class GameManager : MonoBehaviour
         GameData.Reason = reason;
         GameData.Result = result;
 
-        AudioManager.Inst.StopLoop("InGame");
-        AudioManager.Inst.PlayOneShot("InGameFinish");
+        AudioManager.Inst.StopInGame(reason != GameOverReason.Decision);
+        //AudioManager.Inst.StopLoop("InGame");
+        //AudioManager.Inst.PlayOneShot("InGameFinish");
 
         IEnumerator ExitAfterDelay() {
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(7);
             CurtainTransition.Inst.Close(() => {
                 AudioManager.Inst.StopLoop("CrowdStatic");
                 SceneManager.LoadScene("PostGame");

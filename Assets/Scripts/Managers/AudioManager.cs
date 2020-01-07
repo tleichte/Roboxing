@@ -57,8 +57,18 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayLoop(string name) => GetLoop(name)?.Play();
+
     public void StopLoop(string name) => GetLoop(name)?.Stop();
+
     public void SetLoopParameter(string loopName, string paramName, float value) => GetLoop(loopName)?.SetParameter(paramName, value);
+
+    public void SetLoopCallback(
+        string loopName,
+        FMOD.Studio.EVENT_CALLBACK callback,
+        FMOD.Studio.EVENT_CALLBACK_TYPE callbackmask = FMOD.Studio.EVENT_CALLBACK_TYPE.ALL
+    ) 
+        => GetLoop(loopName)?.EventInstance.setCallback(callback, callbackmask);
+
     public bool IsLoopPlaying(string name) {
         bool? playing = GetLoop(name)?.IsPlaying();
         return playing.HasValue && playing.Value;
@@ -83,6 +93,25 @@ public class AudioManager : MonoBehaviour
     }
     public void MMSStop() {
         StopLoop("MMS");
+    }
+
+
+    private static bool _fromKO;
+    private static FMOD.RESULT InGameEndingCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, FMOD.Studio.EventInstance instance, IntPtr parameterPtr) {
+        
+        Inst.PlayOneShot(_fromKO ? "InGameFinishKO" : "InGameFinishDecision");
+
+        Inst.StopLoop("InGame");
+        
+        return FMOD.RESULT.OK;
+    }
+
+    public void StartInGame() {
+        Inst.SetLoopCallback("InGame", null);
+        Inst.PlayLoop("InGame");
+    }
+    public void StopInGame(bool fromKO) {
+        Inst.GetLoop("InGame").EventInstance.setCallback(InGameEndingCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
     }
 
 
