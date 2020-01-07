@@ -1,4 +1,4 @@
-﻿//#define USING_CONTROLLER
+﻿#define USING_CONTROLLER
 
 using System.Collections;
 using System.Collections.Generic;
