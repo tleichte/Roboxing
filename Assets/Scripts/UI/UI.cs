@@ -279,6 +279,12 @@ public class UI : MonoBehaviour
         p2Down3.SetActive(p2Downs >= 3);
     }
 
+    private void SetTimerColor(Color c) {
+        timerMin.color = c;
+        timerSec1.color = c;
+        timerSec2.color = c;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -288,6 +294,13 @@ public class UI : MonoBehaviour
         timerMin.text = $"{mins}";
         timerSec1.text = $"{secs / 10}";
         timerSec2.text = $"{secs % 10}";
+
+        if ((GameManager.Inst.State == GameState.Fighting || GameManager.Inst.State == GameState.Down) && mins == 0 && secs <= 15) {
+            SetTimerColor(Color.red);
+        }
+        else {
+            SetTimerColor(Color.white);
+        }
 
         p1HealthBar.fillAmount = Mathf.Lerp(p1HealthBar.fillAmount, GameManager.Inst.Player1.HealthPercent, 0.4f);
         p2HealthBar.fillAmount = Mathf.Lerp(p2HealthBar.fillAmount, GameManager.Inst.Player2.HealthPercent, 0.4f);

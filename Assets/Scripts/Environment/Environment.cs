@@ -19,24 +19,29 @@ public class Environment : MonoBehaviour
     {
         state = EnvironmentState.Relaxed;
 
-        GameManager.Inst.OnFightReady += ToFocused;
-        GameManager.Inst.OnRoundOver += ToRelaxed;
-        GameManager.Inst.OnPlayerDown += ToRelaxed;
+        GameManager.Inst.OnFightReady += FightReady;
+        GameManager.Inst.OnRoundOver += RoundOver;
+        GameManager.Inst.OnPlayerDown += PlayerDown;
     }
 
     private void OnDestroy() {
-        GameManager.Inst.OnFightReady -= ToFocused;
-        GameManager.Inst.OnRoundOver -= ToRelaxed;
-        GameManager.Inst.OnPlayerDown -= ToRelaxed;
+        GameManager.Inst.OnFightReady -= FightReady;
+        GameManager.Inst.OnRoundOver -= RoundOver;
+        GameManager.Inst.OnPlayerDown -= PlayerDown;
     }
+
+    void FightReady() => ToFocused();
+
+    void RoundOver() => ToRelaxed(0);
+    void PlayerDown() => ToRelaxed(0.9f);
 
     void ToFocused() {
         state = EnvironmentState.Focused;
     }
 
-    void ToRelaxed() {
+    void ToRelaxed(float delay) {
         IEnumerator RelaxAfterDelay() {
-            yield return new WaitForSecondsRealtime(0.9f);
+            yield return new WaitForSecondsRealtime(delay);
             state = EnvironmentState.Relaxed;
         }
         StartCoroutine(RelaxAfterDelay());

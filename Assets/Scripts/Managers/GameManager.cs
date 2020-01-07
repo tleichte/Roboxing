@@ -452,8 +452,6 @@ public class GameManager : MonoBehaviour
         GameData.Result = result;
 
         AudioManager.Inst.StopInGame(reason != GameOverReason.Decision);
-        //AudioManager.Inst.StopLoop("InGame");
-        //AudioManager.Inst.PlayOneShot("InGameFinish");
 
         IEnumerator ExitAfterDelay() {
             yield return new WaitForSeconds(7);
