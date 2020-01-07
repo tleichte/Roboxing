@@ -11,6 +11,12 @@ public class PostGame : MonoBehaviour
     public TMP_Text ResultText;
     public TMP_Text ReasonText;
 
+    public PostGameStats winnerStats;
+    public PostGameStats loserStats;
+    public PostGameStats tieStatsP1;
+    public PostGameStats tieStatsP2;
+
+
     public bool Returning { get; private set; }
 
     private int numReady;
@@ -24,8 +30,20 @@ public class PostGame : MonoBehaviour
             ResultText.text = "Tie!";
             ResultText.color = Color.white;
             preReason = "Double ";
+
+            tieStatsP1.Initialize(true);
+            tieStatsP2.Initialize(false);
+            winnerStats.gameObject.SetActive(false);
+            loserStats.gameObject.SetActive(false);
         }
         else {
+
+            tieStatsP1.gameObject.SetActive(false);
+            tieStatsP2.gameObject.SetActive(false);
+            winnerStats.Initialize(GameData.Result == GameOverResult.P1Win);
+            loserStats.Initialize(GameData.Result != GameOverResult.P1Win);
+
+
             string winner = "";
             switch (GameData.Result) {
                 case GameOverResult.P1Win:

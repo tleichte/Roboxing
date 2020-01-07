@@ -5,8 +5,6 @@ using UnityEngine;
 public class PostGamePlayer : MonoBehaviour {
     public bool Player1;
 
-    public PostGameStats Stats;
-
     public SwooshAnimator SkipSwoosh;
 
     private bool ready;
@@ -17,7 +15,6 @@ public class PostGamePlayer : MonoBehaviour {
     void Start()
     {
         SkipSwoosh.Out();
-        Stats.Initialize(Player1);
     }
 
     // Update is called once per frame
