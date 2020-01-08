@@ -122,6 +122,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eb696e7c59b0fb64c9f8e1fe2f988f89, type: 2}
   - {fileID: 11400000, guid: 8cfb5b8de870c204b92d510841ff3176, type: 2}
   - {fileID: 11400000, guid: 28cdbe3e1488c6342912b9b694f81a46, type: 2}
+  - {fileID: 11400000, guid: 760bc74c2fddf7340bb9c3c3d0cd7775, type: 2}
+  - {fileID: 11400000, guid: ceedb6905a7699f45ad0b23e6fdeaacd, type: 2}
   Loops:
   - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}
   - {fileID: 11400000, guid: 72c0ac6d016bc4448849fe94618f71c0, type: 2}
@@ -130,3 +132,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bbdcdc4a7180f44409667e7629ded090, type: 2}
   - {fileID: 11400000, guid: 3f4a6387f8d81054b9ea266038cf38e5, type: 2}
   - {fileID: 11400000, guid: 41321c439dade564496921d38a0ae5d6, type: 2}
+  - {fileID: 11400000, guid: 2bc62472190a2df41b51d99e43963ada, type: 2}

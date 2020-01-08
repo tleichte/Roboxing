@@ -162,6 +162,10 @@ public class GameManager : MonoBehaviour
                 if (!waitingForTimer && !Player1.IsDown && !Player2.IsDown) {
                     AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 1);
                     AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 1);
+
+                    AudioManager.Inst.StopLoop("Crowd_Downed");
+                    AudioManager.Inst.PlayOneShot("Crowd_GettingUp");
+
                     OnPlayerRecover?.Invoke();
                     StopCoroutine(tenCountCR);
                     StartCoroutine(StartFightAfterDelay(2, false));
@@ -270,6 +274,9 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
+                if (dPlayer.IsStunned)
+                    AudioManager.Inst.PlayOneShot("Crowd_Excited");
+
                 break;
             default:
                 break;
@@ -362,6 +369,8 @@ public class GameManager : MonoBehaviour
 
         AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
 
+        AudioManager.Inst.PlayLoop("Crowd_Downed");
+
         OnPlayerDown?.Invoke();
 
 
@@ -392,6 +401,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.75f);
 
             AudioManager.Inst.PlayOneShot("Round_KO");
+
+            AudioManager.Inst.StopLoop("Crowd_Downed");
 
             EndGame(result, GameOverReason.TKO);
         }
@@ -427,6 +438,8 @@ public class GameManager : MonoBehaviour
         }
 
         AudioManager.Inst.PlayOneShot("Round_KO");
+
+        AudioManager.Inst.StopLoop("Crowd_Downed");
 
         EndGame(result, GameOverReason.KO);
         // Game over
