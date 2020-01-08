@@ -42,7 +42,13 @@ public class HowToPlay : MonoBehaviour
     
     void Update() {
 
-        if (InputManager.GetKeyDown(true, InputType.Confirm) || InputManager.GetKeyDown(true, InputType.Back)) {
+        if (
+            !CurtainTransition.Inst.InProgress
+            && (
+                InputManager.GetKeyDown(true, InputType.Confirm)
+                || InputManager.GetKeyDown(true, InputType.Back)
+            )
+        ) {
             CurtainTransition.Inst.Close(() => SceneManager.LoadScene("MainMenu"));
         }
         if (InputManager.GetKeyDown(true, InputType.Right) && CurrPage < Pages.Length-1) {
