@@ -244,6 +244,18 @@ public class Player : MonoBehaviour {
         AudioManager.Inst.PlayOneShot("Recover");
     }
 
+    private void ResetAnimatorTriggers() {
+        SetAnimators((anim) => {
+            anim.ResetTrigger("Up");
+            anim.ResetTrigger("Down");
+            anim.ResetTrigger("Left");
+            anim.ResetTrigger("Right");
+            anim.ResetTrigger("Hook");
+            anim.ResetTrigger("Jab");
+            anim.ResetTrigger("Hit");
+        });
+    }
+
     private void SetAnimators(Action<Animator> armsAction) {
         armsAction?.Invoke(FPAnim);
         armsAction?.Invoke(TPAnim);
@@ -275,6 +287,7 @@ public class Player : MonoBehaviour {
                     anim.SetBool("Stunned", false);
                     anim.SetBool("Block", false);
                 });
+                ResetAnimatorTriggers();
 
                 if ((Health -= GameManager.Inst.P_GetDamage(p.Type, IsStunned)) <= 0) {
                     KnockedDown();
