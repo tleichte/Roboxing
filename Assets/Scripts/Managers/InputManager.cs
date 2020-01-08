@@ -11,7 +11,7 @@ public enum InputType { Confirm, Back, Up, Down, Left, Right, UpJab, UpHook, Dow
 public class InputManager : MonoBehaviour
 {
 
-    public static bool UsingController =
+    public const bool UsingController =
 #if USING_CONTROLLER
     true;
 #else

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SwooshAnimator : MonoBehaviour
 {
+    public bool Vertical;
+
     [Header("In")]
     public SwooshAnimationProps InProps;
 
@@ -20,13 +22,15 @@ public class SwooshAnimator : MonoBehaviour
 
     private void Awake() {
         rt = GetComponent<RectTransform>();
-        IsIn = !StartsIn;
-        if (StartsIn) In();
-        else Out();
+        IsIn = StartsIn;
+        SetPos(((StartsIn) ? InProps : OutProps).Position);
     }
 
-    private void SetX(float pos) {
-        rt.anchoredPosition = new Vector2(pos, rt.anchoredPosition.y);
+    private void SetPos(float pos) {
+        Vector2 nextVec = rt.anchoredPosition;
+        if (Vertical) nextVec.y = pos;
+        else nextVec.x = pos;
+        rt.anchoredPosition = nextVec;
     }
 
     private void DoAnim(bool isIn, Action onDone) {
@@ -42,11 +46,11 @@ public class SwooshAnimator : MonoBehaviour
             // Do curved animation
             for (float time = 0; time < nextProps.Time; time += Time.deltaTime) {
                 float t = nextProps.Curve.Evaluate(time / nextProps.Time);
-                float nextPos = Mathf.Lerp(prevProps.XPos, nextProps.XPos, t);
-                SetX(nextPos);
+                float nextPos = Mathf.Lerp(prevProps.Position, nextProps.Position, t);
+                SetPos(nextPos);
                 yield return null;
             }
-            SetX(nextProps.XPos);
+            SetPos(nextProps.Position);
             onDone?.Invoke();
         }
         currRoutine = StartCoroutine(Animate());

@@ -111,6 +111,7 @@ public class AudioManager : MonoBehaviour
         Inst.PlayLoop("InGame");
     }
     public void StopInGame(bool fromKO) {
+        _fromKO = fromKO;
         Inst.GetLoop("InGame").EventInstance.setCallback(InGameEndingCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
     }
 

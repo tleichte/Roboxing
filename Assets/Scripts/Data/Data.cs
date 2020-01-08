@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum GameOverResult { P1Win, P2Win, Tie }
 public enum GameOverReason { KO, TKO, Decision }
@@ -70,7 +71,8 @@ public class HealthAmount {
 [Serializable]
 public class SwooshAnimationProps {
     public float Time = 0.16f;
-    public float XPos = 0;
+    [FormerlySerializedAs("XPos")]
+    public float Position = 0;
     public AnimationCurve Curve;
 }
 

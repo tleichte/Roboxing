@@ -79,6 +79,12 @@ public class MainMenu : MonoBehaviour
                     SetSoundText(CurrOptionValue);
 
                     break;
+                case MainMenuOptionType.HowToPlay:
+
+                    CurtainTransition.Inst.Close(() => {
+                        SceneManager.LoadScene("HowToPlay");
+                    });
+                    break;
                 case MainMenuOptionType.Quit:
                     CurtainTransition.Inst.Close(() => {
 #if UNITY_EDITOR
