@@ -205,10 +205,10 @@ public class UI : MonoBehaviour
         switch (reason) {
             case GameOverReason.KO:
                 OnTenCountNum(10);
-                ShowKOText(isTie ? "Tie!" : "KO!", 1.25f);
+                ShowKOText("KO!", 1.25f);
                 break;
             case GameOverReason.TKO:
-                ShowKOText(isTie ? "Tie!" : "TKO!");
+                ShowKOText("TKO!");
                 break;
             case GameOverReason.Decision:
                 

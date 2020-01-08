@@ -72,13 +72,13 @@ public class PreGamePlayer : MonoBehaviour
 
                     AudioManager.Inst.PlayOneShot("PreGame_LetterChange");
 
-                    if (Letters[CurrentLetter] == '_') {
+                    if (Letters[CurrentLetter] == '-') {
                         Letters[CurrentLetter] = (delta > 0) ? 'A' : 'Z';
                     }
                     else {
                         Letters[CurrentLetter] += (char) delta;
                         if (Letters[CurrentLetter] < 'A' || Letters[CurrentLetter] > 'Z') {
-                            Letters[CurrentLetter] = '_';
+                            Letters[CurrentLetter] = '-';
                         }
                     }
                     LetterTexts[CurrentLetter].OnLetterChange();
