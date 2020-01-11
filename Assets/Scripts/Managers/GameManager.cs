@@ -143,7 +143,13 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Fighting:
 
+                float prevRoundTime = RoundTime;
                 RoundTime -= Time.deltaTime * RoundTimeSpeed;
+
+                if (RoundTime < 15 && prevRoundTime >= 15) {
+                    AudioManager.Inst.PlayOneShot("Timer_Warning");
+                }
+
                 if (RoundTime <= 0) {
                     RoundTime = 0;
                     State = GameState.BetweenRounds;

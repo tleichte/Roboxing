@@ -124,6 +124,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28cdbe3e1488c6342912b9b694f81a46, type: 2}
   - {fileID: 11400000, guid: 760bc74c2fddf7340bb9c3c3d0cd7775, type: 2}
   - {fileID: 11400000, guid: ceedb6905a7699f45ad0b23e6fdeaacd, type: 2}
+  - {fileID: 11400000, guid: 2330fbadc0bf46142920e26b85212401, type: 2}
   Loops:
   - {fileID: 11400000, guid: 9c1d60aa5ff3530479ba910c14872683, type: 2}
   - {fileID: 11400000, guid: 72c0ac6d016bc4448849fe94618f71c0, type: 2}
