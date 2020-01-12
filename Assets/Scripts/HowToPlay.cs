@@ -21,6 +21,8 @@ public class HowToPlay : MonoBehaviour
         set {
             currPage = value;
 
+            AudioManager.Inst.PlayOneShot("HowToPlay_RuleChange");
+
             for (int i = 0; i < Pages.Length; i++)
                 Pages[i].SetActive(i == currPage);
 
@@ -49,6 +51,7 @@ public class HowToPlay : MonoBehaviour
                 || InputManager.GetKeyDown(true, InputType.Back)
             )
         ) {
+            AudioManager.Inst.PlayOneShot("HowToPlay_Back");
             CurtainTransition.Inst.Close(() => SceneManager.LoadScene("MainMenu"));
         }
         if (InputManager.GetKeyDown(true, InputType.Right) && CurrPage < Pages.Length-1) {
