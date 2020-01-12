@@ -8,6 +8,7 @@ public class Boot : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
         Screen.fullScreen = true;
         Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         QualitySettings.vSyncCount = 1;
