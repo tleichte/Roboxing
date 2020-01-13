@@ -261,6 +261,8 @@ public class GameManager : MonoBehaviour
 
                 AudioManager.Inst.PlayPunchBlocked(p.Type);
 
+                AudioManager.Inst.PlayOneShot("Crowd_Excited_Low");
+
                 aPlayer.GM_Stunned();
                 stunCR = StartCoroutine(WaitStun(aPlayer));
                 break;
@@ -280,8 +282,12 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
-                if (dPlayer.IsStunned)
-                    AudioManager.Inst.PlayOneShot("Crowd_Excited");
+                if (p.Type == HitType.Hook) {
+                    AudioManager.Inst.PlayOneShot(dPlayer.IsStunned ? "Crowd_Excited_High" : "Crowd_Excited_Medium");
+                }
+                else if (dPlayer.IsStunned) {
+                    AudioManager.Inst.PlayOneShot("Crowd_Excited_Medium");
+                }
 
                 break;
             default:

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c9acf9456a9c094598bddd7026052e6, type: 3}
-  m_Name: Crowd_Excited
+  m_Name: Robot_Hit
   m_EditorClassIdentifier: 
-  Name: Crowd_Excited
-  Event: event:/env/Crowd_ExcitedSwell
+  Name: 
+  Event: 
