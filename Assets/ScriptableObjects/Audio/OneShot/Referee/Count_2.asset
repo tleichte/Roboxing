@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c9acf9456a9c094598bddd7026052e6, type: 3}
-  m_Name: Referee_Count_2Syllable
+  m_Name: Count_2
   m_EditorClassIdentifier: 
-  Name: Referee_Count_2Syllable
-  Event: event:/game/Referee/Count_2Syllable
+  Name: Count_2
+  Event: event:/game/Dialogue/Count_2

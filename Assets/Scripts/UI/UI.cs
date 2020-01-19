@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class UI : MonoBehaviour
 {
@@ -153,7 +154,7 @@ public class UI : MonoBehaviour
     void OnPlayerDown() {
         RefreshDowns();
         StatusText.text = "DOWN!";
-        ShowThenHide(StatusTextGO, showDelay: 0.5f);
+        ShowThenHide(StatusTextGO, showDelay: 0.5f, onShow: () => AudioManager.Inst.PlayOneShot("Ref_Down"));
     }
 
     void OnTenCountStart() {
@@ -163,9 +164,6 @@ public class UI : MonoBehaviour
     void OnTenCountNum(int num) {
         NumText.text = $"{num}";
         ShowThenHide(NumTextGO, hideDelay: 0.8f);
-        //if (num == 10) {
-        //    Hide(NumTextGO, 1);
-        //}
     }
 
     void OnRoundOver() {
@@ -182,22 +180,19 @@ public class UI : MonoBehaviour
         statsP2Blocks.text = $"{GameManager.Inst.P2RoundStats.Blocks}";
         statsP1Downs.text = $"{GameManager.Inst.P1RoundStats.Downs}";
         statsP2Downs.text = $"{GameManager.Inst.P2RoundStats.Downs}";
-
-        // Bell sound
-        // TODO Show Bell?
     }
     
     void OnPreDecision() {
         statsGO.SetActive(false);
         DecisionTextGO.SetActive(true);
-        // show the winner is text
+        AudioManager.Inst.PlayOneShot("Ref_Winner");
     }
 
     void OnGameOver(GameOverResult result, GameOverReason reason) {
 
         void ShowKOText(string text, float showDelay = 0) {
             KOText.text = text;
-            Show(KOTextGO, showDelay);
+            Show(KOTextGO, showDelay, () => AudioManager.Inst.PlayOneShot($"Ref_KO"));
         }
 
         bool isTie = result == GameOverResult.Tie;
@@ -241,20 +236,23 @@ public class UI : MonoBehaviour
         text.color = c;
     }
 
-    void ShowThenHide(GameObject go, float showDelay = 0, float hideDelay = 1f) {
+    void ShowThenHide(GameObject go, float showDelay = 0, float hideDelay = 1f, Action onShow = null, Action onHide = null) {
         IEnumerator Delay() {
             yield return new WaitForSeconds(showDelay);
             go.SetActive(true);
+            onShow?.Invoke();
             yield return new WaitForSeconds(hideDelay);
             go.SetActive(false);
+            onHide?.Invoke();
         }
         StartCoroutine(Delay());
     }
 
-    void Show(GameObject go, float showDelay = 0) {
+    void Show(GameObject go, float showDelay = 0, Action onShow = null) {
         IEnumerator Delay() {
             yield return new WaitForSeconds(showDelay);
             go.SetActive(true);
+            onShow?.Invoke();
         }
         StartCoroutine(Delay());
     }

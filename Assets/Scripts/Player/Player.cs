@@ -305,6 +305,7 @@ public class Player : MonoBehaviour {
                     });
 
                     AudioManager.Inst.PlayPunchImpact(p.Type);
+                    AudioManager.Inst.PlayOneShot("Robot_Hit");
 
                     ui.PlayerHit(p.Type);
                 }

@@ -380,7 +380,6 @@ public class GameManager : MonoBehaviour
         State = GameState.Down;
 
         AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 2);
-
         AudioManager.Inst.PlayLoop("Crowd_Downed");
 
         OnPlayerDown?.Invoke();
@@ -410,7 +409,7 @@ public class GameManager : MonoBehaviour
                 case 2: result = GameOverResult.P2Win; break;
                 default: result = GameOverResult.Tie; break;
             }
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(1.5f);
 
             AudioManager.Inst.PlayOneShot("Round_KO");
 
@@ -429,12 +428,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         for (countNum = 1; countNum <= 9; countNum++) {
             OnTenCountNum?.Invoke(countNum);
+            AudioManager.Inst.PlayOneShot($"Count_{countNum}");
             yield return new WaitForSeconds(1);
             //Signal counter
         }
 
 
-
+        AudioManager.Inst.PlayOneShot($"Count_10");
 
         State = GameState.GameDone;
 

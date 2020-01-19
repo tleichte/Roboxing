@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c9acf9456a9c094598bddd7026052e6, type: 3}
-  m_Name: Referee_Winner
+  m_Name: Count_9
   m_EditorClassIdentifier: 
-  Name: Referee_Winner
-  Event: event:/game/Referee/Winner
+  Name: Count_9
+  Event: event:/game/Dialogue/Count_9
