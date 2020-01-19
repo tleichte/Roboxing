@@ -43,15 +43,12 @@ public class PreGamePlayer : MonoBehaviour
     public void Initialize(PreGame preGame) {
         this.preGame = preGame;
         CurrentLetter = 0;
-
-        //heldTime = 0;
+        
 
         CurrentStyle = (Player1) ? 0 : 1;
 
         foreach (var letter in LetterTexts)
             letter.Initialize(this);
-
-        //Debug.Log(StyleView);
 
         StyleView.Initialize(this);
 
@@ -159,6 +156,7 @@ public class PreGamePlayer : MonoBehaviour
                         AudioManager.Inst.PlayOneShot("PreGame_StyleTaken");
                     }
                     else {
+                        AudioManager.Inst.PlayOneShot("Robot_Chosen");
                         AudioManager.Inst.PlayOneShot("PreGame_Ready");
                         state = PreGamePlayerState.Ready;
                         preGame.OnReady(Player1);
