@@ -155,9 +155,11 @@ public class AudioManager : MonoBehaviour
         switch (type) {
             case HitType.Hook:
                 PlayOneShot("Hook_Impact");
+                PlayOneShot("Robot_Hit_Hook");
                 break;
             case HitType.Jab:
                 PlayOneShot("Jab_Impact");
+                PlayOneShot("Robot_Hit_Jab");
                 break;
         }
     }

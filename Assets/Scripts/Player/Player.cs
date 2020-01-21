@@ -281,8 +281,6 @@ public class Player : MonoBehaviour {
             if (GameManager.Inst.State != GameState.BetweenRounds) {
                 shakeAmount = GameManager.Inst.P_GetShake(p.Type, IsStunned);
 
-                AudioManager.Inst.StopLoop("Stunned");
-
                 SetAnimators(anim => {
                     anim.SetBool("Stunned", false);
                     anim.SetBool("Block", false);
@@ -303,9 +301,6 @@ public class Player : MonoBehaviour {
                         anim.SetTrigger(p.Direction.Left ? "Left" : "Right");
                         anim.SetTrigger(p.Direction.Up ? "Up" : "Down");
                     });
-
-                    AudioManager.Inst.PlayPunchImpact(p.Type);
-                    AudioManager.Inst.PlayOneShot("Robot_Hit");
 
                     ui.PlayerHit(p.Type);
                 }

@@ -282,6 +282,9 @@ public class GameManager : MonoBehaviour
 
                 dPlayer.GM_Hit(p);
 
+                AudioManager.Inst.StopLoop("Stunned");
+                AudioManager.Inst.PlayPunchImpact(p.Type);
+
                 if (p.Type == HitType.Hook) {
                     AudioManager.Inst.PlayOneShot(dPlayer.IsStunned ? "Crowd_Excited_High" : "Crowd_Excited_Medium");
                 }
@@ -339,35 +342,31 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartFightAfterDelay(float secondsBeforeReady, bool roundStart) {
 
+        // Wait for delay, then start fight
         waitingForTimer = true;
 
         yield return new WaitForSeconds(secondsBeforeReady);
 
+        // Ready...
         OnFightReady?.Invoke();
+        AudioManager.Inst.PlayOneShot("Ref_Ready");
 
         yield return new WaitForSeconds(2.5f);
 
+        // Fight!
         waitingForTimer = false;
 
         State = GameState.Fighting;
 
+        // Play fight start Sounds
         AudioManager.Inst.PlayOneShot("Round_Start");
+        AudioManager.Inst.PlayOneShot("Ref_Fight");
 
+        // Set InGame music loop parameters
         AudioManager.Inst.SetLoopParameter("InGame", "MusicState", 1);
         AudioManager.Inst.SetLoopParameter("InGame", "LowPass", 0);
 
-        //if (roundStart) {
-            
-        //    //AudioManager.Inst.PlaySound($"Round{Round}Song");
-        //}
-        //else {
-            
-        //    // Change volume
-        //}
-
         OnFightStart?.Invoke();
-
-        // Signal UI to start
     }
 
     IEnumerator WaitStun(Player p) {
