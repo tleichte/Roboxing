@@ -7,15 +7,21 @@ using UnityEngine.UI;
 
 public class PostGame : MonoBehaviour
 {
-    
-    public TMP_Text ResultText;
-    public TMP_Text ReasonText;
-
+    public PostGameResultBoard winnerResultBoard;
+    public PostGameResultBoard tieResultBoard;
     public PostGameStats winnerStats;
     public PostGameStats loserStats;
     public PostGameStats tieStatsP1;
     public PostGameStats tieStatsP2;
 
+    public Image winnerImage;
+    public Image loserImage;
+    public Image p1TiedImage;
+    public Image p2TiedImage;
+
+
+    public GameObject tieGameObject;
+    public GameObject winnerGameObject;
 
     public bool Returning { get; private set; }
 
@@ -24,47 +30,27 @@ public class PostGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        string preReason = "";
-        if (GameData.Result == GameOverResult.Tie) {
-            ResultText.text = "Tie!";
-            ResultText.color = Color.white;
-            preReason = "Double ";
+        bool tied = GameData.Result == GameOverResult.Tie;
 
+        tieGameObject.SetActive(tied);
+        winnerGameObject.SetActive(!tied);
+
+        if (GameData.Result == GameOverResult.Tie) {
+            tieResultBoard.Initialize();
             tieStatsP1.Initialize(true);
             tieStatsP2.Initialize(false);
-            winnerStats.gameObject.SetActive(false);
-            loserStats.gameObject.SetActive(false);
+            p1TiedImage.sprite = AssetManager.Inst.PlayerStyles[GameData.P1Data.Style].PostGameP1Tie;
+            p2TiedImage.sprite = AssetManager.Inst.PlayerStyles[GameData.P2Data.Style].PostGameP2Tie;
         }
         else {
-
-            tieStatsP1.gameObject.SetActive(false);
-            tieStatsP2.gameObject.SetActive(false);
+            int winnerStyleIndex = GameData.Result == GameOverResult.P1Win ? GameData.P1Data.Style : GameData.P2Data.Style;
+            int loserStyleIndex = GameData.Result == GameOverResult.P1Win ? GameData.P2Data.Style : GameData.P1Data.Style;
+            winnerResultBoard.Initialize();
             winnerStats.Initialize(GameData.Result == GameOverResult.P1Win);
             loserStats.Initialize(GameData.Result != GameOverResult.P1Win);
-
-
-            string winner = "";
-            switch (GameData.Result) {
-                case GameOverResult.P1Win:
-                    ResultText.color = AssetManager.Inst.PlayerStyles[GameData.P1Data.Style].UIColor;
-                    winner = GameData.P1Data.Name;
-                    break;
-                case GameOverResult.P2Win:
-                    ResultText.color = AssetManager.Inst.PlayerStyles[GameData.P2Data.Style].UIColor;
-                    winner = GameData.P2Data.Name;
-                    break;
-            }
-            ResultText.text = $"{winner} wins!";
+            winnerImage.sprite = AssetManager.Inst.PlayerStyles[winnerStyleIndex].PostGameWinner;
+            loserImage.sprite = AssetManager.Inst.PlayerStyles[loserStyleIndex].PostGameLoser;
         }
-        string reason = "";
-        switch (GameData.Reason) {
-            case GameOverReason.Decision: reason = "Decision"; break;
-            case GameOverReason.KO: reason = $"{preReason}KO"; break;
-            case GameOverReason.TKO: reason = $"{preReason}TKO"; break;
-        }
-        ReasonText.text = $"By {reason}";
-
         CurtainTransition.Inst.Open();
         AudioManager.Inst.PlayLoop("PostGame");
     }

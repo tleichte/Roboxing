@@ -25,4 +25,11 @@ public class PlayerStyle : ScriptableObject
     public Sprite TPArmIdle;
     public Sprite TPArmBlock;
     public Sprite TPArmPunch;
+
+    [Header("Post Game")]
+    public Sprite PostGameWinner;
+    public Sprite PostGameLoser;
+    public Sprite PostGameP1Tie;
+    public Sprite PostGameP2Tie;
+
 }

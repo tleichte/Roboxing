@@ -138,8 +138,8 @@ public static class GameData {
     public static PlayerStats P1Stats = new PlayerStats();
     public static PlayerStats P2Stats = new PlayerStats();
 
-    public static GameOverResult Result = GameOverResult.P2Win;
-    public static GameOverReason Reason = GameOverReason.Decision;
+    public static GameOverResult Result = GameOverResult.Tie;
+    public static GameOverReason Reason = GameOverReason.KO;
 
     public static void SetData(bool player1, PlayerData data) {
         if (player1)
