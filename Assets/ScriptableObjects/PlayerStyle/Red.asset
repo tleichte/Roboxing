@@ -28,5 +28,5 @@ MonoBehaviour:
   TPArmPunch: {fileID: 21300000, guid: 658f174490bd6dd4e9d2d1ad7690015b, type: 3}
   PostGameWinner: {fileID: 21300000, guid: 5005cb98b27d27f4b9236216ed030198, type: 3}
   PostGameLoser: {fileID: 21300000, guid: 4ce5304970f1b9d4d82ceb76cf7e4f9f, type: 3}
-  PostGameP1Tie: {fileID: 0}
-  PostGameP2Tie: {fileID: 0}
+  PostGameP1Tie: {fileID: 21300000, guid: c16ad3d29692e7342ab936556a6d6392, type: 3}
+  PostGameP2Tie: {fileID: 21300000, guid: aad63f3a3df17f046aee7e98d3b2b927, type: 3}
