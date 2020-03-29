@@ -132,8 +132,8 @@ public class PlayerData {
 }
 
 public static class GameData {
-    public static PlayerData P1Data = new PlayerData("P1L", 0);
-    public static PlayerData P2Data = new PlayerData("P2R", 1);
+    public static PlayerData P1Data = new PlayerData("P1L", 1);
+    public static PlayerData P2Data = new PlayerData("P2R", 0);
 
     public static PlayerStats P1Stats = new PlayerStats();
     public static PlayerStats P2Stats = new PlayerStats();

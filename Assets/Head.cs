@@ -7,6 +7,8 @@ public enum HeadType { Idle, HitUp, HitDown, Stunned, Down }
 public class Head : MonoBehaviour
 {
 
+    public Player Player;
+
     public HeadType Type;
 
     public GameObject Idle;
@@ -17,10 +19,11 @@ public class Head : MonoBehaviour
     
     void LateUpdate()
     {
-        Idle.SetActive(Type == HeadType.Idle);
-        HitUp.SetActive(Type == HeadType.HitUp);
-        HitDown.SetActive(Type == HeadType.HitDown);
-        Stunned.SetActive(Type == HeadType.Stunned);
-        Down.SetActive(Type == HeadType.Down);
+
+        Idle.SetActive(!Player.IsDown && Type == HeadType.Idle);
+        HitUp.SetActive(!Player.IsDown && Type == HeadType.HitUp);
+        HitDown.SetActive(!Player.IsDown && Type == HeadType.HitDown);
+        Stunned.SetActive(!Player.IsDown && Type == HeadType.Stunned);
+        Down.SetActive(Player.IsDown);
     }
 }

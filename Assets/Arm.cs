@@ -10,7 +10,8 @@ public class Arm : MonoBehaviour
     public GameObject Idle;
     public GameObject Punch;
     public GameObject Block;
-    // Update is called once per frame
+    
+
     void LateUpdate()
     {
         Idle.SetActive(Type == ArmType.Idle);

@@ -49,10 +49,4 @@ public class InGameTPAssetSetter : MonoBehaviour
         BlockR.sprite = style.TPArmBlock;
         PunchR.sprite = style.TPArmPunch;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

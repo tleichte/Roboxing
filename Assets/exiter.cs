@@ -13,7 +13,7 @@ public class exiter : MonoBehaviour
     public SwooshAnimator animator;
     public Image circleImage;
 
-    private const float ExitTime = 5;
+    private const float ExitTime = 3;
 
     void Awake() {
         if (Inst != null) {
