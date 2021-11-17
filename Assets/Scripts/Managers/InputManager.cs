@@ -1,4 +1,5 @@
-﻿//#define USING_CONTROLLER
+﻿//Edited by Logan, 11-17-2021, to try and combine XInput and Keyboard systems
+//Gives priority to controller in any given input type
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,20 +12,11 @@ public enum InputType { Confirm, Back, Up, Down, Left, Right, UpJab, UpHook, Dow
 public class InputManager : MonoBehaviour
 {
 
-    public const bool UsingController =
-#if USING_CONTROLLER
-    true;
-#else
-    false;
-#endif
-
     private static InputManager inst;
     private Dictionary<InputType, float> p1Holds, p2Holds;
 
-
     private static Dictionary<InputType, float> GetHoldDict(bool player1) => player1 ? inst.p1Holds : inst.p2Holds;
 
-#if USING_CONTROLLER
 
     private static GamePadState p1GPState, p1PrevGPState, p2PrevGPState, p2GPState;
 
@@ -57,8 +49,6 @@ public class InputManager : MonoBehaviour
         }
     }
 
-#else
-
     private static KeyCode GetCabCode(bool player1, InputType input) {
         var layout = player1 ? HGDCabKeys.P1 : HGDCabKeys.P2;
         switch (input) {
@@ -90,24 +80,27 @@ public class InputManager : MonoBehaviour
         }
         return layout.Player;
     }
-    
-#endif
 
+    //In order to make XInput and keyboard input play nice, both GetKeyDown and GetKey function the same way
+    //Sorry Tyler, hope I didn't make a mess of things here
     public static bool GetKeyDown(bool player1, InputType input) {
-#if USING_CONTROLLER
-        return GetKey(player1, input) && !GetGPKey(input, player1 ? p1PrevGPState : p2PrevGPState);
-#else
-        return Input.GetKeyDown(GetCabCode(player1, input));
-#endif
+        var tempController = GetKey(player1, input) && !GetGPKey(input, player1 ? p1PrevGPState : p2PrevGPState);
+        var tempKeyboard = Input.GetKeyDown(GetCabCode(player1, input));
+        if (tempController)
+            return tempController;
+        else
+            return tempKeyboard;
+            
     }
 
     public static bool GetKey(bool player1, InputType input) {
-#if USING_CONTROLLER
-        return GetGPKey(input, player1 ? p1GPState : p2GPState);
-#else
-        return Input.GetKey(GetCabCode(player1, input));
-#endif
-    }    
+        var tempController = GetGPKey(input, player1 ? p1GPState : p2GPState);
+        var tempKeyboard = Input.GetKeyDown(GetCabCode(player1, input));
+        if (tempController)
+            return tempController;
+        else
+            return tempKeyboard;
+    }
 
     public static bool GetKeyDelay(bool player1, InputType input, float delay = 0.3f) {
         if (GetKey(player1, input)) {
@@ -130,10 +123,8 @@ public class InputManager : MonoBehaviour
 
         p1Holds = new Dictionary<InputType, float>();
         p2Holds = new Dictionary<InputType, float>();
-#if USING_CONTROLLER
         p1GPState = GamePad.GetState(PlayerIndex.One);
         p2GPState = GamePad.GetState(PlayerIndex.Two);
-#endif
     }
 
     // Update is called once per frame
@@ -142,12 +133,10 @@ public class InputManager : MonoBehaviour
         ScanHoldDict(p1Holds, true);
         ScanHoldDict(p2Holds, false);
 
-#if USING_CONTROLLER
         p1PrevGPState = p1GPState;
         p1GPState = GamePad.GetState(PlayerIndex.One);
         p2PrevGPState = p2GPState;
         p2GPState = GamePad.GetState(PlayerIndex.Two);
-#endif
 
     }
 

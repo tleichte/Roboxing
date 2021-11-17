@@ -35,11 +35,13 @@ public class HowToPlay : MonoBehaviour
 
         CurrPage = 0;
         CurtainTransition.Inst.Open();
-        ControllerLayout.SetActive(InputManager.UsingController);
-        CabinetLayout.SetActive(!InputManager.UsingController);
+        ControllerLayout.SetActive(true);
+        CabinetLayout.SetActive(false);
+        //ControllerLayout.SetActive(InputManager.UsingController);
+        //CabinetLayout.SetActive(!InputManager.UsingController);
     }
 
-    
+
     void Update() {
 
         if (

@@ -42,10 +42,11 @@ public class MainMenu : MonoBehaviour
             SetSoundText(soundOpt);
         }
 
-        VersionText.text = $"Roboxing v{Application.version} ({ (InputManager.UsingController ? "Release Build" : "Cabinet Build") })";
+        //VersionText.text = $"Roboxing v{Application.version} ({ (InputManager.UsingController ? "Release Build" : "Cabinet Build") })";
+        VersionText.text = $"Roboxing v{Application.version} ({ (true ? "Release Build" : "Cabinet Build") })";
     }
 
-    
+
     void Update()
     {
         if (!CurtainTransition.Inst.InProgress) {
