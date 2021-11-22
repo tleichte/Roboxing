@@ -84,22 +84,21 @@ public class InputManager : MonoBehaviour
     //In order to make XInput and keyboard input play nice, both GetKeyDown and GetKey function the same way
     //Sorry Tyler, hope I didn't make a mess of things here
     public static bool GetKeyDown(bool player1, InputType input) {
-        var tempController = GetKey(player1, input) && !GetGPKey(input, player1 ? p1PrevGPState : p2PrevGPState);
-        var tempKeyboard = Input.GetKeyDown(GetCabCode(player1, input));
-        if (tempController)
-            return tempController;
-        else
-            return tempKeyboard;
-            
+        bool controllerCurrent = GetGPKey(input, player1 ? p1GPState : p2GPState);
+        bool controllerPrev = GetGPKey(input, player1 ? p1PrevGPState : p2PrevGPState);
+
+        bool keyDown = Input.GetKeyDown(GetCabCode(player1, input));
+        bool keyCurr = Input.GetKey(GetCabCode(player1, input));
+        bool keyUp = Input.GetKeyUp(GetCabCode(player1, input));
+
+        bool keyPrev = keyUp || (!keyDown && keyCurr);
+
+        return (keyDown || controllerCurrent) && !controllerPrev && !keyPrev;
     }
 
     public static bool GetKey(bool player1, InputType input) {
-        var tempController = GetGPKey(input, player1 ? p1GPState : p2GPState);
-        var tempKeyboard = Input.GetKeyDown(GetCabCode(player1, input));
-        if (tempController)
-            return tempController;
-        else
-            return tempKeyboard;
+        return GetGPKey(input, player1 ? p1GPState : p2GPState) 
+                || Input.GetKey(GetCabCode(player1, input));
     }
 
     public static bool GetKeyDelay(bool player1, InputType input, float delay = 0.3f) {
