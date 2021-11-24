@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 190514404}
   - component: {fileID: 190514403}
   - component: {fileID: 190514402}
-  - component: {fileID: 190514407}
   - component: {fileID: 190514401}
   - component: {fileID: 190514406}
   - component: {fileID: 190514408}
@@ -171,10 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -236,19 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e51367e7c43eb6498c6128c430de30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &190514407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190514400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3428880127d753344b543b829f1df3f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scaler: {fileID: 190514402}
 --- !u!95 &190514408
 Animator:
   serializedVersion: 3
