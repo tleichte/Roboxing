@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum MainMenuOptionType { Play, Sound, Quit, HowToPlay }
+public enum MainMenuOptionType { Play, Sound, Quit, HowToPlay, Fullscreen }
 
 public class MainMenuOption : MonoBehaviour
 {

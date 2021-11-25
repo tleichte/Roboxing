@@ -37,9 +37,15 @@ public class MainMenu : MonoBehaviour
         });
         CurrOption = 0;
 
-        var soundOpt = Options.First((x) => x.Type == MainMenuOptionType.Sound);
+        var soundOpt = Options.FirstOrDefault((x) => x.Type == MainMenuOptionType.Sound);
         if (soundOpt != null) {
             SetSoundText(soundOpt);
+        }
+
+        var fullscreenOpt = Options.FirstOrDefault((x) => x.Type == MainMenuOptionType.Fullscreen);
+        if (fullscreenOpt != null)
+        {
+            SetFullscreenText(fullscreenOpt, Screen.fullScreen);
         }
 
         //VersionText.text = $"Roboxing v{Application.version} ({ (InputManager.UsingController ? "Release Build" : "Cabinet Build") })";
@@ -86,6 +92,11 @@ public class MainMenu : MonoBehaviour
                         SceneManager.LoadScene("HowToPlay");
                     });
                     break;
+                case MainMenuOptionType.Fullscreen:
+                    bool isFullscreen = Screen.fullScreen;
+                    ResolutionEnforcer.Set(!isFullscreen);
+                    SetFullscreenText(CurrOptionValue, !isFullscreen);
+                    break;
                 case MainMenuOptionType.Quit:
                     CurtainTransition.Inst.Close(() => {
 #if UNITY_EDITOR
@@ -100,5 +111,10 @@ public class MainMenu : MonoBehaviour
 
     private void SetSoundText(MainMenuOption option) {
         option.MenuText.text = $"Sound: {(AudioManager.Inst.SoundOn ? "ON" : "OFF" )}";
+    }
+
+    private void SetFullscreenText(MainMenuOption option, bool isFullscreen)
+    {
+        option.MenuText.text = $"Fullscreen: {(isFullscreen ? "ON" : "OFF")}";
     }
 }
