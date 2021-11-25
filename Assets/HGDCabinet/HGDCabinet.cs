@@ -1,3 +1,5 @@
+//#define USING_CABINET
+
 using System;
 using UnityEngine;
 
@@ -70,6 +72,7 @@ public static class HGDCabKeys {
             switch (p) {
                 case HGDCabPlayer.Left:
                 case HGDCabPlayer.P1:
+#if USING_CABINET
                     JoyUp = KeyCode.W;
                     JoyLeft = KeyCode.A;
                     JoyDown = KeyCode.S;
@@ -84,9 +87,26 @@ public static class HGDCabKeys {
                     Bottom4 = KeyCode.J;
                     Player = KeyCode.KeypadEnter;
                     Coin = KeyCode.Escape;
+#else
+                    JoyUp = KeyCode.W;
+                    JoyLeft = KeyCode.A;
+                    JoyDown = KeyCode.S;
+                    JoyRight = KeyCode.D;
+                    Top1 = KeyCode.T;
+                    Top2 = KeyCode.Y;
+                    Top3 = KeyCode.U;
+                    Top4 = KeyCode.I;
+                    Bottom1 = KeyCode.F;
+                    Bottom2 = KeyCode.G;
+                    Bottom3 = KeyCode.H;
+                    Bottom4 = KeyCode.J;
+                    Player = KeyCode.Return;
+                    Coin = KeyCode.Escape;
+#endif
                     break;
                 case HGDCabPlayer.Right:
                 case HGDCabPlayer.P2:
+#if USING_CABINET
                     JoyUp = KeyCode.UpArrow;
                     JoyLeft = KeyCode.LeftArrow;
                     JoyDown = KeyCode.DownArrow;
@@ -101,6 +121,22 @@ public static class HGDCabKeys {
                     Bottom4 = KeyCode.Keypad8;
                     Player = KeyCode.Keypad0;
                     Coin = KeyCode.Keypad9;
+#else
+                    JoyUp = KeyCode.UpArrow;
+                    JoyLeft = KeyCode.LeftArrow;
+                    JoyDown = KeyCode.DownArrow;
+                    JoyRight = KeyCode.RightArrow;
+                    Top1 = KeyCode.Keypad4;
+                    Top2 = KeyCode.Keypad5;
+                    Top3 = KeyCode.Keypad6;
+                    Top4 = KeyCode.KeypadPlus;
+                    Bottom1 = KeyCode.Keypad1;
+                    Bottom2 = KeyCode.Keypad2;
+                    Bottom3 = KeyCode.Keypad3;
+                    Bottom4 = KeyCode.KeypadEnter;
+                    Player = KeyCode.Keypad7;
+                    Coin = KeyCode.Keypad8;
+#endif
                     break;
             }
         }

@@ -29,11 +29,11 @@ public class InputManager : MonoBehaviour
             case InputType.Back:
                 return CheckButton(state.Buttons.B);
             case InputType.UpJab:
-                return CheckButton(state.Buttons.LeftShoulder);
-            case InputType.UpHook:
-                return CheckButton(state.Buttons.RightShoulder);
-            case InputType.DownJab:
                 return CheckButton(state.Buttons.X);
+            case InputType.UpHook:
+                return CheckButton(state.Buttons.Y);
+            case InputType.DownJab:
+                return CheckButton(state.Buttons.A);
             case InputType.DownHook:
                 return CheckButton(state.Buttons.B);
             case InputType.Up:
